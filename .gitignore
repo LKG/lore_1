@@ -1,20 +1,16 @@
 
 # Compiled class file
 *.class
-
 # BlueJ files
 *.ctxt
-
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
-
 # temp ignore
 *.log
 *.cache
 *.diff
 *.patch
 *.tmp
-
 # system ignore
 .DS_Store
 Thumbs.db
@@ -30,7 +26,8 @@ Thumbs.db
 *.iml
 *.iws
 
-
+# maven ignore
+target/
 # Package Files #
 *.jar
 *.war
