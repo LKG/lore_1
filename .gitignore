@@ -12,6 +12,11 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+# eclipse ignore
+.settings/
+.project
+.classpath
+
 # idea ignore
 .idea/
 *.ipr
