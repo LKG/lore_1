@@ -70,5 +70,6 @@
     <modules>
         <module>lore-frame</module>
         <module>lore-cms</module>
+        <module>lore-core</module>
     </modules>
 </project>
