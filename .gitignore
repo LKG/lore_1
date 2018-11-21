@@ -12,9 +12,12 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-### 忽略idea 配置
-*.iml
+# idea ignore
 .idea/
+*.ipr
+*.iml
+*.iws
+
 
 # Package Files #
 *.jar
