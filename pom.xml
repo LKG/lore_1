@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>im.heart</groupId>
+    <artifactId>lore</artifactId>
+    <packaging>pom</packaging>
+    <version>0.0.1</version>
+    <!-- 开发人员信息begin -->
+    <!--项目开发者列表 -->
+    <developers>
+        <developer>
+            <id>gg</id>
+            <!--项目开发者的全名 -->
+            <name>lkg</name>
+            <email>lkg61230413@163.com</email>
+        </developer>
+    </developers>
+    <!-- 开发人员信息end -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- TEST begin -->
+        <junit.version>4.11</junit.version>
+        <testng.version>6.8.21</testng.version>
+        <!-- TEST end -->
+        <!-- 日志相关begin -->
+        <slf4j.version>1.7.5</slf4j.version>
+        <log4j2.log4jdbc.version>1.16</log4j2.log4jdbc.version>
+        <!-- 日志相关end -->
+        <lombok.version>1.18.4</lombok.version>
+    </properties>
+    <dependencyManagement>
+    <dependencies>
+        <!-- Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring.boot.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- 日志相关begin -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <!-- 增加SQL打印 -->
+        <dependency>
+            <groupId>org.bgee.log4jdbc-log4j2</groupId>
+            <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+            <version>${log4j2.log4jdbc.version}</version>
+        </dependency>
+        <!-- 日志相关end -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    </dependencyManagement>
+    <modules>
+        <module>lore-frame</module>
+    </modules>
+</project>
