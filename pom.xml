@@ -69,5 +69,6 @@
     </dependencyManagement>
     <modules>
         <module>lore-frame</module>
+        <module>lore-cms</module>
     </modules>
 </project>
