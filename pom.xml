@@ -72,5 +72,6 @@
         <module>lore-cms</module>
         <module>lore-core</module>
         <module>lore-conf</module>
+        <module>lore-admin</module>
     </modules>
 </project>
