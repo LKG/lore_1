@@ -1,16 +1,23 @@
 
 # Compiled class file
 *.class
-# Log file
-*.log
-# temp file
-*.temp
 
 # BlueJ files
 *.ctxt
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
+
+# temp ignore
+*.log
+*.cache
+*.diff
+*.patch
+*.tmp
+
+# system ignore
+.DS_Store
+Thumbs.db
 
 # eclipse ignore
 .settings/
