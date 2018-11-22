@@ -11,4 +11,11 @@
 
     <artifactId>frame-core</artifactId>
     <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>im.heart</groupId>
+            <artifactId>frame-domain</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+    </dependencies>
 </project>
