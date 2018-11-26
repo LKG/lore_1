@@ -54,6 +54,7 @@
         <commons-lang3.version>3.8.1</commons-lang3.version>
         <commons-io.version>2.6</commons-io.version>
         <commons-codec.version>1.11</commons-codec.version>
+        <aliyunOss.version>2.7.0</aliyunOss.version>
         <validation.version>2.0.1.Final</validation.version>
         <persistence.version>1.0.2</persistence.version>
     </properties>
@@ -166,6 +167,11 @@
             <version>${sqlite.version}</version>
         </dependency>
         <!-- sqlite数据库类 end -->
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>${aliyunOss.version}</version>
+        </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>

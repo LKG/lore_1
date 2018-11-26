@@ -24,6 +24,7 @@ public class BaseUtils {
 
 	static final String HTTP_PREFIX = "http";
 	static final String HTTPS_PREFIX = "https";
+	static final String UNKNOWN ="unknown";
 	static final int HTTP_PORT = 80;
 	static final int HTTPS_PORT = 443;
 	/**
@@ -286,6 +287,7 @@ public class BaseUtils {
 		}
 	}
 
+
 	/**
 	 * 
 	 * @Desc：转换客户真实IP地址
@@ -294,25 +296,25 @@ public class BaseUtils {
 	 */
 	private static String overshot(HttpServletRequest request) {
 		String ipAddress = request.getHeader("X-forwarded-for");
-		if (StringUtils.isBlank(ipAddress)|| "unknown".equalsIgnoreCase(ipAddress)) {
+		if (StringUtils.isBlank(ipAddress)|| UNKNOWN.equalsIgnoreCase(ipAddress)) {
 			ipAddress = request.getHeader("Proxy-Client-IP");
 		}
-		if (StringUtils.isBlank(ipAddress)|| "unknown".equalsIgnoreCase(ipAddress)) {
+		if (StringUtils.isBlank(ipAddress)|| UNKNOWN.equalsIgnoreCase(ipAddress)) {
 			ipAddress = request.getHeader("WL-Proxy-Client-IP");
 		}
-        if (StringUtils.isBlank(ipAddress)|| "unknown".equalsIgnoreCase(ipAddress)) {  
+        if (StringUtils.isBlank(ipAddress)|| UNKNOWN.equalsIgnoreCase(ipAddress)) {
         	ipAddress = request.getHeader("HTTP_CLIENT_IP");  
         }
-        if (StringUtils.isBlank(ipAddress)|| "unknown".equalsIgnoreCase(ipAddress)) {  
+        if (StringUtils.isBlank(ipAddress)|| UNKNOWN.equalsIgnoreCase(ipAddress)) {
         	ipAddress = request.getHeader("HTTP_X_FORWARDED_FOR");  
         }
 		/**
 		 * 自定义的变量名
 		 */
-		if (StringUtils.isBlank(ipAddress)|| "unknown".equalsIgnoreCase(ipAddress)) {
+		if (StringUtils.isBlank(ipAddress)|| UNKNOWN.equalsIgnoreCase(ipAddress)) {
 			ipAddress = request.getHeader("X-real-ip");
 		}
-		if (StringUtils.isBlank(ipAddress)|| "unknown".equalsIgnoreCase(ipAddress)) {
+		if (StringUtils.isBlank(ipAddress)|| UNKNOWN.equalsIgnoreCase(ipAddress)) {
 			ipAddress = request.getRemoteAddr();
 			if ("127.0.0.1".equals(ipAddress)||"0:0:0:0:0:0:0:1".equals(ipAddress)) {
 				// 根据网卡取本机配置的IP

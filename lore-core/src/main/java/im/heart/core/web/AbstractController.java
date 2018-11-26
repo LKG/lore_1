@@ -137,7 +137,7 @@ public abstract  class AbstractController {
     }
     protected void success(ModelMap model) {
         model.put(RequestResult.SUCCESS, true);
-        model.put(RequestResult.HTTP_STATUS, HttpStatus.OK.toString());
+        model.put(RequestResult.HTTP_STATUS, HttpStatus.OK.value());
     }
     protected void success(ModelMap model, Object attributeValue) {
         this.success(model, RequestResult.RESULT, attributeValue);
@@ -149,7 +149,7 @@ public abstract  class AbstractController {
 
     protected void fail(ModelMap model) {
         model.put(RequestResult.SUCCESS, false);
-        model.put(RequestResult.HTTP_STATUS, HttpStatus.OK.toString());
+        model.put(RequestResult.HTTP_STATUS, HttpStatus.OK.value());
     }
     protected void fail(ModelMap model, String dataKey, Object attributeValue) {
         this.fail(model);
