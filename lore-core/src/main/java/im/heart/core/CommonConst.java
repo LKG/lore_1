@@ -65,7 +65,7 @@ public class CommonConst {
          * 上个页面地址
          */
         public static final String BACK_URL = "back_url";
-        public static final String HTTP_STATUS = "httpstatus";
+        public static final String HTTP_STATUS = "httpStatus";
         /**
          * 上个页面地址
          */

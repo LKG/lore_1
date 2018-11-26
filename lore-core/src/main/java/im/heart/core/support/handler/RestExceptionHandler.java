@@ -36,13 +36,15 @@ public class RestExceptionHandler{
 	protected static final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
 
 	protected Map<String, Object> error(HttpServletRequest request) {
+		return error(request,HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	protected Map<String, Object> error(HttpServletRequest request,HttpStatus httpStatus) {
 		Map<String, Object> errorMap = new HashMap<String, Object>();
-		errorMap.put("httpstatus", HttpStatus.INTERNAL_SERVER_ERROR.value());
-		errorMap.put("success", false);
+		errorMap.put(RequestResult.HTTP_STATUS, httpStatus.value());
+		errorMap.put(RequestResult.SUCCESS, false);
 		errorMap.put("request", request.getRequestURL());
 		return errorMap;
 	}
-
 	protected Map<String, Object> error(HttpServletRequest request, Exception ex) {
 		Map<String, Object> errorMap = this.error(request);
 		errorMap.put("exception", ex.getMessage());
