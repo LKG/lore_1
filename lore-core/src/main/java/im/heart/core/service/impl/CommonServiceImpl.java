@@ -25,7 +25,7 @@ public class CommonServiceImpl<T, ID extends Serializable> implements 	CommonSer
 	@Autowired
 	private JpaSpecificationExecutor<T> jpaSpecificationExecutor;
 	@Autowired
-	private CrudRepository<T, ID> crudRepository;
+	private JpaRepository<T, ID> jpaRepository;
 
 	@Override
 	public Page<T> findAll(Specification<T> spec, Pageable pageable) {
@@ -44,26 +44,26 @@ public class CommonServiceImpl<T, ID extends Serializable> implements 	CommonSer
 
 	@Override
 	public Optional<T> findById(ID id) {
-		return this.crudRepository.findById(id);
+		return this.jpaRepository.findById(id);
 	}
 	@Override
 	public boolean existsById(ID id) {
-		return this.crudRepository.existsById(id);
+		return this.jpaRepository.existsById(id);
 	}
 
 	@Override
 	public T  save(T entity) {
-		return this.crudRepository.save(entity);
+		return this.jpaRepository.save(entity);
 	}
 
 	@Override
 	public void deleteById(ID id) {
-		this.crudRepository.deleteById(id);
+		this.jpaRepository.deleteById(id);
 	}
 
 	@Override
 	public void delete(Iterable<? extends T> entities) {
-		this.crudRepository.deleteAll(entities);
+		this.jpaRepository.deleteAll(entities);
 	}
 
 }

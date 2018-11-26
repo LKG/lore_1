@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import im.heart.core.entity.TreeEntity;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Formula;
@@ -26,7 +27,6 @@ import java.util.Date;
 @DynamicUpdate(true)
 @DynamicInsert(true)
 @Data
-@Builder
 public class FrameDictItem implements TreeEntity<BigInteger> {
 
 	@Id

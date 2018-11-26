@@ -5,6 +5,7 @@ import im.heart.core.entity.TreeEntity;
 import im.heart.core.enums.Status;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -26,7 +27,6 @@ import java.util.Date;
 @DynamicUpdate(true)
 @DynamicInsert(true)
 @Data
-@Builder
 public class FrameArea implements TreeEntity<String> {
     @Id
     @NotNull
@@ -73,7 +73,7 @@ public class FrameArea implements TreeEntity<String> {
 
     @Column(name = "STATUS", nullable = false, length = 15)
     @Enumerated(EnumType.STRING)
-    private Status status = Status.PENDING;
+    private Status status = Status.pending;
 
     @PrePersist
     protected void onCreate() {

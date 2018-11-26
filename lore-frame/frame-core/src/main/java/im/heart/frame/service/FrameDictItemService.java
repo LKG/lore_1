@@ -17,6 +17,4 @@ public interface FrameDictItemService extends CommonService<FrameDictItem, BigIn
 	public List<FrameDictItem> findByDictCode(String dictCode);
 	
 	public List<FrameDictItem> findByDictId(BigInteger dictId);
-
-	public void delete(BigInteger id);
 }

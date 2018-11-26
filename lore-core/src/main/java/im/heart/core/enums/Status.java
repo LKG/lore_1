@@ -7,14 +7,14 @@ package im.heart.core.enums;
  */
 public enum Status {
 
-	PENDING(-1, "pending", "未激活"),
-	DISABLED(0, "disabled", "禁用"),
-	ENABLED(1,	"enabled", "正常");
+	pending("pending",-1, "未激活"),
+	disabled( "disabled",0, "禁用"),
+	enabled("enabled", 1,"正常");
 	public String code;
 	public int intValue;
 	public final String info;
 
-	Status(int intValue, String code, String info) {
+	Status(String code, int intValue, String info) {
 		this.code = code;
 		this.intValue = intValue;
 		this.info = info;
@@ -26,6 +26,6 @@ public enum Status {
 				return status;
 			}
 		}
-		return Status.ENABLED;
+		return Status.enabled;
 	}
 }

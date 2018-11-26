@@ -26,7 +26,6 @@ import java.util.Date;
 @DynamicUpdate(true)
 @DynamicInsert(true)
 @Data
-@Builder
 public class FrameDict implements AbstractEntity<BigInteger> {
 
 	public enum DictType{

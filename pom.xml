@@ -53,6 +53,7 @@
         <guava.version>23.0</guava.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
         <commons-io.version>2.6</commons-io.version>
+        <commons-codec.version>1.11</commons-codec.version>
         <validation.version>2.0.1.Final</validation.version>
         <persistence.version>1.0.2</persistence.version>
     </properties>
@@ -120,7 +121,11 @@
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
         </dependency>
-        <!-- commons 包end -->
+        <dependency><!-- 加密 -->
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons-codec.version}</version>
+        </dependency>
         <!-- html解析begin -->
         <dependency>
             <groupId>org.jsoup</groupId>
@@ -179,5 +184,6 @@
         <module>lore-core</module>
         <module>lore-conf</module>
         <module>lore-admin</module>
+        <module>lore-search</module>
     </modules>
 </project>

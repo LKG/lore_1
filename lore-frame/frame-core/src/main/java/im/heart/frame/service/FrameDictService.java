@@ -2,6 +2,7 @@ package im.heart.frame.service;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,28 +21,30 @@ public interface FrameDictService extends CommonService<FrameDict, BigInteger>{
 	public static final String BEAN_NAME = "frameDictService";
 
 	/**
-	 * @desc：判断是否定义对应字典
-	 * @param id
+	 * 判断是否定义对应字典
+	 * @param dictCode
 	 * @return
 	 */
 	public boolean exists(String dictCode);
-	
-	public List<FrameDictItem> findItemsByCode(String dictCode, String itemCode);
-	
+
 	/**
-	 * 
-	 * @Desc：根据字典类型和字典代号查询数据
-	 * @param solidCode
+	 * 根据dictCode ，及itemCode 查询列表
+	 * @param dictCode
 	 * @param itemCode
 	 * @return
 	 */
-	public FrameDictItem findItemByCode(String dictCode, String itemCode);
+	public List<FrameDictItem> findItemsByCode(String dictCode, String itemCode);
+
+	/**
+	 * 根据字典类型和字典代号查询数据
+	 * @param dictCode
+	 * @param itemCode
+	 * @return
+	 */
+	public Optional<FrameDictItem>  findItemByCode(String dictCode, String itemCode);
 	
 	public Page<FrameDictItem> findItemsByCode(String dictCode, Pageable pageable);
-	
-	public FrameDict save(FrameDict frameDict);
-	public void save(FrameDict frameDict, Iterable<FrameDictItem> dictItems)   throws ServiceException ;
 
-	public void delete(BigInteger id);
+	public void save(FrameDict frameDict, Iterable<FrameDictItem> dictItems)   throws ServiceException ;
 	
 }
