@@ -29,9 +29,9 @@ import java.util.Date;
 public class FrameDict implements AbstractEntity<BigInteger> {
 
 	public enum DictType{
-		SINGLE("single","单个",1),
-		MULTIPLE("multiple","多选",2),
-		REVISABLE("revisable","可变",3);
+		single("single","单个",1),
+		multiple("multiple","多选",2),
+		revisable("revisable","可变",3);
 		private DictType(String code, String value, int intValue) {
 			this.code = code;
 			this.value = value;
@@ -46,7 +46,7 @@ public class FrameDict implements AbstractEntity<BigInteger> {
 					return dictType;
 				}
 			}
-			return DictType.SINGLE;
+			return DictType.single;
 		}
 	}
 	
@@ -73,7 +73,7 @@ public class FrameDict implements AbstractEntity<BigInteger> {
 	@NotNull
 	@Column(name = "DICT_TYPE", updatable = false, length = 15)
 	@Enumerated(EnumType.STRING)
-	private DictType dictType=DictType.SINGLE;
+	private DictType dictType=DictType.single;
 	
 	@JSONField (format="yyyy-MM-dd HH:mm:ss" )
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
@@ -91,14 +91,14 @@ public class FrameDict implements AbstractEntity<BigInteger> {
 	protected void onCreate() {
 		createTime = new Date();
 		modifyTime = new Date();
-		if(DictType.MULTIPLE.equals(dictType)){
+		if(DictType.multiple.equals(dictType)){
 			dictValue=dictCode;
 		}
     }
 	@PreUpdate
 	protected void onUpdate() {
 		modifyTime = new Date();
-		if(DictType.MULTIPLE.equals(dictType)){
+		if(DictType.multiple.equals(dictType)){
 			dictValue=dictCode;
 		}
     }

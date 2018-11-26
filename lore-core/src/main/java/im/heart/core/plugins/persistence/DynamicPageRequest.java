@@ -54,12 +54,12 @@ public class DynamicPageRequest {
 	 * 
 	 * @Desc：创建分页请求
 	 * @param pageNumber
-	 * @param pagzSize
+	 * @param pageSize
 	 * @param sortField
 	 * @param order
 	 * @return
 	 */
-	public static <T> PageRequest buildPageRequest(int pageNumber, int pagzSize,String sortField,String order,final Class<T> entityClazz) {
+	public static <T> PageRequest buildPageRequest(int pageNumber, int pageSize,String sortField,String order,final Class<T> entityClazz) {
 		String[] sortFieldNames = StringUtils.split(sortField, ",");
 		if(sortFieldNames!=null){
 			if(sortFieldNames.length>MAX_SORTFIELDS){
@@ -71,9 +71,9 @@ public class DynamicPageRequest {
 				if(direction==null){
 					direction=Sort.DEFAULT_DIRECTION;
 				}
-				return PageRequest.of(pageNumber - 1, pagzSize, new Sort(direction,list));
+				return PageRequest.of(pageNumber - 1, pageSize, new Sort(direction,list));
 			}
 		}
-		return PageRequest.of(pageNumber - 1, pagzSize);
+		return PageRequest.of(pageNumber - 1, pageSize);
 	}
 }

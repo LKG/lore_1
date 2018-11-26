@@ -86,7 +86,7 @@ public class FrameDictServiceImpl extends CommonServiceImpl<FrameDict, BigIntege
 
 	@Override
 	public FrameDict save(FrameDict frameDict) {
-		if(DictType.MULTIPLE.equals(frameDict.getDictType())){
+		if(DictType.multiple.equals(frameDict.getDictType())){
 			frameDict.setDictValue(frameDict.getDictCode());
 		}
 		if(frameDict.getId()==null){

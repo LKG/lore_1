@@ -1,25 +1,16 @@
 package im.heart.conf;
 
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.alibaba.fastjson.support.config.FastJsonConfig;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import im.heart.core.CommonConst;
 import im.heart.core.support.view.JsonpView;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-
-import java.nio.charset.Charset;
-import java.util.Locale;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  *
@@ -47,8 +38,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .defaultContentType(MediaType.TEXT_HTML)
                  /* 请求以.html结尾的会被当成MediaType.TEXT_HTML*/
                 .mediaType("jhtml", MediaType.TEXT_HTML)
-                .mediaType("html", MediaType.TEXT_HTML)
-                .mediaType("json",MediaType.APPLICATION_JSON);
+                .mediaType("html", MediaType.TEXT_HTML);
     }
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
