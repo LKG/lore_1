@@ -1,26 +1,31 @@
 package im.heart.core.utils;
 
-import java.io.UnsupportedEncodingException;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.net.URLEncoder;
-import java.util.Enumeration;
-import java.util.StringTokenizer;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import im.heart.core.CommonConst;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.*;
+import java.util.Enumeration;
+import java.util.StringTokenizer;
 
+/**
+ *
+ * @author gg
+ * @desc常用工具操作类
+ */
 public class BaseUtils {
 	
 	protected static final Logger logger = LoggerFactory.getLogger(BaseUtils.class);
+
+	static final String HTTP_PREFIX = "http";
+	static final String HTTPS_PREFIX = "https";
+	static final int HTTP_PORT = 80;
+	static final int HTTPS_PORT = 443;
 	/**
 	 * 
 	 * @Desc：获取客户IP地址
@@ -31,6 +36,40 @@ public class BaseUtils {
 		String ip = overshot(request);
 		return ip;
 	}
+	public static String extractBackURL(HttpServletRequest request) {
+		String url = request.getParameter(CommonConst.RequestResult.BACK_URL);
+		if (StringUtils.isEmpty(url)) {
+			url = request.getHeader("Referer");
+		}
+		boolean isHttp=!StringUtils.isEmpty(url) && (url.startsWith("http://") || url.startsWith("https://"));
+		if (isHttp) {
+			return url;
+		}
+		if (!StringUtils.isEmpty(url) && url.startsWith(request.getContextPath())) {
+			url = getBasePath(request) + url;
+		}
+		return url;
+	}
+
+
+	/**
+	 * @Desc：获取当前请求根路径
+	 * @param req
+	 * @return
+	 */
+	public static String getBasePath(HttpServletRequest req) {
+		StringBuffer baseUrl = new StringBuffer();
+		String scheme = req.getScheme();
+		int port = req.getServerPort();
+		baseUrl.append(scheme).append("://").append(req.getServerName());
+		//非80 和 443 拼接端口号
+		boolean isPort=(HTTP_PREFIX.equals(scheme) && port != HTTP_PORT)||(HTTPS_PREFIX.equals(scheme) && port != HTTPS_PORT);
+		if(isPort){
+			baseUrl.append(':').append(port);
+		}
+		return baseUrl.toString();
+	}
+
 	/**
 	 * @Desc：获取本机IP地址
 	 * @return
@@ -53,8 +92,7 @@ public class BaseUtils {
 	        }  
 	    } catch (SocketException e) {  
 	    	logger.error(e.getStackTrace()[0].getMethodName(), e);
-	    }  
-	     
+	    }
 	     return serverIp;  
 	}
 	/**
@@ -133,7 +171,6 @@ public class BaseUtils {
 			boolean conditionSatisfied = false;
 			if (!"*".equals(headerValue)) {
 				StringTokenizer commaTokenizer = new StringTokenizer(headerValue, ",");
-
 				while (!conditionSatisfied && commaTokenizer.hasMoreTokens()) {
 					String currentToken = commaTokenizer.nextToken();
 					if (currentToken.trim().equals(etag)) {
@@ -143,7 +180,6 @@ public class BaseUtils {
 			} else {
 				conditionSatisfied = true;
 			}
-
 			if (conditionSatisfied) {
 				response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
 				response.setHeader(HttpHeaders.ETAG, etag);
@@ -215,6 +251,41 @@ public class BaseUtils {
 		}
 		return false;
 	}
+	public static String getRefererHost(HttpServletRequest request) {
+		try {
+			String origin = request.getHeader("referer");
+			URL url = new URL(origin);
+			if (url.getPort() > 0) {
+				return url.getProtocol() + "://" + url.getHost() + ":" + url.getPort();
+			}
+			return url.getProtocol() + "://" + url.getHost();
+
+		} catch (MalformedURLException e) {
+			logger.warn("", e);
+		}
+		return StringUtils.EMPTY;
+	}
+	/**
+	 * @Desc：跨域操作
+	 * @param request
+	 * @param response
+	 */
+	public static void crossOrigin(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			if (!response.containsHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN)) {
+				response.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, getRefererHost(request));
+			}
+			if (!response.containsHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS)) {
+				response.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
+			}
+			if (!response.containsHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS)) {
+				response.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "*");
+			}
+		} catch (Exception e) {
+			logger.warn("", e);
+		}
+	}
+
 	/**
 	 * 
 	 * @Desc：转换客户真实IP地址
@@ -235,8 +306,11 @@ public class BaseUtils {
         if (StringUtils.isBlank(ipAddress)|| "unknown".equalsIgnoreCase(ipAddress)) {  
         	ipAddress = request.getHeader("HTTP_X_FORWARDED_FOR");  
         }
+		/**
+		 * 自定义的变量名
+		 */
 		if (StringUtils.isBlank(ipAddress)|| "unknown".equalsIgnoreCase(ipAddress)) {
-			ipAddress = request.getHeader("X-real-ip");// 自定义的变量名
+			ipAddress = request.getHeader("X-real-ip");
 		}
 		if (StringUtils.isBlank(ipAddress)|| "unknown".equalsIgnoreCase(ipAddress)) {
 			ipAddress = request.getRemoteAddr();
@@ -245,9 +319,8 @@ public class BaseUtils {
 				ipAddress = getServerIp();
 			}
 		}
-		// 对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割
-		if (ipAddress != null && ipAddress.length() > 15) { // "***.***.***.***".length()
-			// = 15
+		// 对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割 // "***.***.***.***".length()
+		if (ipAddress != null && ipAddress.length() > 15) {
 			if (ipAddress.indexOf(",") > 0) {
 				ipAddress = ipAddress.substring(0, ipAddress.indexOf(","));
 			}

@@ -4,6 +4,7 @@ import im.heart.core.CommonConst.RequestResult;
 import im.heart.core.support.BigDecimalEditorSupport;
 import im.heart.core.support.DateEditorSupport;
 import im.heart.core.support.StringEscapeEditorSupport;
+import im.heart.core.utils.BaseUtils;
 import im.heart.core.validator.ValidatorUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
@@ -101,14 +102,7 @@ public abstract  class AbstractController {
      * @return
      */
     protected String getBasePath(HttpServletRequest req) {
-        StringBuffer baseUrl = new StringBuffer();
-        String scheme = req.getScheme();
-        int port = req.getServerPort();
-        baseUrl.append(scheme).append("://").append(req.getServerName());
-        if (("http".equals(scheme) && port != 80) || ("https".equals(scheme) && port != 443)) {
-            baseUrl.append(':').append(port);
-        }
-        return baseUrl.toString();
+        return BaseUtils.getBasePath(req);
     }
     /**
      * @Desc：获取上次请求地址
@@ -116,17 +110,7 @@ public abstract  class AbstractController {
      * @return
      */
     protected String extractBackURL(HttpServletRequest request) {
-        String url = request.getParameter(RequestResult.BACK_URL);
-        if (StringUtils.isEmpty(url)) {
-            url = request.getHeader("Referer");
-        }
-        if (!StringUtils.isEmpty(url) && (url.startsWith("http://") || url.startsWith("https://"))) {
-            return url;
-        }
-        if (!StringUtils.isEmpty(url) && url.startsWith(request.getContextPath())) {
-            url = getBasePath(request) + url;
-        }
-        return url;
+        return BaseUtils.extractBackURL(request);
     }
     /**
      *
@@ -158,25 +142,25 @@ public abstract  class AbstractController {
     protected void success(ModelMap model, Object attributeValue) {
         this.success(model, RequestResult.RESULT, attributeValue);
     }
-    protected void success(ModelMap model, String datakey, Object attributeValue) {
+    protected void success(ModelMap model, String dataKey, Object attributeValue) {
         this.success(model);
-        model.put(datakey, attributeValue);
+        model.put(dataKey, attributeValue);
     }
 
     protected void fail(ModelMap model) {
         model.put(RequestResult.SUCCESS, false);
         model.put(RequestResult.HTTP_STATUS, HttpStatus.OK.toString());
     }
-    protected void fail(ModelMap model, String datakey, Object attributeValue) {
+    protected void fail(ModelMap model, String dataKey, Object attributeValue) {
         this.fail(model);
-        model.put(datakey, attributeValue);
+        model.put(dataKey, attributeValue);
     }
     protected void fail(ModelMap model, Object attributeValue) {
         this.fail(model, RequestResult.RESULT, attributeValue);
     }
-    protected void error(ModelMap model, String datakey, Object attributeValue) {
+    protected void error(ModelMap model, String dataKey, Object attributeValue) {
         this.fail(model);
-        model.put(datakey, attributeValue);
+        model.put(dataKey, attributeValue);
     }
     protected void error(ModelMap model, Object attributeValue) {
         this.error(model, RequestResult.RESULT, attributeValue);
