@@ -35,7 +35,7 @@ management:
     web:
       base-path: /admin/monitor
       exposure:
-        exclude: ["health","beans"]
+        exclude: ["env","beans"]
         include: "*"
   endpoint:
     logfile:
