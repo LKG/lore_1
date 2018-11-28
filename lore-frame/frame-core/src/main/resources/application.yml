@@ -11,24 +11,36 @@ spring:
    active: prod
   messages:
     encoding: UTF-8
-  freemarker:
-    prefix:
-    suffix: .ftl
-    templateLoaderPath: classpath:/templates/tpl/
-    templateEncoding: UTF-8
-    prefer-file-system-access: false
-    cache: false
-    settings:
-      template_update_delay: 0
-    request-context-attribute: request
+#  freemarker:
+#    prefix:
+#    suffix: .ftl
+#    templateLoaderPath: classpath:/templates/tpl/
+#    templateEncoding: UTF-8
+#    content-type: text/html
+#    prefer-file-system-access: false
+#    cache: false
+#    settings:
+#      template_update_delay: 0
+#      number_format: '0.##'   #数字格式化，无小数点
+#    request-context-attribute: request
 info:
-  app-name: \u5f00\u53d1\u73af\u5883
-  app-description: ${info.app-name} \u63cf\u8ff0
-  app-version:
+  app-name: lore
+  app-description: ${info.app-name} 描述
+  app-version: ${project.version}
 #######maven pom \u91cc\u7684\u914d\u7f6e
 server:
   port: 9080
 management:
-  contextPath: /admin/monitor
-  security:
-    enabled: false
+  endpoints:
+    web:
+      base-path: /admin/monitor
+      exposure:
+        exclude: ["health","beans"]
+        include: "*"
+  endpoint:
+    logfile:
+      enabled: true
+prod:
+  upload:
+    path:
+      root: ${pom.uploads.home}

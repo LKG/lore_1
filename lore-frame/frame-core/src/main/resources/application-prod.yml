@@ -11,7 +11,7 @@ spring:
   mail:
     host: smtp.163.com
     username: lkg61230413@163.com
-    password: lkg178ww
+    password: lkg186681
     from: GG<lkg61230413@163.com>
     template-path: classpath:/templates/email/
     properties:mail:
@@ -62,29 +62,3 @@ spring:
         path:
           logs: ./var/log/elasticsearch #elasticsearch日志存储目录
           data: /var/elasticsearch/data #elasticsearch数据存储目录
-prod:
-  oss:
-   accessKeyId:
-   secretAccessKey:
-   bucketName:
-   site:
-   qiniu:
-    accessKeyId:
-    secretKey:
-    bucketName:
-  upload:
-    path:
-      root:
-  material:
-    file:
-       path: material
-#jodconverter:
-#  local:
-#    enabled: true
-#    office-home: ${pom.office.home} # 设置LibreOffice主目录
-#    portNumbers: 8100,8101,8102,8103 # 开启多个LibreOffice进程，每个端口对应一个进程
-#    maxTasksPerProcess: 100 # LibreOffice进程重启前的最大进程数
-#pdf2svg:
-#  local:
-#    enabled: true
-#    home: ${pom.pdf2svg.home} # 设置pdf2svg主目录
