@@ -42,6 +42,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
+//        registry.viewResolver(jsonpView());
         registry.enableContentNegotiation(jsonpView());
     }
     @Override

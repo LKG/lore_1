@@ -20,6 +20,7 @@ spring:
     cache: false
     settings:
       template_update_delay: 0
+    request-context-attribute: request
 info:
   app-name: \u5f00\u53d1\u73af\u5883
   app-description: ${info.app-name} \u63cf\u8ff0

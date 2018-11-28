@@ -32,15 +32,16 @@ public class JsonpView extends FastJsonJsonView {
 	protected void renderMergedOutputModel(Map<String, Object> model,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		String jsoncallback = request.getParameter(RequestResult.JSON_CALLBACK);
+		String jsonCallback = request.getParameter(RequestResult.JSON_CALLBACK);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@---------------------");
 		SerializeFilter  filter =null;
 	/*	if(lazy){
 			filter = new FastJosnPropertyFilter();
 		}*/
 		Object value = super.filterModel(model);
 		String text = JSON.toJSONString(value,filter, super.getFastJsonConfig().getSerializerFeatures());	
-		if (jsoncallback != null && !StringUtils.isBlank(jsoncallback)) {
-			text = jsoncallback + "(" + text + ")";
+		if (jsonCallback != null && !StringUtils.isBlank(jsonCallback)) {
+			text = jsonCallback + "(" + text + ")";
 		}
 		byte[] bytes = text.getBytes(super.getFastJsonConfig().getCharset());
 		OutputStream stream = this.updateContentLength ? createTemporaryOutputStream()
