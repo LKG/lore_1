@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @Desc : 邮件发送实现类 Demo
  */
 @Component(value = SendEmailService.BEAN_NAME)
-@Transactional(propagation = Propagation.SUPPORTS)
+@Transactional(propagation = Propagation.SUPPORTS,rollbackFor = Exception.class)
 public class EmailServiceImpl implements SendEmailService {
 	protected static final Logger logger = LoggerFactory.getLogger(EmailServiceImpl.class);
 	@Autowired

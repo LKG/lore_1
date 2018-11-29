@@ -26,7 +26,7 @@ spring:
     username: root
     password: omw@178.Im
       #配置监控统计拦截的filters，去掉后监控界面sql将无法统计,'wall'用于防火墙
-    filters: stat, wall, log4j
+    filters: stat,config,wall,slf4j
    # validation-query: SELECT 1
     min-idle: 10
     max-active: 20
@@ -35,6 +35,14 @@ spring:
       logSlowSql: false
       mergeSql: true
       slowSqlMillis: 3000
+      web-stat-filter:
+        url-pattern: "/admin/druid/*"
+      stat-view-servlet:
+        url-pattern : "/admin/druid/*"
+        login-username: admin
+        login-password: druid@178.Im
+        allow:
+        deny:
   jpa:
   # Specify the DBMS
     database: MYSQL

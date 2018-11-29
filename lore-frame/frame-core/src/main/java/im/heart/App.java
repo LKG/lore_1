@@ -12,6 +12,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 
+/**
+ *
+ * @author gg
+ * @desc 基础服务启动类
+ */
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan(basePackages={"im.heart"})

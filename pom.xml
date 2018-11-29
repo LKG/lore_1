@@ -31,6 +31,7 @@
         <!-- TEST end -->
         <!-- 日志相关begin -->
         <slf4j.version>1.7.25</slf4j.version>
+        <log4j.version>1.2.17</log4j.version>
         <log4j2.log4jdbc.version>1.16</log4j2.log4jdbc.version>
         <!-- 日志相关end -->
         <lombok.version>1.18.4</lombok.version>
@@ -44,7 +45,7 @@
         <postgresql.jdbc.version>9.4.1212</postgresql.jdbc.version>
         <!--数据库驱动依赖end -->
         <!-- 数据库连接池 begin -->
-        <druid.version>1.1.12</druid.version>
+        <druid.version>1.1.10</druid.version>
         <!-- 数据库连接池 end -->
         <!-- 工具类begin -->
         <jsoup.version>1.11.3</jsoup.version>
@@ -100,6 +101,12 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
         <!-- 增加SQL打印 -->
         <dependency>
@@ -161,6 +168,7 @@
         </dependency>
         <!-- JSON end -->
         <!-- 配置数据库连接池begin -->
+        <!-- https://mvnrepository.com/artifact/com.alibaba/druid-spring-boot-starter -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>

@@ -35,10 +35,14 @@ management:
     web:
       base-path: /admin/monitor
       exposure:
-        exclude: ["env","beans"]
+        exclude: ["env","beans" ,"shutdown" ]
         include: "*"
+      path-mapping:
+        health: healthcheck
   endpoint:
     logfile:
+      enabled: true
+    health:
       enabled: true
 prod:
   upload:
