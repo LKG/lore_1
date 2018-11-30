@@ -44,6 +44,8 @@ management:
       enabled: true
     health:
       enabled: true
+      ## 查看明细
+      show-details: always
 prod:
   upload:
     path:

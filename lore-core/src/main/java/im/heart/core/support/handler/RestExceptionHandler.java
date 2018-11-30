@@ -35,9 +35,6 @@ import im.heart.core.validator.BeanValidators;
 public class RestExceptionHandler{
 	protected static final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
 
-	protected Map<String, Object> error(HttpServletRequest request) {
-		return error(request,HttpStatus.INTERNAL_SERVER_ERROR);
-	}
 	protected Map<String, Object> error(HttpServletRequest request,HttpStatus httpStatus) {
 		Map<String, Object> errorMap = new HashMap<String, Object>();
 		errorMap.put(RequestResult.HTTP_STATUS, httpStatus.value());
@@ -46,7 +43,7 @@ public class RestExceptionHandler{
 		return errorMap;
 	}
 	protected Map<String, Object> error(HttpServletRequest request, Exception ex) {
-		Map<String, Object> errorMap = this.error(request);
+		Map<String, Object> errorMap = this.error(request,HttpStatus.INTERNAL_SERVER_ERROR);
 		errorMap.put("exception", ex.getMessage());
 		return errorMap;
 	}
@@ -72,7 +69,7 @@ public class RestExceptionHandler{
 	}
 	@ExceptionHandler(ServletException.class)
 	public ModelAndView handleServletException(HttpServletRequest request, ServletException ex) {
-		logger.error(ex.getStackTrace()[0].getMethodName(), ex);
+		logger.error("handleServletException:"+ex.getStackTrace()[0].getMethodName(), ex);
 		return this.chooseView(request,this.error(request, ex));
 	}
 	/**
@@ -109,7 +106,7 @@ public class RestExceptionHandler{
 			ConstraintViolationException ex) {
 		Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
 		Map<String, String> messages = BeanValidators.extractPropertyAndMessage(constraintViolations);
-		Map<String, Object> errorMap = this.error(request);
+		Map<String, Object> errorMap = this.error(request,ex);
 		errorMap.put("message", messages);
 		logger.error("handleConstraintViolationException:"+ex.getStackTrace()[0].getMethodName(), ex);
 		return this.chooseView(request,errorMap);
