@@ -45,12 +45,11 @@ public class TestController extends AbstractController {
 	@RequestMapping(value = {apiVer ,"/"})
 	protected ModelAndView checkCode(
 			@RequestParam(value = CommonConst.RequestResult.JSON_CALLBACK, required = false) String jsoncallback,
-			@RequestParam(value = "dictCode", required = false) String dictCode,
 			HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws Exception {
 		System.out.println("################");
 		Specification<FrameDict> spec=DynamicSpecifications.bySearchFilter(request, FrameDict.class);
-		PageRequest pageRequest=DynamicPageRequest.buildPageRequest(1,10,"","",FrameDict.class);
+		PageRequest pageRequest=DynamicPageRequest.buildPageRequest(1,10,"","dictCode",FrameDict.class);
 		Page<FrameDict> pag = this.frameDictService.findAll(spec, pageRequest);
 		super.success(model,pag);
 		return new ModelAndView("index");

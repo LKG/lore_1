@@ -39,11 +39,13 @@ public class RestExceptionHandler{
 		Map<String, Object> errorMap = new HashMap<String, Object>();
 		errorMap.put(RequestResult.HTTP_STATUS, httpStatus.value());
 		errorMap.put(RequestResult.SUCCESS, false);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		errorMap.put("request", request.getRequestURL());
 		return errorMap;
 	}
 	protected Map<String, Object> error(HttpServletRequest request, Exception ex) {
 		Map<String, Object> errorMap = this.error(request,HttpStatus.INTERNAL_SERVER_ERROR);
+		System.out.println("##################################################################################");
 		errorMap.put("exception", ex.getMessage());
 		return errorMap;
 	}
