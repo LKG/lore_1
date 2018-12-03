@@ -32,5 +32,13 @@
             <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
         <!-- 配置数据库连接池end -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
+import com.google.common.collect.Maps;
 import im.heart.core.web.utils.WebUtilsEx;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,16 +37,14 @@ public class RestExceptionHandler{
 	protected static final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
 
 	protected Map<String, Object> error(HttpServletRequest request,HttpStatus httpStatus) {
-		Map<String, Object> errorMap = new HashMap<String, Object>();
+		Map<String, Object> errorMap = Maps.newHashMap();
 		errorMap.put(RequestResult.HTTP_STATUS, httpStatus.value());
 		errorMap.put(RequestResult.SUCCESS, false);
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		errorMap.put("request", request.getRequestURL());
 		return errorMap;
 	}
 	protected Map<String, Object> error(HttpServletRequest request, Exception ex) {
 		Map<String, Object> errorMap = this.error(request,HttpStatus.INTERNAL_SERVER_ERROR);
-		System.out.println("##################################################################################");
 		errorMap.put("exception", ex.getMessage());
 		return errorMap;
 	}

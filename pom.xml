@@ -38,7 +38,7 @@
         <!--HanLP是由一系列模型与算法组成的Java汉语言处理包-->
         <hanlp.version>portable-1.7.0</hanlp.version>
         <spring-cloud.version>Edgware.RELEASE</spring-cloud.version>
-        <spring.boot.version>2.1.0.RELEASE</spring.boot.version>
+        <spring.boot.version>2.1.1.RELEASE</spring.boot.version>
         <!--数据库驱动依赖begin -->
         <mysql.jdbc.version>5.1.46</mysql.jdbc.version>
         <sqlite.version>3.8.11.2</sqlite.version>
@@ -58,6 +58,8 @@
         <aliyunOss.version>2.7.0</aliyunOss.version>
         <validation.version>2.0.1.Final</validation.version>
         <persistence.version>1.0.2</persistence.version>
+        <xstream.version>1.4.9</xstream.version>
+        <urlrewritefilter.version>4.0.4</urlrewritefilter.version>
     </properties>
     <dependencyManagement>
     <dependencies>
@@ -82,6 +84,19 @@
                 </exclusion>-->
             </exclusions>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>${xstream.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.tuckey/urlrewritefilter -->
+        <dependency>
+            <groupId>org.tuckey</groupId>
+            <artifactId>urlrewritefilter</artifactId>
+            <version>${urlrewritefilter.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-dependencies</artifactId>

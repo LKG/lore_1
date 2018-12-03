@@ -45,11 +45,16 @@ public class TestController extends AbstractController {
 	@RequestMapping(value = {apiVer ,"/"})
 	protected ModelAndView checkCode(
 			@RequestParam(value = CommonConst.RequestResult.JSON_CALLBACK, required = false) String jsoncallback,
+			@RequestParam(value = "page", required = false, defaultValue = CommonConst.Page.DEFAULT_PAGE+"") Integer page,
+			@RequestParam(value = "size", required = false, defaultValue = CommonConst.Page.DEFAULT_SIZE+"") Integer size,
+			@RequestParam(value = "sort", required = false ,defaultValue = "createTime") String sort,
+			@RequestParam(value = "order", required = false,defaultValue = CommonConst.Page.DEFAULT_ORDER) String order,
+			@RequestParam(value = CommonConst.RequestResult.ACCESS_TOKEN, required = false) String token,
 			HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws Exception {
 		System.out.println("################");
 		Specification<FrameDict> spec=DynamicSpecifications.bySearchFilter(request, FrameDict.class);
-		PageRequest pageRequest=DynamicPageRequest.buildPageRequest(1,10,"","dictCode",FrameDict.class);
+		PageRequest pageRequest=DynamicPageRequest.buildPageRequest(page,size,sort,order,FrameDict.class);
 		Page<FrameDict> pag = this.frameDictService.findAll(spec, pageRequest);
 		super.success(model,pag);
 		return new ModelAndView("index");
