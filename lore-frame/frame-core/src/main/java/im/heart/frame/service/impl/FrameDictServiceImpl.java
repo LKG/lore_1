@@ -56,13 +56,13 @@ public class FrameDictServiceImpl extends CommonServiceImpl<FrameDict, BigIntege
 
 
 	@Override
-	public Optional<FrameDictItem> findItemByCode(String dictCode, String itemCode) {
+	public FrameDictItem findItemByCode(String dictCode, String itemCode) {
 		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
 		filters.add(new SearchFilter("dictCode", Operator.EQ, dictCode));
 		filters.add(new SearchFilter("itemCode", Operator.EQ, itemCode));
 		Specification<FrameDictItem> spec = DynamicSpecifications.bySearchFilter(filters, FrameDictItem.class);
-		Optional<FrameDictItem> opt = this.frameDictItemRepository.findOne(spec);
-		return opt;
+		FrameDictItem frameDictItem = this.frameDictItemRepository.findOne(spec).get();
+		return frameDictItem;
 	}
 
 	@Override

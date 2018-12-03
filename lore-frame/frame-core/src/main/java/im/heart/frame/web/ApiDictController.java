@@ -28,6 +28,7 @@ import java.math.BigInteger;
  * @desc : 数据字典
  */
 @Controller
+@RequestMapping("/api/v1")
 public class ApiDictController extends AbstractController {
 
     protected static final String apiVer = "/dict";
@@ -112,7 +113,7 @@ public class ApiDictController extends AbstractController {
             @PathVariable BigInteger id,
             HttpServletRequest request,
             ModelMap model) {
-        FrameDict po = this.frameDictService.findById(id).get();
+        FrameDict po = this.frameDictService.findById(id);
         super.success(model, po);
         return new ModelAndView(VIEW_DETAILS);
     }

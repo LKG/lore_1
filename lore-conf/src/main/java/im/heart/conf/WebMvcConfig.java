@@ -30,54 +30,54 @@ import java.util.List;
 public class WebMvcConfig implements WebMvcConfigurer {
     @Value("${prod.upload.path.root}")
     private String prodUploadFilePath = "";
-    @Bean
-    public ViewResolver contentNegotiatingViewResolver(
-            ContentNegotiationManager manager) {
-        // Define the view resolvers
-        ViewResolver beanNameViewResolver = new BeanNameViewResolver();
-        List<ViewResolver> resolvers = Lists.newArrayList(beanNameViewResolver);
-        ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
-        resolver.setViewResolvers(resolvers);
-        resolver.setContentNegotiationManager(manager);
-        return resolver;
-    }
-    @Bean
-    public ViewResolver xStreamMarshaller() {
-        XStreamMarshaller xStreamMarshaller=new XStreamMarshaller();
-        return null;
-    }
-
-
 //    @Bean
-//    public FastJsonHttpMessageConverter fastJsonHttpMessageConverter(
+//    public ViewResolver contentNegotiatingViewResolver(
 //            ContentNegotiationManager manager) {
-//        FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
-//        return fastJsonHttpMessageConverter;
+//        // Define the view resolvers
+//        ViewResolver beanNameViewResolver = new BeanNameViewResolver();
+//        List<ViewResolver> resolvers = Lists.newArrayList(beanNameViewResolver);
+//        ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
+//        resolver.setViewResolvers(resolvers);
+//        resolver.setContentNegotiationManager(manager);
+//        return resolver;
 //    }
-
-
-    @Override
-    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-        /* favorPathExtension表示支持后缀匹配，是否通过请求Url的扩展名来决定media type */
-        configurer.favorPathExtension(false)
-                .useRegisteredExtensionsOnly(false)
-                /* 不检查Accept请求头 */
-                .ignoreAcceptHeader(true)
-                /* 设置默认的MediaType */
-                .parameterName("format")
-                 /* 请求以.html结尾的会被当成MediaType.TEXT_HTML*/
-                .defaultContentType(MediaType.APPLICATION_JSON)
-                .mediaType("json", MediaType.APPLICATION_JSON)
-                .mediaType("jhtml", MediaType.TEXT_HTML)
-                .mediaType("html", MediaType.TEXT_HTML)
-                .mediaType("xml", MediaType.APPLICATION_ATOM_XML)
-                .mediaType("pdf", MediaType.APPLICATION_PDF);
-    }
-
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.enableContentNegotiation(new JsonpView());
-    }
+//    @Bean
+//    public ViewResolver xStreamMarshaller() {
+//        XStreamMarshaller xStreamMarshaller=new XStreamMarshaller();
+//        return null;
+//    }
+//
+//
+////    @Bean
+////    public FastJsonHttpMessageConverter fastJsonHttpMessageConverter(
+////            ContentNegotiationManager manager) {
+////        FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
+////        return fastJsonHttpMessageConverter;
+////    }
+//
+//
+//    @Override
+//    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+//        /* favorPathExtension表示支持后缀匹配，是否通过请求Url的扩展名来决定media type */
+//        configurer.favorPathExtension(false)
+//                .useRegisteredExtensionsOnly(false)
+//                /* 不检查Accept请求头 */
+//                .ignoreAcceptHeader(true)
+//                /* 设置默认的MediaType */
+//                .parameterName("format")
+//                 /* 请求以.html结尾的会被当成MediaType.TEXT_HTML*/
+//                .defaultContentType(MediaType.APPLICATION_JSON)
+//                .mediaType("json", MediaType.APPLICATION_JSON)
+//                .mediaType("jhtml", MediaType.TEXT_HTML)
+//                .mediaType("html", MediaType.TEXT_HTML)
+//                .mediaType("xml", MediaType.APPLICATION_ATOM_XML)
+//                .mediaType("pdf", MediaType.APPLICATION_PDF);
+//    }
+//
+//    @Override
+//    public void configureViewResolvers(ViewResolverRegistry registry) {
+//        registry.enableContentNegotiation(new JsonpView());
+//    }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/" + CommonConst.STATIC_UPLOAD_ROOT + "/**")

@@ -32,6 +32,7 @@ import java.util.Collection;
  * @desc : 数据字典子表
  */
 @Controller
+@RequestMapping("/api/v1")
 public class ApiDictItemController extends AbstractController {
 	
 	protected static final String apiVer = "/dict";
@@ -49,7 +50,7 @@ public class ApiDictItemController extends AbstractController {
 			@RequestParam(value = RequestResult.JSON_CALLBACK, required = false) String jsoncallback,
 			@PathVariable() BigInteger dictId,
 			ModelMap model){
-		FrameDict po = this.frameDictService.findById(dictId).get();
+		FrameDict po = this.frameDictService.findById(dictId);
 		super.success(model,po);
 		return new ModelAndView(VIEW_CREATE);
 	}

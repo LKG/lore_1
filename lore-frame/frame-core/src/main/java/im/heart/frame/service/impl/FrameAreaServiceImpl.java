@@ -44,8 +44,8 @@ public class FrameAreaServiceImpl extends CommonServiceImpl<FrameArea, String> i
 	}
 	@Cacheable(value=CACHE_NAMES, key="#id")
 	@Override
-	public Optional<FrameArea>  findById(String id) {
-		return this.frameAreaRepository.findById(id);
+	public FrameArea  findById(String id) {
+		return this.frameAreaRepository.findById(id).get();
 	}
     /**
      *  保存

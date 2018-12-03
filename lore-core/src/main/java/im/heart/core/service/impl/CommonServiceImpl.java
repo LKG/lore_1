@@ -43,8 +43,8 @@ public class CommonServiceImpl<T, ID extends Serializable> implements 	CommonSer
 	}
 
 	@Override
-	public Optional<T> findById(ID id) {
-		return this.jpaRepository.findById(id);
+	public T findById(ID id) {
+		return this.jpaRepository.findById(id).get();
 	}
 	@Override
 	public boolean existsById(ID id) {

@@ -32,6 +32,7 @@ import java.util.Optional;
  * @desc 区域管理表控制器
  */
 @Controller
+@RequestMapping("/api/v1")
 public class ApiAreaController extends AbstractController {
 	
 	protected static final String apiVer = "/area";
@@ -110,9 +111,9 @@ public class ApiAreaController extends AbstractController {
 //			@RequestParam(value = RequestResult.ACCESS_TOKEN, required = false) String token,
 //			HttpServletRequest request,
 //			ModelMap model) {
-//		FrameArea po = this.frameAreaService.findById(id.toString()).get();
+//		FrameArea po = this.frameAreaService.findById(id.toString());
 //		if(!po.isRoot()){
-//			FrameArea parentArea =this.frameAreaService.findById(po.getParentId().toString()).get();
+//			FrameArea parentArea =this.frameAreaService.findById(po.getParentId().toString());
 //			po.setParentName(parentArea.getName());
 //		}
 //		super.success(model, po);
@@ -148,7 +149,7 @@ public class ApiAreaController extends AbstractController {
 			ModelMap model){
 		FrameArea po=new FrameArea();
 		if(parentId!=null&&parentId.intValue()!=0){
-			FrameArea parentArea= this.frameAreaService.findById(parentId.toString()).get();
+			FrameArea parentArea= this.frameAreaService.findById(parentId.toString());
 			if(parentArea!=null){
 				po.setLevel(parentArea.getLevel()+1);
 				po.setParentId(new BigInteger(parentArea.getCode()));
