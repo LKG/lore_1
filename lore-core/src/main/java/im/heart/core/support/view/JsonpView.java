@@ -5,6 +5,8 @@ import java.io.OutputStream;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.alibaba.fastjson.support.config.FastJsonConfig;
 import org.apache.commons.lang3.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializeFilter;
@@ -33,17 +35,17 @@ public class JsonpView extends FastJsonJsonView {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String jsonCallback = request.getParameter(RequestResult.JSON_CALLBACK);
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@---------------------");
 		SerializeFilter  filter =null;
 	/*	if(lazy){
 			filter = new FastJosnPropertyFilter();
 		}*/
 		Object value = super.filterModel(model);
-		String text = JSON.toJSONString(value,filter, super.getFastJsonConfig().getSerializerFeatures());	
+		FastJsonConfig fastJsonConfig =super.getFastJsonConfig();
+		String text = JSON.toJSONString(value,filter, fastJsonConfig.getSerializerFeatures());
 		if (jsonCallback != null && !StringUtils.isBlank(jsonCallback)) {
 			text = jsonCallback + "(" + text + ")";
 		}
-		byte[] bytes = text.getBytes(super.getFastJsonConfig().getCharset());
+		byte[] bytes = text.getBytes(fastJsonConfig.getCharset());
 		OutputStream stream = this.updateContentLength ? createTemporaryOutputStream()
 				: response.getOutputStream();
 		stream.write(bytes);
