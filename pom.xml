@@ -225,6 +225,11 @@
             <version>${aliyun.oss.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.aliyun.openservices</groupId>
+            <artifactId>ons-client</artifactId>
+            <version>${aliyun.ons.version}</version>
+        </dependency>
+        <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>${validation.version}</version>
@@ -299,25 +304,4 @@
             </plugin>
         </plugins>
     </build>
-    <profiles>
-        <profile>
-            <!-- windows环境 -->
-            <id>win</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <pom.office.home>C:/Program Files/LibreOffice</pom.office.home>
-                <pom.uploads.home>D:/var/www/uploads/</pom.uploads.home>
-            </properties>
-        </profile>
-        <profile>
-            <!-- linux环境 -->
-            <id>linux</id>
-            <properties>
-                <pom.office.home>/opt/libreoffice6.0</pom.office.home>
-                <pom.uploads.home>/var/www/uploads/</pom.uploads.home>
-            </properties>
-        </profile>
-    </profiles>
 </project>

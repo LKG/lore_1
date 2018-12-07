@@ -10,6 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>lore-material</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>material-domain</module>
+    </modules>
 
 
 </project>
