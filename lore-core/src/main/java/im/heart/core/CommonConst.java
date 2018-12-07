@@ -30,12 +30,12 @@ public class CommonConst {
         }
     }
     public static enum FlowStatus{
-        REFUSED("refused","拒绝"),
-        SUCCESS("success","成功"),
         INITIAL("initial","初始化"),
         WAITING("waiting","处理中"),
+        SUCCESS("success","成功"),
         FAIL("fail","失败"),
         ACCEDED("acceded","同意"),
+        REFUSED("refused","拒绝"),
         PROCESSED("processed","已处理");
         private FlowStatus(String code, String desc) {
             this.code = code;
