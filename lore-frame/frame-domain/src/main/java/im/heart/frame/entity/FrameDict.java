@@ -23,8 +23,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "dic_frame_dict")
-@DynamicUpdate(true)
-@DynamicInsert(true)
+@DynamicUpdate()
+@DynamicInsert()
 @Data
 public class FrameDict implements AbstractEntity<BigInteger> {
 

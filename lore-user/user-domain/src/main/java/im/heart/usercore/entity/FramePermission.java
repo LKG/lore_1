@@ -32,7 +32,7 @@ import com.alibaba.fastjson.annotation.JSONField;
  */
 @Entity()
 @Table(name = "dic_frame_permission")
-@DynamicUpdate(true)
+@DynamicUpdate()
 @Data
 public class FramePermission implements AbstractEntity<BigInteger> {
 	

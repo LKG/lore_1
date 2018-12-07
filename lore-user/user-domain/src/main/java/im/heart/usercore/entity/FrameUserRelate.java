@@ -30,8 +30,8 @@ import im.heart.core.entity.AbstractEntity;
  */
 @Entity()
 @Table(name = "dic_frame_user_relate")
-@DynamicUpdate(true)
-@DynamicInsert(true)
+@DynamicUpdate()
+@DynamicInsert()
 @Data
 public class FrameUserRelate implements AbstractEntity<BigInteger> {
 	

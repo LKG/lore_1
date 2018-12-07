@@ -23,7 +23,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "dic_frame_org")
-@DynamicUpdate(true)
+@DynamicUpdate()
 @Data
 public class FrameOrg implements TreeEntity<BigInteger> {
 	/**

@@ -36,8 +36,8 @@ import com.alibaba.fastjson.annotation.JSONField;
  */
 @Entity()
 @Table(name = "dic_frame_role_resource")
-@DynamicUpdate(true)
-@DynamicInsert(true)
+@DynamicUpdate()
+@DynamicInsert()
 @Data
 public class FrameRoleResource implements AbstractEntity<BigInteger> {
 	

@@ -24,8 +24,8 @@ import java.util.Date;
  */
 @Entity()
 @Table(name = "dic_frame_dict_item")
-@DynamicUpdate(true)
-@DynamicInsert(true)
+@DynamicUpdate()
+@DynamicInsert()
 @Data
 public class FrameDictItem implements TreeEntity<BigInteger> {
 

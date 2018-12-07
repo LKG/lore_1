@@ -24,8 +24,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "dic_frame_area")
-@DynamicUpdate(true)
-@DynamicInsert(true)
+@DynamicUpdate()
+@DynamicInsert()
 @Data
 public class FrameArea implements TreeEntity<String> {
     @Id

@@ -31,8 +31,8 @@ import im.heart.core.enums.Status;
  */
 @Entity()
 @Table(name = "dic_frame_user")
-@DynamicUpdate(true)
-@DynamicInsert(true)
+@DynamicUpdate()
+@DynamicInsert()
 @Data
 public class FrameUser implements AbstractEntity<BigInteger> {
 

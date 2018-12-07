@@ -20,8 +20,8 @@ import java.util.Date;
  */
 @Entity()
 @Table(name = "dic_frame_user_follow")
-@DynamicUpdate(true)
-@DynamicInsert(true)
+@DynamicUpdate()
+@DynamicInsert()
 @Data
 public class FrameUserFollow implements AbstractEntity<BigInteger> {
 	/**

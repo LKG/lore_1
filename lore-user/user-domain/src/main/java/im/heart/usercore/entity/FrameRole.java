@@ -21,8 +21,8 @@ import java.util.Date;
  */
 @Entity()
 @Table(name = "dic_frame_role")
-@DynamicUpdate(true)
-@DynamicInsert(true)
+@DynamicUpdate()
+@DynamicInsert()
 @Data
 public class FrameRole implements AbstractEntity<BigInteger> {
 	

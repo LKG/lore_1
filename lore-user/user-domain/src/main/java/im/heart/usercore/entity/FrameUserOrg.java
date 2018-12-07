@@ -20,8 +20,8 @@ import java.util.Date;
  */
 @Entity()
 @Table(name = "dic_frame_user_org")
-@DynamicUpdate(true)
-@DynamicInsert(true)
+@DynamicUpdate()
+@DynamicInsert()
 @Data
 public class FrameUserOrg implements AbstractEntity<BigInteger> {
 

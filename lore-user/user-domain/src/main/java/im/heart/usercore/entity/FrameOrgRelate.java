@@ -35,7 +35,7 @@ import im.heart.core.entity.AbstractEntity;
 
 @Entity()
 @Table(name = "dic_frame_org_relate")
-@DynamicUpdate(true)
+@DynamicUpdate()
 @Data
 public class FrameOrgRelate implements AbstractEntity<BigInteger> {
 	

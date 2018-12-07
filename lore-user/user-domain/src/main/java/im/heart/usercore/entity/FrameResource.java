@@ -39,8 +39,8 @@ import im.heart.core.utils.StringUtilsEx;
  */
 @Entity()
 @Table(name = "dic_frame_resource")
-@DynamicUpdate(true)
-@DynamicInsert(true)
+@DynamicUpdate()
+@DynamicInsert()
 @Data
 public class FrameResource implements TreeEntity<BigInteger>  {
 	
