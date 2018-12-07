@@ -130,7 +130,7 @@ public class MaterialCategory implements TreeEntity<BigInteger>{
 	@Override
 	public boolean isRoot() {
 		if (this.getParentId() != null
-				&& this.getParentId().toString().equals("0")) {
+				&& BigInteger.ZERO.equals(this.getParentId())) {
 			return true;
 		}
 		return false;

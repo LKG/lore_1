@@ -251,7 +251,6 @@
         <module>lore-user</module>
         <module>lore-web</module>
         <module>lore-pay</module>
-        <module>lore-notify</module>
         <module>lore-shop</module>
         <module>lore-material</module>
         <module>lore-notify</module>
