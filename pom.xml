@@ -3,7 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>im.heart</groupId>
     <artifactId>lore</artifactId>
     <packaging>pom</packaging>
@@ -55,11 +54,13 @@
         <commons-lang3.version>3.8.1</commons-lang3.version>
         <commons-io.version>2.6</commons-io.version>
         <commons-codec.version>1.11</commons-codec.version>
-        <aliyunOss.version>2.7.0</aliyunOss.version>
+        <aliyun.oss.version>2.7.0</aliyun.oss.version>
+        <aliyun.ons.version>1.7.8.Final</aliyun.ons.version>
         <validation.version>2.0.1.Final</validation.version>
         <persistence.version>1.0.2</persistence.version>
         <xstream.version>1.4.9</xstream.version>
         <urlrewritefilter.version>4.0.4</urlrewritefilter.version>
+        <spring-social.version>1.1.6.RELEASE</spring-social.version>
     </properties>
     <dependencyManagement>
     <dependencies>
@@ -90,16 +91,26 @@
             <artifactId>xstream</artifactId>
             <version>${xstream.version}</version>
         </dependency>
+<!--        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-core</artifactId>
+            <version>${spring-social.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-config</artifactId>
+            <version>${spring-social.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-web</artifactId>
+            <version>${spring-social.version}</version>
+        </dependency>-->
         <!-- https://mvnrepository.com/artifact/org.tuckey/urlrewritefilter -->
         <dependency>
             <groupId>org.tuckey</groupId>
             <artifactId>urlrewritefilter</artifactId>
             <version>${urlrewritefilter.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-core</artifactId>
-            <version>1.1.6.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -211,7 +222,7 @@
         <dependency>
             <groupId>com.aliyun.oss</groupId>
             <artifactId>aliyun-sdk-oss</artifactId>
-            <version>${aliyunOss.version}</version>
+            <version>${aliyun.oss.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
@@ -232,6 +243,11 @@
         <module>lore-conf</module>
         <module>lore-admin</module>
         <module>lore-search</module>
+        <module>lore-wechat</module>
+        <module>lore-user</module>
+        <module>lore-web</module>
+        <module>lore-pay</module>
+        <module>lore-notify</module>
     </modules>
 
     <build>
