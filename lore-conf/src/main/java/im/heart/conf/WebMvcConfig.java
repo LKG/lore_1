@@ -27,32 +27,6 @@ import java.util.List;
 public class WebMvcConfig implements WebMvcConfigurer {
     @Value("${prod.upload.path.root}")
     private String prodUploadFilePath = "";
-//    @Bean
-//    public ViewResolver contentNegotiatingViewResolver(
-//            ContentNegotiationManager manager) {
-//        // Define the view resolvers
-//        ViewResolver beanNameViewResolver = new BeanNameViewResolver();
-//        List<ViewResolver> resolvers = Lists.newArrayList(beanNameViewResolver);
-//        ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
-//        resolver.setViewResolvers(resolvers);
-//        resolver.setContentNegotiationManager(manager);
-//        return resolver;
-//    }
-//    @Bean
-//    public ViewResolver xStreamMarshaller() {
-//        XStreamMarshaller xStreamMarshaller=new XStreamMarshaller();
-//        return null;
-//    }
-//
-//
-////    @Bean
-////    public FastJsonHttpMessageConverter fastJsonHttpMessageConverter(
-////            ContentNegotiationManager manager) {
-////        FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
-////        return fastJsonHttpMessageConverter;
-////    }
-//
-//
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
         //setUseSuffixPatternMatch 后缀模式匹配
