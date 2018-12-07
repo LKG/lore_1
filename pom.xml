@@ -243,7 +243,6 @@
         <module>lore-conf</module>
         <module>lore-admin</module>
         <module>lore-search</module>
-        <module>lore-wechat</module>
         <module>lore-user</module>
         <module>lore-web</module>
         <module>lore-pay</module>
