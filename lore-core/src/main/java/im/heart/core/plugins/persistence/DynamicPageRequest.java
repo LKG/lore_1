@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +26,7 @@ public class DynamicPageRequest {
 	/**
 	 * 最多排序条件
 	 */
-	private static Integer MAX_SORTFIELDS=20;
+	private static Integer MAX_SORT_FIELDS=20;
 	/**
 	 * 
 	 * @Desc：过滤无效排序条件
@@ -33,8 +35,8 @@ public class DynamicPageRequest {
 	 * @return
 	 */
 	private static <T> List<String>  getSortFilterList(final Class<T> entityClazz,String[] sortFieldNames){
-		List<String> list = new  ArrayList<String>();
-		Map<String, String> fieldMap=new HashMap<String, String>();
+		List<String> list = Lists.newArrayList();
+		Map<String, String> fieldMap= Maps.newHashMap();
 		Field[] fields = entityClazz.getDeclaredFields();
 		for(Field field:fields){
 			fieldMap.put(field.getName(), field.getName());
@@ -62,7 +64,7 @@ public class DynamicPageRequest {
 	public static <T> PageRequest buildPageRequest(int pageNumber, int pageSize,String sortField,String order,final Class<T> entityClazz) {
 		String[] sortFieldNames = StringUtils.split(sortField, ",");
 		if(sortFieldNames!=null){
-			if(sortFieldNames.length>MAX_SORTFIELDS){
+			if(sortFieldNames.length>MAX_SORT_FIELDS){
 				throw new IllegalArgumentException(sortFieldNames + " is too more... ");
 			}
 			List<String> list = getSortFilterList(entityClazz,sortFieldNames);
