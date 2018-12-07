@@ -26,7 +26,7 @@ public class HomeController extends AbstractController {
 		return new ModelAndView("front/welcome");
 	}
 	/**
-	 * @功能说明： 关于我们
+	 *  关于我们
 	 * @param request
 	 * @return
 	 */
@@ -36,7 +36,7 @@ public class HomeController extends AbstractController {
 	}
 
 	/**
-	 * @功能说明： VIP
+	 *  VIP
 	 * @param request
 	 * @return
 	 */
@@ -45,7 +45,7 @@ public class HomeController extends AbstractController {
 		return new ModelAndView("front/vip");
 	}
 	/**
-	 * @功能说明： 新手帮助
+	 *  新手帮助
 	 * @param request
 	 * @return
 	 */
@@ -55,7 +55,7 @@ public class HomeController extends AbstractController {
 	}
 	
 	/**
-	 * @功能说明： 联系我们
+	 *  联系我们
 	 * @param request
 	 * @return
 	 */
@@ -66,7 +66,7 @@ public class HomeController extends AbstractController {
 
 
 	/**
-	 * @功能说明： 常见问题
+	 *  常见问题
 	 * @param request
 	 * @return
 	 */
@@ -77,7 +77,7 @@ public class HomeController extends AbstractController {
 
 
 	/**
-	 * @功能说明： 协议
+	 *  协议
 	 * @param request
 	 * @return
 	 */

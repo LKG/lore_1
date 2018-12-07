@@ -27,8 +27,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 
- * @功能说明：commons.io.FileUtils 扩展工具类
- * @作者 LKG
+ * commons.io.FileUtils 扩展工具类
+ * @author gg
  */
 public class FileUtilsEx extends FileUtils {
 	protected static final Logger logger = LoggerFactory.getLogger(FileUtilsEx.class);
@@ -80,7 +80,7 @@ public class FileUtilsEx extends FileUtils {
 	}
 	/**
 	 * 
-	 * @功能说明：判断输入流是否为压缩文件
+	 * 判断输入流是否为压缩文件
 	 * @param input
 	 * @return
 	 * @throws IOException
@@ -92,7 +92,7 @@ public class FileUtilsEx extends FileUtils {
 		return headHex.equals(FileHeader.ZIP.value);
 	}
 	/**
-	 * @功能说明： 获取文件大小
+	 *  获取文件大小
 	 * @param filePath
 	 * @return
 	 */
@@ -102,7 +102,7 @@ public class FileUtilsEx extends FileUtils {
 	}
 	
 	/**
-	 * @功能说明： 获取文件大小
+	 *  获取文件大小
 	 * @param file
 	 * @return
 	 */
@@ -115,7 +115,7 @@ public class FileUtilsEx extends FileUtils {
 	
 	/**
 	 * 
-	 * @功能说明：根据图片的二进制流获取文件类型
+	 * 根据图片的二进制流获取文件类型
 	 * @param data
 	 * @return
 	 * @throws IOException
@@ -138,7 +138,7 @@ public class FileUtilsEx extends FileUtils {
 
 	/**
 	 * 
-	 * @功能说明：压缩
+	 * 压缩
 	 * @param str
 	 * @return
 	 */
@@ -157,7 +157,7 @@ public class FileUtilsEx extends FileUtils {
 
 	/**
 	 * 
-	 * @功能说明：gzip解压
+	 * gzip解压
 	 * @param b
 	 * @return
 	 */
@@ -183,7 +183,7 @@ public class FileUtilsEx extends FileUtils {
 
 	/**
 	 * 
-	 * @功能说明：判断文件是否为指定类型文件
+	 * 判断文件是否为指定类型文件
 	 * @param input
 	 * @param tag
 	 * @return
@@ -201,7 +201,7 @@ public class FileUtilsEx extends FileUtils {
 
 	/**
 	 * 
-	 * @功能说明：Hex to byte[]
+	 * Hex to byte[]
 	 * @param hex
 	 * @return
 	 */
@@ -222,7 +222,7 @@ public class FileUtilsEx extends FileUtils {
 
 	/**
 	 * 
-	 * @功能说明：byte[] 转 Hex
+	 * byte[] 转 Hex
 	 * @param raw
 	 * @return
 	 */
@@ -242,7 +242,7 @@ public class FileUtilsEx extends FileUtils {
 
 	/**
 	 * 
-	 * @功能说明：创建并写入文件
+	 * 创建并写入文件
 	 * @param filePath
 	 * @param fileName
 	 * @param data
@@ -268,7 +268,7 @@ public class FileUtilsEx extends FileUtils {
 
 	/**
 	 * 
-	 * @功能说明：创建并写入文件
+	 * 创建并写入文件
 	 * @param filePath
 	 * @param bits
 	 * @param bits

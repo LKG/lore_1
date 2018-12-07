@@ -186,7 +186,7 @@ public abstract  class AbstractController {
     }
     /**
      *
-     * @功能说明：文件上传
+     * 文件上传
      * @param file
      * @param path
      * @return
@@ -225,7 +225,7 @@ public abstract  class AbstractController {
     }
     /**
      *
-     * @功能说明：文件上传
+     * 文件上传
      * @param file
      * @param path
      * @return

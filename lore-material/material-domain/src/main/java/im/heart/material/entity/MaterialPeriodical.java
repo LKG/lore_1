@@ -20,8 +20,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.alibaba.fastjson.annotation.JSONField;
 /**
  * 
- * @作者 LKG 
- * @功能说明：材料上传记录表
+ * @author gg
+ * 材料上传记录表
  */
 @Entity()
 @Table(name = "material_periodical")
