@@ -54,7 +54,7 @@ public class UploadMaterialController extends AbstractController {
     @Value("${prod.material.file.path}")
     private String materialFilePath="";
     @Value("${prod.upload.path.root}")
-    private String uplaodFilePath="";
+    private String uploadFilePath="";
     /**
      *
      * 文件上传
@@ -88,7 +88,7 @@ public class UploadMaterialController extends AbstractController {
         List<MultipartFile> uploadFileList = super.getFileList(request);
         if (uploadFileList != null && !uploadFileList.isEmpty()) {
             for (MultipartFile file : uploadFileList) {
-                String realPath = uplaodFilePath;
+                String realPath = uploadFilePath;
                 String path = File.separator+materialFilePath+File.separator + DateTime.now().toString("yyyyMMdd") + File.separator;
                 try {
                     String realfileName = this.uploadFile(file, realPath + path);
@@ -183,7 +183,7 @@ public class UploadMaterialController extends AbstractController {
                 materialPeriodicalImg.setPeriodicalCode(periodicalCode);
                 materialPeriodicalImg.setPeriodicalType(periodicalType);
                 String url  = StringUtilsEx.replace(dstFile.getPath(), File.separator, "/");
-                url =StringUtilsEx.replace(url, StringUtilsEx.replace(uplaodFilePath, File.separator, "/") , "");
+                url =StringUtilsEx.replace(url, StringUtilsEx.replace(uploadFilePath, File.separator, "/") , "");
                 String imgUrl="/"+FILE_PATH+"/"+url;
                 materialPeriodicalImg.setImgUrl(imgUrl);
                 materialPeriodicalImg.setPathUrl(dstFile.getPath());
