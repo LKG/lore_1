@@ -12,7 +12,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 /**
  *
  * @author gg
- * @desc : 认证配置
+ * 认证配置
  * //启用web权限
  * //启用方法验证
  */

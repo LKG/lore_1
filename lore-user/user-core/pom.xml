@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>lore-usercore</artifactId>
+        <artifactId>lore-user</artifactId>
         <groupId>im.heart</groupId>
         <version>0.0.1</version>
     </parent>
@@ -11,5 +11,11 @@
 
     <artifactId>user-core</artifactId>
 
-
+<dependencies>
+    <dependency>
+        <groupId>im.heart</groupId>
+        <artifactId>user-domain</artifactId>
+        <version>0.0.1</version>
+    </dependency>
+</dependencies>
 </project>

@@ -12,7 +12,7 @@ public class ValidatorUtils implements Regular {
 	protected static final Logger logger = LoggerFactory.getLogger(ValidatorUtils.class);
 	/**
 	 * 
-	 * @Desc： 判断是不是一个合法的电子邮件地址
+	 *  判断是不是一个合法的电子邮件地址
 	 * @param email
 	 * @return
 	 */
@@ -30,7 +30,7 @@ public class ValidatorUtils implements Regular {
 	}
 	/**
 	 * 
-	 * @Desc：判断是否包含中文
+	 * 判断是否包含中文
 	 * @param str
 	 * @return
 	 */
@@ -42,7 +42,7 @@ public class ValidatorUtils implements Regular {
 	}
 	/**
 	 * 
-	 * @Desc：判断是否为日期格式
+	 * 判断是否为日期格式
 	 * @param str
 	 * @return
 	 */
@@ -55,7 +55,7 @@ public class ValidatorUtils implements Regular {
 	
 	/**
 	 * 
-	 * @Desc：判断是否为电话号码
+	 * 判断是否为电话号码
 	 * @param phone
 	 * @return
 	 */
@@ -66,7 +66,7 @@ public class ValidatorUtils implements Regular {
 		return phoner.matcher(phone).matches();
 	}
 	/**
-	 * @Desc：判断是否为IP地址
+	 * 判断是否为IP地址
 	 * @param ip
 	 * @return
 	 */
@@ -78,7 +78,7 @@ public class ValidatorUtils implements Regular {
 	 }
 	 /**
 	  * 
-	  * @Desc：判断是否为url
+	  * 判断是否为url
 	  * @param url
 	  * @return
 	  */
@@ -91,7 +91,7 @@ public class ValidatorUtils implements Regular {
 	 
 	 /**
 	  * 
-	  * @Desc：判断是否为身份证号码
+	  * 判断是否为身份证号码
 	  * @param idCard
 	  * @return
 	  */

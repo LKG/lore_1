@@ -30,7 +30,7 @@ import im.heart.core.validator.BeanValidators;
 /**
  * 
  * @author: gg
- * @desc : 统一异常处理
+ * 统一异常处理
  */
 @ControllerAdvice
 public class RestExceptionHandler{
@@ -74,7 +74,7 @@ public class RestExceptionHandler{
 		return this.chooseView(request,this.error(request, ex));
 	}
 	/**
-	 * @desc : 处理SQL 异常
+	 * 处理SQL 异常
 	 * @param request
 	 * @param ex
 	 * @return
@@ -97,7 +97,7 @@ public class RestExceptionHandler{
 		return this.chooseView(request,this.error(request, ex));
 	}
 	/**
-	 * @desc : ConstraintViolationException 校验 异常
+	 * ConstraintViolationException 校验 异常
 	 * @param request
 	 * @param ex
 	 * @return

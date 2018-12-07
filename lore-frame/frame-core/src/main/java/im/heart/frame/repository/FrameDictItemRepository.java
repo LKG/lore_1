@@ -8,7 +8,7 @@ import java.math.BigInteger;
 /**
  * 
  * @author gg
- * @Desc : 数据字典子表 CROD 接口
+ * 数据字典子表 CROD 接口
  */
 public interface FrameDictItemRepository  extends JpaRepository<FrameDictItem, BigInteger> ,JpaSpecificationExecutor<FrameDictItem> {
 

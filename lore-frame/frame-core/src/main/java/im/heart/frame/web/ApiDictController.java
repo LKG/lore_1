@@ -25,7 +25,7 @@ import java.math.BigInteger;
 /**
  *
  * @author gg
- * @desc : 数据字典
+ * 数据字典
  */
 @Controller
 @RequestMapping("/api/v1")
@@ -41,7 +41,7 @@ public class ApiDictController extends AbstractController {
 
     /**
      *
-     * @Desc：查询所有
+     * 查询所有
      * @param request
      * @param response
      * @param jsoncallback

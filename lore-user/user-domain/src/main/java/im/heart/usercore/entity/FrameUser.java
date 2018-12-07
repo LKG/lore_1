@@ -7,15 +7,11 @@ import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 import lombok.Data;
 import org.hibernate.annotations.*;
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -27,7 +23,7 @@ import im.heart.core.enums.Status;
 /**
  * 
  * @author gg
- * @Desc : 用户表
+ * 用户表
  */
 @Entity()
 @Table(name = "dic_frame_user")
@@ -66,143 +62,167 @@ public class FrameUser implements AbstractEntity<BigInteger> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(length = 20, name = "USER_ID", nullable = false, unique = true, updatable = false)
-	private BigInteger userId;// 用户编号
+	private BigInteger userId;
 
+	/**
+	 * 登录帐号
+	 */
 	@NotBlank
 	@Size(min = 5, max = 32)
 	@Length(max = 32)
 	@Column(length = 32, name = "USER_NAME", nullable = false, unique = true, updatable = false)
-	private String userName;// 登录帐号
-	
+	private String userName;
+	/**
+	 * 账号类型
+	 */
 	@Column(length = 32, name = "USER_TYPE", nullable = false, unique = true, updatable = false)
-	private String userType;// 账号类型
-	
-	
+	private String userType;
+
+	/**
+	 * 用户手机号，可用于登录
+	 */
 	@NotBlank
 	@Length(min = 6, max = 13)
 	@Column(length = 32, name = "USER_PHONE", nullable = false)
-	private String userPhone; //用户手机号，可用于登录
+	private String userPhone;
 	
 	@JSONField(serialize = false)
 	@Length(max = 128)
 	@Column(length = 128, name = "SALT_KEY", nullable = false)
-	private String saltKey;// key
-	
+	private String saltKey;
+	/**
+	 * 短信验证码 非数据库字段
+	 */
 	@Transient
 	@Size(min = 5, max = 15)
 	@JSONField(serialize = false)
-	private String phoneCode;// 短信验证码 非数据库字段
-	
+	private String phoneCode;
+
+	/**
+	 *  昵称
+	 */
 	@Length(max = 128)
 	@Column(length = 128, name = "NICK_NAME")
-	private String nickName = "";// 昵称
+	private String nickName = "";
 
+	/**
+	 * //用户邮箱，可用于登录
+	 */
 	@Email
 	@Length(max = 128)
 	@Column(length = 128, name = "USER_EMAIL")
-	private String userEmail;//用户邮箱，可用于登录
+	private String userEmail;
 	
 	@NotBlank
 	@Size(min = 6, max = 32)
 	@JSONField(serialize = false)
 	@Column(length = 128, name = "PASS_WORD", nullable = false)
-	private String passWord;// 密码
+	private String passWord;
 	
 	@Column(name = "USER_LEVEL", nullable = false)
-	private Integer userLevel = 1; // 用户级别
-	
+	private Integer userLevel = 1;
+
+	/**
+	 * // 确认密码 非数据库字段
+	 */
 	@Transient
 	@Size(min = 6, max = 15)
 	@JSONField(serialize = false)
-	private String retryPassWord;// 确认密码 非数据库字段
+	private String retryPassWord;
 	
 	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "CREATE_TIME", nullable = false, updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date createTime; // 创建日期
+	private Date createTime;
 
 	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@Column(nullable=false, name = "MODI_TIME")
+	@Column(nullable=false, name = "modify_time")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date modiTime;// 修改日期
+	private Date modifyTime;
 	
 	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "EXPIRY_TIME")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Future()
-	private Date expiryTime;// 有效期
+	private Date expiryTime;
 	
 	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "LAST_LOGIN_TIME")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date lastLoginTime;// 最后登录时间
+	private Date lastLoginTime;
 	
 	@Length(max = 64)
 	@Column(length = 64, name = "LAST_LOGIN_IP", nullable = false)
-	private String lastLoginIP = "";// 最后登录IP
+	private String lastLoginIP = "";
 	
 	@Length(max = 128)
 	@Column(length = 128, name = "head_portrait", nullable = false)
 	private String headPortrait ;
-	
-	// 新增属性
+
 	@Column(name = "USER_POINT", nullable = false)
-	private BigInteger userPoint = BigInteger.ZERO;// 积分
+	private BigInteger userPoint = BigInteger.ZERO;
 	
 	@Column(nullable = false, name = "STATUS",length=16)
 	@Enumerated(EnumType.STRING)
-	private Status status = Status.pending;// 用户状态，用于表示用户状态
+	private Status status = Status.pending;
 
-	//-----------------------
-	
+	/**
+	 * // 用户审核认证状态，已审核，待审核，审核中，审核驳回
+	 */
 	@Column(nullable = false, name = "CHECK_STATUS" ,length=16)
 	@Enumerated(EnumType.STRING)
-	private CheckStatus checkStatus = CheckStatus.pending;// 用户审核认证状态，已审核，待审核，审核中，审核驳回
+	private CheckStatus checkStatus = CheckStatus.pending;
 
+	/**
+	 * // 真实名称
+	 */
 	@Length(max = 128)
 	@Column(length = 128, name = "REAL_NAME")
-	private String realName = "";// 真实名称
+	private String realName = "";
+	/**
+	 * // 渠道
+	 */
 	@Length(max = 128)
 	@Column(length = 128, name = "USER_CHANNEL", updatable = false)
-	private String userChannel = "";// 渠道
+	private String userChannel = "";
 	
 	@Length(min = 15, max = 32)
 	@Column(length = 32, name = "ID_CARD")
 	@Pattern(regexp="^(\\d{6})(\\d{4})(\\d{2})(\\d{2})(\\d{3})([0-9]|X)$")
 	private String idCard;
-	
-	//-----------------------
+
 	@OneToOne(cascade = {CascadeType.REFRESH},fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name="DEFAULT_ORG_ID" )//关联的表为org表，其主键是id
     @JSONField(serialzeFeatures={SerializerFeature.DisableCircularReferenceDetect})
-	@NotFound(action=NotFoundAction.IGNORE)
+	@NotFound(action= NotFoundAction.IGNORE)
     @Fetch(FetchMode.JOIN)
 	private FrameOrg relateOrg;
-	
+
+
 	@Length(max = 256)
-	@Column(length = 256, name = "REMARK", updatable = false)
+	@Column(length = 256, name = "REMARK")
 	@JSONField(serialize = false)
-	private String remark="";// 备注信息，不随用户更新
+	private String remark="";
 	
 /*	private Set<FrameUserAttr> userAttrs;*/
 
 	@PrePersist
 	protected void onCreate() {
 		createTime = new Date();
-		modiTime = new Date();
+		modifyTime = new Date();
 	}
 
 	@PreUpdate
 	protected void onUpdate() {
-		modiTime = new Date();
+		modifyTime = new Date();
 	}
 	/**
 	 * 
-	 * @Desc：获取salt
+	 * 获取salt
 	 * @return
 	 */
 	@JSONField(serialize = false)

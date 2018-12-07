@@ -41,7 +41,7 @@ public abstract  class AbstractController {
 
     /**
      *
-     * @Desc： 当前模块 视图的前缀 默认 1、获取当前类头上的@RequestMapping中的value作为前缀
+     *  当前模块 视图的前缀 默认 1、获取当前类头上的@RequestMapping中的value作为前缀
      * 2、如果没有就使用当前模型小写的简单类名
      * @param viewPrefix
      */
@@ -53,7 +53,7 @@ public abstract  class AbstractController {
     }
     /**
      *
-     * @Desc：设置session
+     * 设置session
      * @param request
      * @param paraName
      * @param para
@@ -66,7 +66,7 @@ public abstract  class AbstractController {
     }
     /**
      *
-     * @Desc：根据参数名获取SESSION 对应值
+     * 根据参数名获取SESSION 对应值
      * @param request
      * @param paraName
      * @return
@@ -83,7 +83,7 @@ public abstract  class AbstractController {
     }
     /**
      *
-     * @Desc：backURL null 将重定向到默认getViewPrefix()
+     * backURL null 将重定向到默认getViewPrefix()
      * @param backURL
      * @return
      */
@@ -97,7 +97,7 @@ public abstract  class AbstractController {
         return "redirect:" + backURL;
     }
     /**
-     * @Desc：获取当前请求根路径
+     * 获取当前请求根路径
      * @param req
      * @return
      */
@@ -105,7 +105,7 @@ public abstract  class AbstractController {
         return BaseUtils.getBasePath(req);
     }
     /**
-     * @Desc：获取上次请求地址
+     * 获取上次请求地址
      * @param request
      * @return
      */
@@ -114,7 +114,7 @@ public abstract  class AbstractController {
     }
     /**
      *
-     * @Desc：获取上传文件列表信息 ？@RequestParam MultipartFile file[],
+     * 获取上传文件列表信息 ？@RequestParam MultipartFile file[],
      * @param request
      * @return
      */

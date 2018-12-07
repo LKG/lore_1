@@ -29,7 +29,7 @@ public class DynamicPageRequest {
 	private static Integer MAX_SORT_FIELDS=20;
 	/**
 	 * 
-	 * @Desc：过滤无效排序条件
+	 * 过滤无效排序条件
 	 * @param entityClazz
 	 * @param sortFieldNames
 	 * @return
@@ -54,7 +54,7 @@ public class DynamicPageRequest {
 	
 	/**
 	 * 
-	 * @Desc：创建分页请求
+	 * 创建分页请求
 	 * @param pageNumber
 	 * @param pageSize
 	 * @param sortField

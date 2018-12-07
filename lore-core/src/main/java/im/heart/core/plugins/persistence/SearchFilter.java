@@ -69,7 +69,7 @@ public class SearchFilter {
 	}
 
 	/**
-	 * @Desc：处理查询参数searchParams中key的格式为FIELDNAME_OPERATOR
+	 * 处理查询参数searchParams中key的格式为FIELDNAME_OPERATOR
 	 * @param searchParams
 	 * @return
 	 */

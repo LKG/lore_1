@@ -26,7 +26,7 @@ import im.heart.core.entity.AbstractEntity;
 /**
  * 
  * @author gg
- * @Desc : 用户角色关联表
+ * 用户角色关联表
  */
 @Entity()
 @Table(name = "dic_frame_user_role")

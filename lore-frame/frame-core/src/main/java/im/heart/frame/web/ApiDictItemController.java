@@ -29,7 +29,7 @@ import java.util.Collection;
 /**
  * 
  * @author gg
- * @desc : 数据字典子表
+ * 数据字典子表
  */
 @Controller
 @RequestMapping("/api/v1")
@@ -69,7 +69,7 @@ public class ApiDictItemController extends AbstractController {
 	
 	/**
 	 * 
-	 * @Desc：查询所有
+	 * 查询所有
 	 * @param request
 	 * @param response
 	 * @param jsoncallback

@@ -16,7 +16,7 @@ import java.util.Date;
 /**
  * 
  * @author gg
- * @Desc : 用户机构关联表
+ * 用户机构关联表
  */
 @Entity()
 @Table(name = "dic_frame_user_org")

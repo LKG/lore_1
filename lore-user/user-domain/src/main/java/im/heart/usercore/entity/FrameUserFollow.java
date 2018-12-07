@@ -16,7 +16,7 @@ import java.util.Date;
 /**
  * 
  * @author gg
- * @Desc : 用户关系表
+ * 用户关系表
  */
 @Entity()
 @Table(name = "dic_frame_user_follow")

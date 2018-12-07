@@ -19,7 +19,7 @@ import freemarker.template.Template;
 /**
  * 
  * @author gg
- * @Desc : FreeMarkers 帮助工具类
+ * FreeMarkers 帮助工具类
  */
 public class FreeMarkerUtils {
 

@@ -15,8 +15,8 @@ public class CommonConst {
     public static final String CACHE_MANAGER_NAME = "cacheManager";
     /**
      *
-     * @author： LKG
-     * @Desc：常用活跃状态枚举
+     * @author： gg
+     * 常用活跃状态枚举
      */
     public static enum Active{
         WAITING(-1, "waiting", "等待"),  RUNNING(0,	"running", "运行中");
@@ -45,8 +45,8 @@ public class CommonConst {
         public String desc;
     }
     /**
-     * @Desc：默认分页参数
-     * @author： LKG
+     * 默认分页参数
+     * @author： gg
      */
     public static class Page {
         public static final int DEFAULT_PAGE = 1;
@@ -56,7 +56,7 @@ public class CommonConst {
         public static final String DEFAULT_ORDER = ORDER_ASC;
     }
     /**
-     * @Desc：Request返回结果对象
+     * Request返回结果对象
      * @author LKG
      */
     public static class RequestResult {

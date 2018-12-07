@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * 
  * @author lkg
- * @Desc : 邮件发送实现类 Demo
+ * 邮件发送实现类 Demo
  */
 @Component(value = SendEmailService.BEAN_NAME)
 @Transactional(propagation = Propagation.SUPPORTS,rollbackFor = Exception.class)

@@ -25,7 +25,7 @@ public class DateUtilsEx extends DateUtils {
 
 	/**
 	 * 
-	 * @Desc：判断是否为yyyy-MM-dd 日期格式 兼容 yyyy-MM-dd HH:mm:ss
+	 * 判断是否为yyyy-MM-dd 日期格式 兼容 yyyy-MM-dd HH:mm:ss
 	 * @param str
 	 * @return
 	 */
@@ -34,7 +34,7 @@ public class DateUtilsEx extends DateUtils {
 	}
 	/**
 	 * 
-	 * @Desc：判断是否为指定日期格式
+	 * 判断是否为指定日期格式
 	 * @param str
 	 * @param dateFormat
 	 * @return
@@ -51,7 +51,7 @@ public class DateUtilsEx extends DateUtils {
 	}
 	/**
 	 * 
-	 * @Desc：判断是否为yyyy-MM-dd HH:mm:ss 日期格式  
+	 * 判断是否为yyyy-MM-dd HH:mm:ss 日期格式
 	 * @param str
 	 * @return
 	 */
@@ -61,7 +61,7 @@ public class DateUtilsEx extends DateUtils {
 	
 	/**
 	 * 
-	 * @Desc：转换日期为XMLGregorianCalendar 格式
+	 * 转换日期为XMLGregorianCalendar 格式
 	 * @param date
 	 * @return
 	 */
@@ -82,7 +82,7 @@ public class DateUtilsEx extends DateUtils {
 	}
 	/**
 	 * 
-	 * @Desc：转换日期为字符串格式
+	 * 转换日期为字符串格式
 	 * @param aDate
 	 * @param format
 	 * @return
@@ -97,7 +97,7 @@ public class DateUtilsEx extends DateUtils {
 	}
 	/**
 	 * 
-	 * @Desc：转换日期为字符串格式  格式为yyyy-MM-dd
+	 * 转换日期为字符串格式  格式为yyyy-MM-dd
 	 * @param aDate
 	 * @return
 	 */
@@ -106,7 +106,7 @@ public class DateUtilsEx extends DateUtils {
 	}
 	/**
 	 * 
-	 * @Desc：转换日期为字符串格式  格式为yyyy-MM-dd HH:mm:ss
+	 * 转换日期为字符串格式  格式为yyyy-MM-dd HH:mm:ss
 	 * @param aDate
 	 * @return
 	 */
@@ -115,7 +115,7 @@ public class DateUtilsEx extends DateUtils {
 	}
 	/**
 	 * 
-	 * @Desc：字符串转换为日期类型
+	 * 字符串转换为日期类型
 	 * @param strDate
 	 * @param format
 	 * @return
@@ -136,7 +136,7 @@ public class DateUtilsEx extends DateUtils {
 
 	/**
 	 * 
-	 * @Desc：字符串转换为日期类型 默认格式为 yyyy-MM-dd
+	 * 字符串转换为日期类型 默认格式为 yyyy-MM-dd
 	 * @param strDate
 	 * @return
 	 * @throws ParseException

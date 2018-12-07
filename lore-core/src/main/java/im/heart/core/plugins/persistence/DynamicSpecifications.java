@@ -57,7 +57,7 @@ public class DynamicSpecifications {
 	}
 	/**
 	 * 
-	 * @Desc：解析参数
+	 * 解析参数
 	 * @param request
 	 * @return
 	 */
@@ -68,7 +68,7 @@ public class DynamicSpecifications {
 	
 	/**
 	 * 
-	 * @Desc：解析参数  不可动态添加数据
+	 * 解析参数  不可动态添加数据
 	 * @param request
 	 * @return
 	 */
@@ -81,7 +81,7 @@ public class DynamicSpecifications {
 	}
 	/**
 	 * 
-	 * @Desc：解析参数  不可动态添加数据
+	 * 解析参数  不可动态添加数据
 	 * @param request
 	 * @return
 	 */
@@ -93,7 +93,7 @@ public class DynamicSpecifications {
 	}
 	/**
 	 * 
-	 * @Desc：：处理查询参数，动态拼接查询条件
+	 * ：处理查询参数，动态拼接查询条件
 	 * @param request
 	 * @param entityClazz
 	 * @return
@@ -105,7 +105,7 @@ public class DynamicSpecifications {
 
 	/**
 	 * 
-	 * @Desc：
+	 *
 	 * @param entityClazz
 	 * @return
 	 */
@@ -120,7 +120,7 @@ public class DynamicSpecifications {
 
 	/**
 	 * 
-	 * @Desc：处理查询参数，动态拼接查询条件
+	 * 处理查询参数，动态拼接查询条件
 	 * @param filters
 	 * @param entityClazz
 	 * @return

@@ -12,7 +12,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 /**
  *
  * @author: gg
- * @desc : spring 国际化 配置
+ * spring 国际化 配置
  */
 @Configuration
 public class LocaleConfig implements WebMvcConfigurer {

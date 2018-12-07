@@ -24,7 +24,7 @@ public interface FrameAreaService extends CommonService<FrameArea, String>{
 
 	/**
 	 * 
-	 * @Desc：批量保存
+	 * 批量保存
 	 * @param entities
 	 * @return
 	 */

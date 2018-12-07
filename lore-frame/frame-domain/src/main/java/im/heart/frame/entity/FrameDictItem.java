@@ -20,7 +20,7 @@ import java.util.Date;
 /**
  * 
  * @author gg
- * @Desc : 数据字典明细表
+ * 数据字典明细表
  */
 @Entity()
 @Table(name = "dic_frame_dict_item")

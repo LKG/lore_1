@@ -29,7 +29,7 @@ public class BaseUtils {
 	static final int HTTPS_PORT = 443;
 	/**
 	 * 
-	 * @Desc：获取客户IP地址
+	 * 获取客户IP地址
 	 * @param request
 	 * @return
 	 */
@@ -54,7 +54,7 @@ public class BaseUtils {
 
 
 	/**
-	 * @Desc：获取当前请求根路径
+	 * 获取当前请求根路径
 	 * @param req
 	 * @return
 	 */
@@ -72,7 +72,7 @@ public class BaseUtils {
 	}
 
 	/**
-	 * @Desc：获取本机IP地址
+	 * 获取本机IP地址
 	 * @return
 	 */
 	public static String getServerIp(){
@@ -98,7 +98,7 @@ public class BaseUtils {
 	}
 	/**
 	 * 
-	 * @Desc：设置客户端缓存过期时间 的Header.
+	 * 设置客户端缓存过期时间 的Header.
 	 * @param response
 	 * @param expiresSeconds
 	 */
@@ -110,7 +110,7 @@ public class BaseUtils {
 	}
 	/**
 	 * 
-	 * @Desc：设置禁止客户端缓存的Header.
+	 * 设置禁止客户端缓存的Header.
 	 * @param response
 	 */
 	public static void setNoCacheHeader(HttpServletResponse response) {
@@ -123,7 +123,7 @@ public class BaseUtils {
 
 	/**
 	 * 
-	 * @Desc：设置LastModified Header.
+	 * 设置LastModified Header.
 	 * @param response
 	 * @param lastModifiedDate
 	 */
@@ -133,7 +133,7 @@ public class BaseUtils {
 	
 	/**
 	 * 
-	 * @Desc： 设置Etag Header.
+	 *  设置Etag Header.
 	 * @param response
 	 * @param etag
 	 */
@@ -142,7 +142,7 @@ public class BaseUtils {
 	}
 	/**
 	 * 
-	 * @Desc： 根据浏览器If-Modified-Since Header, 计算文件是否已被修改.如果无修改, checkIfModify返回false ,设置304 not modify status. 用来判定重复提交
+	 *  根据浏览器If-Modified-Since Header, 计算文件是否已被修改.如果无修改, checkIfModify返回false ,设置304 not modify status. 用来判定重复提交
 	 * @param request
 	 * @param response
 	 * @param lastModified  内容的最后修改时间.
@@ -160,7 +160,7 @@ public class BaseUtils {
 
 	/**
 	 * 
-	 * @Desc： 根据浏览器 If-None-Match Header, 计算Etag是否已无效.如果Etag有效, checkIfNoneMatch返回false, 设置304 not modify status. 用来判定重复提交
+	 *  根据浏览器 If-None-Match Header, 计算Etag是否已无效.如果Etag有效, checkIfNoneMatch返回false, 设置304 not modify status. 用来判定重复提交
 	 * @param request
 	 * @param response
 	 * @param etag  内容的ETag.
@@ -191,7 +191,7 @@ public class BaseUtils {
 	}
 	/**
 	 * 
-	 * @Desc：设置让浏览器弹出下载对话框的Header,不同浏览器使用不同的编码方式.
+	 * 设置让浏览器弹出下载对话框的Header,不同浏览器使用不同的编码方式.
 	 * @param request
 	 * @param response
 	 * @param fileName 下载后的文件名.
@@ -220,7 +220,7 @@ public class BaseUtils {
 	}
 	/**
 	 * 
-	 * @Desc：检查是否支持gzip
+	 * 检查是否支持gzip
 	 * @param request
 	 * @return
 	 */
@@ -231,7 +231,7 @@ public class BaseUtils {
 	}
 	/**
 	 * 
-	 * @Desc：设置gzip 压缩请求头
+	 * 设置gzip 压缩请求头
 	 * @param response
 	 */
 	public static void setGzipHeader(HttpServletResponse response) {
@@ -241,7 +241,7 @@ public class BaseUtils {
 	
 	/**
 	 * 
-	 * @Desc：判断是否为ajax 请求
+	 * 判断是否为ajax 请求
 	 * @param request
 	 * @return
 	 */
@@ -267,7 +267,7 @@ public class BaseUtils {
 		return StringUtils.EMPTY;
 	}
 	/**
-	 * @Desc：跨域操作
+	 * 跨域操作
 	 * @param request
 	 * @param response
 	 */
@@ -290,7 +290,7 @@ public class BaseUtils {
 
 	/**
 	 * 
-	 * @Desc：转换客户真实IP地址
+	 * 转换客户真实IP地址
 	 * @param request
 	 * @return
 	 */

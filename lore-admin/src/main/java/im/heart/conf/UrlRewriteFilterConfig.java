@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  *
  * @author gg
- * @desc : UrlRewriteFilterConfig 配置项
+ * UrlRewriteFilterConfig 配置项
  */
 @Configuration
 public class UrlRewriteFilterConfig extends UrlRewriteFilter {

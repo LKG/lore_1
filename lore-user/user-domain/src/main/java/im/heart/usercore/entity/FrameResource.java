@@ -35,7 +35,7 @@ import im.heart.core.utils.StringUtilsEx;
 /**
  * 
  * @author gg
- * @Desc : 资源表
+ * 资源表
  */
 @Entity()
 @Table(name = "dic_frame_resource")

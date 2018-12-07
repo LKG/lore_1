@@ -26,7 +26,7 @@ import im.heart.core.entity.AbstractEntity;
 /**
  * 
  * @author gg
- * @Desc : 用户关系表
+ * 用户关系表
  */
 @Entity()
 @Table(name = "dic_frame_user_relate")

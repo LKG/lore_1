@@ -5,14 +5,14 @@ import java.util.Map;
 /**
  * 
  * @author lkg
- * @Desc : 邮件发送接口
+ * 邮件发送接口
  */
 public interface SendEmailService {
 	public static final String BEAN_NAME = "sendEmailService";
 
 	/**
 	 * 
-	 * @Desc：邮件发送接口
+	 * 邮件发送接口
 	 * @param emailTitle
 	 *            邮件标题
 	 * @param mailContent
@@ -28,7 +28,7 @@ public interface SendEmailService {
 
 	/**
 	 * 
-	 * @Desc：根据模板发送邮件
+	 * 根据模板发送邮件
 	 * @param model
 	 * @param emailTitle
 	 * @param templatePath

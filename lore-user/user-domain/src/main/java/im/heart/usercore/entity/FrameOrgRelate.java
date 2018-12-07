@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -30,12 +31,13 @@ import im.heart.core.entity.AbstractEntity;
 /**
  * 
  * @author gg
- * @Desc : 机构关联表，设置机构非直属关联关系 
+ * 机构关联表，设置机构非直属关联关系
  */
 
 @Entity()
 @Table(name = "dic_frame_org_relate")
 @DynamicUpdate()
+@DynamicInsert()
 @Data
 public class FrameOrgRelate implements AbstractEntity<BigInteger> {
 	

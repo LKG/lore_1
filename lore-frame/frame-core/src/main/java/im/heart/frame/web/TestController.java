@@ -31,7 +31,7 @@ import java.util.Collection;
 /**
  * 
  * @author gg
- * @desc : 数据字典子表
+ * 数据字典子表
  */
 @Controller
 public class TestController extends AbstractController {

@@ -25,7 +25,7 @@ public class WebUtilsEx extends WebUtils {
     /**
      * @param request
      * @return
-     * @Desc：获取请求头信息返回Json格式数据
+     * 获取请求头信息返回Json格式数据
      */
     public static String getHeadersJson(HttpServletRequest request) {
         Map<String, List<String>> headers = getHeaderMaps(request);
@@ -35,7 +35,7 @@ public class WebUtilsEx extends WebUtils {
     /**
      * @param request
      * @return
-     * @Desc：获取请求头信息
+     * 获取请求头信息
      */
     public static Map<String, List<String>> getHeaderMaps(
             HttpServletRequest request) {
@@ -58,7 +58,7 @@ public class WebUtilsEx extends WebUtils {
      * @param request
      * @param prefix
      * @return
-     * @Desc：获取请求参数信息 扩展getParametersStartingWit 增加参数编码转换
+     * 获取请求参数信息 扩展getParametersStartingWit 增加参数编码转换
      */
     public static Map<String, Object> getParametersStartingWithEx(
             HttpServletRequest request, String prefix) {
@@ -111,7 +111,7 @@ public class WebUtilsEx extends WebUtils {
     /**
      * @param request
      * @return
-     * @Desc：获取请求参数
+     * 获取请求参数
      */
     public static Map<String, Object> getParameters(HttpServletRequest request) {
         return getParameters(request, false);
@@ -131,7 +131,7 @@ public class WebUtilsEx extends WebUtils {
     /**
      * @param request
      * @return
-     * @Desc：获取请求参数JSON格式数据
+     * 获取请求参数JSON格式数据
      */
     public static String getParametersJson(HttpServletRequest request) {
         return getParametersJsonStartingWith(request, null);
@@ -143,7 +143,7 @@ public class WebUtilsEx extends WebUtils {
      * @param request
      * @param prefix
      * @return
-     * @Desc：获取请求参数JSON格式数据
+     * 获取请求参数JSON格式数据
      */
     public static String getParametersJsonStartingWith(
             HttpServletRequest request, String prefix) {

@@ -28,7 +28,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 /**
  * 
  * @author lkg
- * @Desc : 权限信息表
+ * 权限信息表
  */
 @Entity()
 @Table(name = "dic_frame_permission")

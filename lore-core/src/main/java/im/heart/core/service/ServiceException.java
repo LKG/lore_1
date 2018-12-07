@@ -3,7 +3,7 @@ package im.heart.core.service;
 /**
  * 
  * @author gg
- * @Desc : 自定义异常，用于事务回滚
+ * 自定义异常，用于事务回滚
  */
 public class ServiceException extends RuntimeException {
 

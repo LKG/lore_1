@@ -32,7 +32,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 /**
  * 
  * @author gg
- * @Desc : 角色资源关联表
+ * 角色资源关联表
  */
 @Entity()
 @Table(name = "dic_frame_role_resource")

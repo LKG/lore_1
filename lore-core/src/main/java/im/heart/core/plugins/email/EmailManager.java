@@ -34,7 +34,7 @@ public class EmailManager {
 	private JavaMailSender javaMailSender;
 	/**
 	 * 
-	 * @Desc：mergeEmailContent
+	 * mergeEmailContent
 	 * @param model
 	 * @param tplfile
 	 * @return
@@ -54,7 +54,7 @@ public class EmailManager {
 
 	/**
 	 * 
-	 * @Desc：发送邮件
+	 * 发送邮件
 	 * @param preparator
 	 */
 	protected void sendJavaMail(MimeMessagePreparator preparator) {
@@ -94,7 +94,7 @@ public class EmailManager {
 	}
 	/**
 	 * 
-	 * @Desc：发送邮件
+	 * 发送邮件
 	 * @param model 传入对象信息
 	 * @param subject    邮件标题
 	 * @param tplfile    邮件模板路径
@@ -113,7 +113,7 @@ public class EmailManager {
 
 	/**
 	 * 
-	 * @Desc：发送邮件
+	 * 发送邮件
 	 * @param subject  邮件标题
 	 * @param content  邮件内容
 	 * @param mailTo    邮件接收方

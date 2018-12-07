@@ -21,7 +21,7 @@ import java.util.List;
 /**
  *
  * @author: gg
- * @desc : spring mvc 配置
+ * spring mvc 配置
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {

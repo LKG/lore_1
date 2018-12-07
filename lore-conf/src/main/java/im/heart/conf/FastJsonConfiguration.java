@@ -12,7 +12,7 @@
 ///**
 // *
 // * @author: gg
-// * @desc : 使用FastJson 返回json 格式数据
+// * 使用FastJson 返回json 格式数据
 // */
 //@Configuration
 //public class FastJsonConfiguration  implements WebMvcConfigurer {

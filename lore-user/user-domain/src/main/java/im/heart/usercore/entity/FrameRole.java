@@ -17,7 +17,7 @@ import java.util.Date;
 /**
  * 
  * @author gg
- * @Desc : 角色实体表
+ * 角色实体表
  */
 @Entity()
 @Table(name = "dic_frame_role")

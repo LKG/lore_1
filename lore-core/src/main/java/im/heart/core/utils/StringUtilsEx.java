@@ -32,7 +32,7 @@ public class StringUtilsEx extends StringUtils {
 	//"^*\\d+$"
 	/**
 	 * 
-	 * @Desc：根据map key ,value 替换字符串 默认不忽略大小写
+	 * 根据map key ,value 替换字符串 默认不忽略大小写
 	 * @param template
 	 * @param tokens
 	 * @return
@@ -114,7 +114,7 @@ public class StringUtilsEx extends StringUtils {
 	}
 	/**
 	 * 
-	 * @Desc：过滤字符串
+	 * 过滤字符串
 	 * @param filterStr
 	 * @return
 	 */
@@ -123,7 +123,7 @@ public class StringUtilsEx extends StringUtils {
 	}
 	/**
 	 * 
-	 * @Desc：
+	 *
 	 * @param str
 	 * @return
 	 */
@@ -135,7 +135,7 @@ public class StringUtilsEx extends StringUtils {
 	}
 	/**
 	 * 
-	 * @Desc：按照指定正则过滤
+	 * 按照指定正则过滤
 	 * @param filterStr
 	 * @param regEx
 	 * @return
@@ -147,7 +147,7 @@ public class StringUtilsEx extends StringUtils {
 	  }
 	/**
 	 * 
-	 * @Desc：过滤出数值型字符串
+	 * 过滤出数值型字符串
 	 * @param str
 	 * @return
 	 */
@@ -157,7 +157,7 @@ public class StringUtilsEx extends StringUtils {
 	}
 	/**
 	 * 
-	 * @Desc：根据正则提取数据
+	 * 根据正则提取数据
 	 * @param filterStr
 	 * @param regEx
 	 * @return
@@ -167,7 +167,7 @@ public class StringUtilsEx extends StringUtils {
 	  }
 	  /**
 	   * 
-	   * @Desc：
+	   *
 	   * @param filterStr
 	   * @param regEx
 	   * @param group
@@ -183,7 +183,7 @@ public class StringUtilsEx extends StringUtils {
 	  }
 	/**
 	 * 
-	 * @Desc：判断字符串是否为空串
+	 * 判断字符串是否为空串
 	 * @param chkstr
 	 * @return
 	 */
