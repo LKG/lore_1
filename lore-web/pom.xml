@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>lore-web</artifactId>
-
+    <packaging>war</packaging>
     <dependencies>
         <dependency>
             <groupId>im.heart</groupId>

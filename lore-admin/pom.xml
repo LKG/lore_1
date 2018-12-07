@@ -8,8 +8,8 @@
         <version>0.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>lore-admin</artifactId>
+    <packaging>war</packaging>
     <dependencies>
         <dependency>
             <groupId>im.heart</groupId>
