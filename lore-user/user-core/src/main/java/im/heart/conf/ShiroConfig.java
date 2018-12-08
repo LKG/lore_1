@@ -111,15 +111,7 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/", "anon");//首页不需要登录
 		filterChainDefinitionMap.put("/article/**", "anon");//文章页不需要登录
 		filterChainDefinitionMap.put("/articles*", "anon");//文章页不需要登录
-		filterChainDefinitionMap.put("/vip*", "anon");//
-		filterChainDefinitionMap.put("/aboutus*", "anon");
-		filterChainDefinitionMap.put("/contact*", "anon");
-		filterChainDefinitionMap.put("/questions*", "anon");
-		filterChainDefinitionMap.put("/uploads/**", "anon");
-		filterChainDefinitionMap.put("/agreements*", "anon");
-		filterChainDefinitionMap.put("/doc/**", "anon");//
-		filterChainDefinitionMap.put("/docs*", "anon");//
-		filterChainDefinitionMap.put("/group*", "anon");//
+		filterChainDefinitionMap.put("/index/*", "anon");//
 		filterChainDefinitionMap.put("/admin/druid/**", "perms[druid:monitor]");
 		filterChainDefinitionMap.put("/admin/monitor/**", "perms[monitor:monitor]");
 		filterChainDefinitionMap.put("/authenticated", "authc");

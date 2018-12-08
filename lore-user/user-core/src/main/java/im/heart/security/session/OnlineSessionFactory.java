@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Component
 public class OnlineSessionFactory implements SessionFactory {
 	protected static final Logger logger = LoggerFactory.getLogger(OnlineSessionFactory.class);
 	

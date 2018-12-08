@@ -34,17 +34,16 @@ import java.util.Set;
  * @author gg
  * @desc 自定义Realm
  */
-@Component
 public class FrameUserRealm extends AuthorizingRealm {
 
 	protected static final Logger logger = LoggerFactory.getLogger(FrameUserRealm.class);
-	private String name = ShiroCacheConfig.userrealm.keyPrefix;
+	private String name = ShiroCacheConfig.userRealm.keyPrefix;
     private static final String AUTHORIZATION_CACHE_SUFFIX = "_authorizationCache:";
    
 	@Override
 	public String getAuthorizationCacheName() {
-		String authzCacheName = super.getAuthorizationCacheName();
-		if(!StringUtilsEx.endsWith(authzCacheName, AUTHORIZATION_CACHE_SUFFIX)){
+		String authorizationCacheName = super.getAuthorizationCacheName();
+		if(!StringUtilsEx.endsWith(authorizationCacheName, AUTHORIZATION_CACHE_SUFFIX)){
 			 return this.name + AUTHORIZATION_CACHE_SUFFIX;
 		}
 		return super.getAuthorizationCacheName();
