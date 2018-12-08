@@ -61,6 +61,9 @@
         <xstream.version>1.4.9</xstream.version>
         <urlrewritefilter.version>4.0.4</urlrewritefilter.version>
         <spring-social.version>1.1.6.RELEASE</spring-social.version>
+        <!-- 二维码begin -->
+        <zxing.version>3.3.3</zxing.version>
+        <!-- 二维码end -->
     </properties>
     <dependencyManagement>
     <dependencies>
@@ -155,6 +158,11 @@
             <groupId>com.hankcs</groupId>
             <artifactId>hanlp</artifactId>
             <version>${hanlp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>${zxing.version}</version>
         </dependency>
         <!-- Google核心库 begin -->
         <dependency>

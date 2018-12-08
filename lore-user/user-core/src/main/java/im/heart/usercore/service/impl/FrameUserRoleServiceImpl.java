@@ -27,11 +27,6 @@ public class FrameUserRoleServiceImpl  extends CommonServiceImpl<FrameUserRole, 
 	public List<FrameUserRole> saveAll(Iterable<FrameUserRole> entities) {
 		return this.frameUserRoleRepository.saveAll(entities);
 	}
-
-	@Override
-	public FrameUserRole save(FrameUserRole entitie) {
-		return this.frameUserRoleRepository.save(entitie);
-	}
 	@Transactional(rollbackFor = {IllegalArgumentException.class})
 	@Override
 	public void saveUserRole(BigInteger userId, String... roleCodes) throws ServiceException{

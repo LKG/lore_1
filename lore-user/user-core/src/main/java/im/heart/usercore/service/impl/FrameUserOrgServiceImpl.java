@@ -32,12 +32,6 @@ public class FrameUserOrgServiceImpl extends CommonServiceImpl<FrameUserOrg, Big
 	public List<FrameUserOrg> saveAll(Iterable<FrameUserOrg> entities) {
 		return this.frameUserOrgRepository.saveAll(entities);
 	}
-
-	@Override
-	public FrameUserOrg save(FrameUserOrg entitie) {
-		return this.frameUserOrgRepository.save(entitie);
-	}
-
 	@Override
 	public void deleteById(BigInteger id) {
 		FrameUserOrg usrOrg = this.frameUserOrgRepository.findById(id).get();
