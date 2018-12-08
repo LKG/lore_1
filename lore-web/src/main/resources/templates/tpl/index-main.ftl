@@ -31,12 +31,12 @@
                         <div class="cb"></div>
                     </div>
                     <ul class="hot_doc_ul free" >
-                          <#list articles.content as article>
+                          <#list [0,1,2,3,4] as article>
                                 <li > <a href="${contextPath}/doc/1.jhtml" >通用表格</a> <a href="${contextPath}/doc/1.jhtml"  class="pull-right"><i class="fa fa-download"></i></a> </li>
                           </#list>
                     </ul>
                     <ul class="hot_doc_ul vip" style="display: none;" >
-                        <#list articles.content as article>
+                        <#list [0,1,2,3,4] as article>
                          <li > <a >简历表格007</a> <a  class="pull-right" ><i class="fa fa-download"></i></a> </li>
                         </#list>
                     </ul>
@@ -49,7 +49,7 @@
         <div class="cb"></div>
         <div class="module2">
             <ul class="ml_content_main ml_content_main_word">
-                      <#list articles.content as article>
+                       <#list [0,1,2,3,4] as article>
                           <li ms-hover="hover"> <a  target="_blank" class="mcm_img" id="load3810722" title="求职简历求职模板.docx"> <img src="http://www.docer.com/application/styles/images/loading48.gif" alt="求职简历求职模板.docx" style="display: block;" /> </a> <a target="_blank" class="mcm_title" title="求职简历求职模板.docx">求职简历求职模板</a>
                               <div class="mcm_show">
                                   <p> <span class="fwb mcm_title_price">￥<span class="red">9.99</span></span> <span class="gray">预览：506</span> <a href="javascript:void(0)" class="collect" title="收藏" ms-click="clickCollect($event, 3810722, 3, 1)"></a> </p>
