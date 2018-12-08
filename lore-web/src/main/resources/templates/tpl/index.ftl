@@ -74,13 +74,15 @@
             <h3>天天快报</h3>
             <div class="extra"><a href="${contextPath}/articles.jhtml">更多 ></a></div>
         </div>
-        <#list articles.content as article>
+        <#if articles??&&articles.content??>
+            <#list articles.content as article>
              <div class="mc">
                  <ul>
                      <li><a href="${contextPath}/article/${article.id}.jhtml" ><span>[${article.type}]</span>${article.shortTitle}</a></li>
                  </ul>
              </div>
-        </#list>
+            </#list>
+        </#if>
     </div>
     <div  class="ms">
 

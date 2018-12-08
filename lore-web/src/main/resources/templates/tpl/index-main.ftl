@@ -7,16 +7,16 @@
                     <h3 class="ms_ul_h3"><a href="javascript:;" ms-text="activityAd.pic_text">会员优惠专区</a></h3>
                     <a  class="moudle_class_groom" target="_blank"> <img src="http://www.docer.com/application/styles/images/loading48.gif"   /> </a>
                     <ul class="ms_ul">
-                         <#list articles.content as article>
+                         <#list [1,2,3,4,5] as article>
                          <li><i class="fa fa-angle-down"  style="padding-right: 10px;"></i><a target="_blank">哈佛大学用这12张图，教育了10亿人</a></li>
                          </#list>
                      </ul>
                 </div>
                 <div class="moudle_class">
-                    <h3 class="ms_ul_h3"><a href="javascript:;">稻壳&middot;知稻</a></h3>
+                    <h3 class="ms_ul_h3"><a href="javascript:;"></a></h3>
                     <a class="moudle_class_groom" target="_blank"> <img lazyloadsrc="http://img1.template.cache.wps.cn/wps/cdnwps/upload/official/template/vip/commend_img/docer/zhaomu_min_20180820.png" alt="内容创作者招募令" src="http://www.docer.com/application/styles/images/loading48.gif" /> </a>
                     <ul class="ms_ul">
-                        <#list articles.content as article>
+                        <#list [1,2,3,4,5] as article>
                             <li><i class="fa fa-angle-down"  style="padding-right: 10px;"></i><a  target="_blank">【PPT教程】关于PPT色彩，少有人知的5个功能！</a></li>
                         </#list>
                     </ul>
@@ -63,7 +63,7 @@
         <div class="cb"></div>
         <div class="module2">
             <ul class="ml_content_main ml_content_main_ppt">
-                  <#list articles.content as article>
+                 <#list [1,2,3,4,5] as article>
                 <li ms-hover="hover"> <a  target="_blank" class="mcm_img" id="load3836251" title="极简极简工作总结极简模板.pptx" > <img src="http://www.docer.com/application/styles/images/loading48.gif" alt="极简极简工作总结极简模板.pptx" style="display: block;" /> </a> <a target="_blank" class="mcm_title" title="极简极简工作总结极简模板.pptx">极简极简工作总结极简模板</a>
                     <div class="mcm_show">
                         <p> <span class="fwb mcm_title_price">￥<span class="red">14.99</span></span> <span class="gray">预览：86</span> <a href="javascript:void(0)" class="collect" title="收藏" ></a> </p>
