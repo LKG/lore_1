@@ -115,7 +115,6 @@
             </activation>
             <properties>
                 <pom.office.home>C:/Program Files/LibreOffice</pom.office.home>
-                <pom.uploads.home>D:/var/www/uploads/</pom.uploads.home>
             </properties>
         </profile>
         <profile>
@@ -123,7 +122,6 @@
             <id>linux</id>
             <properties>
                 <pom.office.home>/opt/libreoffice6.0</pom.office.home>
-                <pom.uploads.home>/var/www/uploads/</pom.uploads.home>
             </properties>
         </profile>
     </profiles>
