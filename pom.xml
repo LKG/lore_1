@@ -59,7 +59,7 @@
         <validation.version>2.0.1.Final</validation.version>
         <persistence.version>1.0.2</persistence.version>
         <xstream.version>1.4.9</xstream.version>
-        <urlrewritefilter.version>4.0.4</urlrewritefilter.version>
+        <urlrewrite.version>4.0.4</urlrewrite.version>
         <spring-social.version>1.1.6.RELEASE</spring-social.version>
         <!-- 二维码begin -->
         <zxing.version>3.3.3</zxing.version>
@@ -113,7 +113,7 @@
         <dependency>
             <groupId>org.tuckey</groupId>
             <artifactId>urlrewritefilter</artifactId>
-            <version>${urlrewritefilter.version}</version>
+            <version>${urlrewrite.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
