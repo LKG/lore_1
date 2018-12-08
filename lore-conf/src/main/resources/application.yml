@@ -21,7 +21,7 @@ spring:
     cache: false
     settings:
       template_update_delay: 0
-      number_format: '0.##'   #数字格式化，无小数点
+      number_format: '0.######'
     request-context-attribute: request
 info:
   app-name: lore
