@@ -34,14 +34,14 @@
 </head>
 <body id="top">
 <!-- toolbar begin-->
-<#include "index-toolbar.ftl" />
+<#include "/index-toolbar.ftl"/>
 <!-- toolbar end-->
 <!-----------------------------------------顶部-------------->
 <!-- header begin-->
-<#include "index-header.ftl" />
+<#include "/index-header.ftl" />
 <!-- header end-->
 <!-- banner 广告 begin-->
-  <#include "index-top-banner.ftl" />
+  <#include "/index-top-banner.ftl" />
 <!-- banner 广告 end-->
 <!-- 搜索框 begin-->
   <#include "index-top-search.ftl" />

@@ -24,11 +24,11 @@
 </head> 
 <body class="page-header-fixed">
 <!-- toolbar begin-->
-<#include "index-toolbar.ftl" />
+<#include "/index-toolbar.ftl"/>
 <!-- toolbar end-->
 <!-----------------------------------------顶部-------------->
 <!-- header begin-->
-<#include "index-header.ftl" />
+<#include "/index-header.ftl" />
 <!-- header end-->
 <div class="clear"></div>
 <!--轮播图上方导航栏  一栏-->

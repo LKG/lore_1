@@ -49,11 +49,11 @@
 </head>
 <body class="page-header-fixed">
 <!-- toolbar begin-->
-<#include "index-toolbar.ftl" />
+<#include "/index-toolbar.ftl"/>
 <!-- toolbar end-->
 <!-----------------------------------------顶部-------------->
 <!-- header begin-->
-<#include "index-header.ftl" />
+<#include "/index-header.ftl" />
 <div class="container" style="margin-top: 35px;">
     <div class="row">
         <div class="panel panel-default">

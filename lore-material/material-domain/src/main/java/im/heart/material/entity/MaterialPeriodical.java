@@ -99,7 +99,6 @@ public class MaterialPeriodical implements AbstractEntity<BigInteger>{
 	 */
 	@Column(name = "ZIP_SIZE", nullable = false)
 	private Long zipSize=0L;
-
 	/**
 	 * 总页码
 	 */
@@ -155,17 +154,6 @@ public class MaterialPeriodical implements AbstractEntity<BigInteger>{
 	@Column(name = "IMPORT_LOG", nullable = false,length=80000)
 	private String importLog;
 
-	@JSONField (format="yyyy-MM-dd HH:mm:ss")
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	@Column(nullable=false, name = "CREATE_TIME" ,updatable = false)
-	private Date createTime;
-	
-	@NotNull
-	@JSONField (format="yyyy-MM-dd HH:mm:ss" )
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	@Column(nullable=false, name = "MODIFY_TIME" )
-	private Date modifyTime;
-
 	@Column(name = "CHECK_STATUS", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Status checkStatus= Status.pending;
@@ -181,6 +169,16 @@ public class MaterialPeriodical implements AbstractEntity<BigInteger>{
 	@Column(name = "PUSH_TIME")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date pushTime;
+	@JSONField (format="yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@Column(nullable=false, name = "CREATE_TIME" ,updatable = false)
+	private Date createTime;
+
+	@NotNull
+	@JSONField (format="yyyy-MM-dd HH:mm:ss" )
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@Column(nullable=false, name = "MODIFY_TIME" )
+	private Date modifyTime;
 	@PrePersist
 	protected void onCreate() {
 		createTime = new Date();
