@@ -3,9 +3,9 @@ package im.heart.security.cache;
 public enum ShiroCacheConfig {
 	
 	passwordRetry("shiro_password_retry:", 30 * 60 * 1), 
-	activesession("shiro_active_session:", 60 * 60 * 1),
+	activeSession("shiro_active_session:", 60 * 60 * 1),
 	kickout("shiro_kickout_session:", 0),
-	userrealm("shiro_frameUserRealm", 0);	
+	userRealm("shiro_frameUserRealm", 0);
 	ShiroCacheConfig(String keyPrefix, long expiredTime) {
 		this.keyPrefix = keyPrefix;
 		this.expiredTime = expiredTime;
