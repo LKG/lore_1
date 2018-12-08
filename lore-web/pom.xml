@@ -24,7 +24,7 @@
         </dependency>
         <dependency>
             <groupId>im.heart</groupId>
-            <artifactId>lore-user</artifactId>
+            <artifactId>user-core</artifactId>
             <version>0.0.1</version>
         </dependency>
         <dependency>
