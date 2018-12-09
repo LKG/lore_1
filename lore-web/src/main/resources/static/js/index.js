@@ -1,15 +1,15 @@
-window.onload=function(){
-	var oxx=document.getElementById('xx');
-	var obanner=document.getElementById('top-banner');
-	var otext=document.getElementById('textt');
-	oxx.onmousedown=function(){
-		obanner.style.display='none';
-	};
-	otext.onmousedown=function(){
-		otext.value='';
-		otext.style.color='rgb(51, 51, 51)';
-	};
-}
+// window.onload=function(){
+// 	var oxx=document.getElementById('xx');
+// 	var obanner=document.getElementById('top-banner');
+// 	var otext=document.getElementById('textt');
+// 	oxx.onmousedown=function(){
+// 		obanner.style.display='none';
+// 	};
+// 	otext.onmousedown=function(){
+// 		otext.value='';
+// 		otext.style.color='rgb(51, 51, 51)';
+// 	};
+// }
 $(function(){
 				//手动控制轮播图
 				$('#one li').eq(0).show();
@@ -132,8 +132,7 @@ $(function(){
                     $(this).css("left",0);    
                 });
             }
-			
-			
+
              $('.slider-page li').hover(function(){
 		          clearInterval(newst); 
 		        },function(){
@@ -153,10 +152,8 @@ $(function(){
         })
 //**************天天特价*******************
 $(function(){
-
             //scroll news
             var scrnews=$(".sw ul");
-            
             if(scrnews.children().length<10){return false;}
             var newst=setInterval(scro,3500);
             scrnews.hover(function(){
@@ -173,10 +170,7 @@ $(function(){
             
         })
  $(function () {  
-            
-  
-            //当点击跳转链接后，回到页面顶部位置  
-  
+			//当点击跳转链接后，回到页面顶部位置
             $("#jdm-tbar-tab-top").click(function(){  
                 $('body,html').animate({scrollTop:0},2000);  
                 return false;  
