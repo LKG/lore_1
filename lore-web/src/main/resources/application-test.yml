@@ -80,9 +80,11 @@ jodconverter:
     maxTasksPerProcess: 100 # LibreOffice进程重启前的最大进程数
 wechat:
    open:
-
+     appId:
+     appSecret:
    mp:
-
+     appId:
+     appSecret:
 prod:
   oss:
    accessKeyId:
