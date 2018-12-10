@@ -52,8 +52,8 @@
     <!------------------------------------轮播图------------------------------------>
     <div id="lunbo">
         <ul id="one">
-        <#list [1,2,3] as img>
-            <li><a href=""><img src="${contextPath}/images/56a09e6aN373313d9.jpg"></a></li>
+        <#list [1,2,3,2,3] as img>
+            <li><a href=""><img src="${contextPath}/images/20181209184906.png"></a></li>
         </#list>
         </ul>
         <ul id="two">
