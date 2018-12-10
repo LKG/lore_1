@@ -24,7 +24,7 @@ spring:
   datasource:
     url: jdbc:mysql://ss.itaobao.pub:3306/lore-test?Unicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
-    password: ####
+    password: #####
       #配置监控统计拦截的filters，去掉后监控界面sql将无法统计,'wall'用于防火墙
     filters: stat,config,wall,slf4j
    # validation-query: SELECT 1
@@ -78,6 +78,11 @@ jodconverter:
     office-home: ${pom.office.home} # 设置LibreOffice主目录
     portNumbers: 8100,8101,8102,8103 # 开启多个LibreOffice进程，每个端口对应一个进程
     maxTasksPerProcess: 100 # LibreOffice进程重启前的最大进程数
+wechat:
+   open:
+
+   mp:
+
 prod:
   oss:
    accessKeyId:
