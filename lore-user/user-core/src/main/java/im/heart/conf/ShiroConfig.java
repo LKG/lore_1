@@ -43,7 +43,7 @@ public class ShiroConfig {
 	protected static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
     @Value("${shiro.password.algorithmName}")
 	private String algorithmName="md5";
-	public static final String CACHEMANAGER_BEAN_NAME = ShiroCacheConfig.CACHEMANAGER_BEAN_NAME;
+	public static final String CACHE_MANAGER_BEAN_NAME = ShiroCacheConfig.CACHE_MANAGER_BEAN_NAME;
 
 	@Value("${shiro.password.hashIterations}")
 	private int hashIterations=2;
@@ -63,7 +63,7 @@ public class ShiroConfig {
 
 	@Value("${shiro.logout.success.url}")
 	private String logoutSuccessUrl = "/login.jhtml?logout=1";
-	@Bean(name = CACHEMANAGER_BEAN_NAME)
+	@Bean(name = CACHE_MANAGER_BEAN_NAME)
 	public CacheManager cacheManager() {
 		return new EhCacheManager();
 	}

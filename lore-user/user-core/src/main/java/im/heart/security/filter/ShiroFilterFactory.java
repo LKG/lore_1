@@ -16,8 +16,11 @@ import java.util.Set;
 public class ShiroFilterFactory extends ShiroFilterFactoryBean{
 	protected static final Logger logger = LoggerFactory.getLogger(ShiroFilterFactory.class);
 
-	// 对ShiroFilter来说，需要直接忽略的请求
+    /**
+     * 对ShiroFilter来说，需要直接忽略的请求
+     */
     private Set<String> ignoreExt;
+
     public ShiroFilterFactory() {
         super();
         ignoreExt = new HashSet<String>();
@@ -30,7 +33,7 @@ public class ShiroFilterFactory extends ShiroFilterFactoryBean{
     }
     @Override
     protected AbstractShiroFilter createInstance() throws Exception {
-    	logger.debug(""+ignoreExt);
+    	logger.debug("ignoreExt:{}",ignoreExt);
         return super.createInstance();
     }
 	

@@ -109,7 +109,8 @@ public class FrameUserRealm extends AuthorizingRealm {
 	 */
 	protected void checkValidateCode(AccountToken accountToken){
 		Integer loginTimes=ShiroLoginHelper.getLoginTimes();
-		if (loginTimes>=MAX_FAIL||useCaptcha) {//登录次数大于三次需要进行验证码校验，强制开启
+		//登录次数大于三次需要进行验证码校验，强制开启
+		if (loginTimes>=MAX_FAIL||useCaptcha) {
 			String sessionId = (String) SecurityUtils.getSubject().getSession().getId();
 			String validateCode=accountToken.getValidateCode();
 			logger.info("开启验证码校验："+sessionId+"验证码校验。。。。validateCode。。"+validateCode);
@@ -160,12 +161,15 @@ public class FrameUserRealm extends AuthorizingRealm {
 		}
 		Status userStatus = frameUser.getStatus();
 		if (userStatus==null||Status.pending==userStatus) {
-			throw new LockedAccountException();//账号未激活
+			//账号未激活
+			throw new LockedAccountException();
 		}else 	if (Status.disabled==userStatus) {
-			throw new DisabledAccountException();//账号被禁用
+			//账号被禁用
+			throw new DisabledAccountException();
 		}
 		if (Status.enabled!=userStatus) {
-			throw new LockedAccountException();//账号状态异常
+			//账号状态异常
+			throw new LockedAccountException();
 		}
 	}
 	

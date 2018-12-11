@@ -20,7 +20,6 @@ import java.util.Map;
  * @作者 LKG
  */
 @Component(value = SmsSendService.BEAN_NAME)
-@Transactional(propagation = Propagation.SUPPORTS)
 public class SampleSmsSendServiceImpl implements SmsSendService {
 	protected static final Logger logger = LoggerFactory.getLogger(SampleSmsSendServiceImpl.class);
 /*	@Autowired

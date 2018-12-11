@@ -70,19 +70,19 @@ public class FrameAuthenticationFilter extends FormAuthenticationFilter {
 	public void setCaptchaParam(String captchaParam) {
 		this.captchaParam = captchaParam;
 	}
-
+	@Override
 	public String getUsernameParam() {
 		return usernameParam;
 	}
-
+	@Override
 	public void setUsernameParam(String usernameParam) {
 		this.usernameParam = usernameParam;
 	}
-
+	@Override
 	public String getPasswordParam() {
 		return passwordParam;
 	}
-
+	@Override
 	public void setPasswordParam(String passwordParam) {
 		this.passwordParam = passwordParam;
 	}
@@ -189,8 +189,8 @@ public class FrameAuthenticationFilter extends FormAuthenticationFilter {
 				}
 				HttpServletRequest httpServletRequest = WebUtils.toHttp(request);
 				HttpServletResponse httpServletResponse = WebUtils.toHttp(response);
-				if (BaseUtils.isAjaxRequest(httpServletRequest)) {// ajax 请求
-					logger.info("ajax@@@@@@@@@@@@@@@@@@@@@@@@"+ httpServletResponse);
+				if (BaseUtils.isAjaxRequest(httpServletRequest)) {
+					logger.info("httpServletResponse:{}", httpServletResponse);
 					// httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 				}
 				// allow them to see the login page ;)
@@ -213,9 +213,9 @@ public class FrameAuthenticationFilter extends FormAuthenticationFilter {
 		if (isLoginRequest(request, response)) {
 			logger.info("@@@@@@@@@@@@@@@@@isLoginRequest@@@@@@@@@@@@@@@@@@@@@@@@");
 		}
-
 		if (SecurityUtils.getSubject().isAuthenticated()) {
-			return true;// 已经登录过 继续过滤器链
+			// 已经登录过 继续过滤器链
+			return true;
 		}
 		return super.preHandle(request, response);
 	}

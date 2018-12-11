@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ import im.heart.usercore.service.FrameOrgRelateService;
 
 
 @Service(value = FrameOrgRelateService.BEAN_NAME)
-@Transactional(propagation = Propagation.SUPPORTS)
+@Transactional(propagation = Propagation.SUPPORTS,rollbackFor = Exception.class)
 public class FrameOrgRelateServiceImpl extends CommonServiceImpl<FrameOrgRelate, BigInteger> implements FrameOrgRelateService{
 	@Autowired
 	private FrameOrgRelateRepository frameOrgRelateRepository;
@@ -30,7 +31,7 @@ public class FrameOrgRelateServiceImpl extends CommonServiceImpl<FrameOrgRelate,
 	}
 	@Override
 	public List<FrameOrgRelate> findByOrgId(BigInteger orgId) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
+		final Collection<SearchFilter> filters =  Sets.newHashSet();
 		filters.add(new SearchFilter("orgId", SearchFilter.Operator.EQ, orgId));
 		Specification<FrameOrgRelate> spec = DynamicSpecifications.bySearchFilter(filters, FrameOrgRelate.class);
 		return this.frameOrgRelateRepository.findAll(spec);
@@ -38,7 +39,7 @@ public class FrameOrgRelateServiceImpl extends CommonServiceImpl<FrameOrgRelate,
 
 	@Override
 	public List<FrameOrgRelate> findByOrgIdAndType(BigInteger orgId, String relateType) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
+		final Collection<SearchFilter> filters =  Sets.newHashSet();
 		filters.add(new SearchFilter("orgId", SearchFilter.Operator.EQ, orgId));
 		filters.add(new SearchFilter("relateType", SearchFilter.Operator.EQ, relateType));
 		Specification<FrameOrgRelate> spec = DynamicSpecifications.bySearchFilter(filters, FrameOrgRelate.class);

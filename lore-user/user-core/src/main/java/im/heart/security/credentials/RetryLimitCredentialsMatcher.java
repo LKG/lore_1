@@ -50,7 +50,7 @@ public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
 			retryCount = new AtomicInteger(0);
 		}
 		int count = retryCount.incrementAndGet();
-		if (count >= 2) {// 需要用户输入验证码
+		if (count >= 2) {
 			logger.warn(username + "密码错误>=2次");
 		}
 		if (count >= 4) {

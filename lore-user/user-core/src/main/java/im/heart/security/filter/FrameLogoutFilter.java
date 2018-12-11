@@ -33,9 +33,11 @@ public class FrameLogoutFilter extends LogoutFilter {
 		issueRedirect(request, response, redirectUrl);
 		return false;
 	}
+	@Override
 	public String getRedirectUrl() {
 		return redirectUrl;
 	}
+	@Override
 	public void setRedirectUrl(String redirectUrl) {
 		this.redirectUrl = redirectUrl;
 	}

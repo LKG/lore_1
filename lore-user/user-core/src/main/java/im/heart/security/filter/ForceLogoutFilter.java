@@ -35,12 +35,14 @@ public class ForceLogoutFilter extends LogoutFilter {
 	protected boolean preHandle(ServletRequest request, ServletResponse response)
 			throws Exception {
 		Subject subject = getSubject(request, response);
-		if (!subject.isAuthenticated() && !subject.isRemembered()) {// 如果没有登录，直接进行之后的流程
+		// 如果没有登录，直接进行之后的流程
+		if (!subject.isAuthenticated() && !subject.isRemembered()) {
 			return true;
 		}
 		Session session = subject.getSession();
 		FrameUserVO user = SecurityUtilsHelper.getCurrentUser();
-		if(user==null){// 如果没有登录，直接进行之后的流程
+		//// 如果没有登录，直接进行之后的流程
+		if(user==null){
 			return true;
 		}
 		Session onlineSession = this.shiroSessionDAO.readSession(session.getId());
@@ -61,9 +63,11 @@ public class ForceLogoutFilter extends LogoutFilter {
 		}
 		return true;
 	}
+	@Override
 	public String getRedirectUrl() {
 		return redirectUrl;
 	}
+	@Override
 	public void setRedirectUrl(String redirectUrl) {
 		this.redirectUrl = redirectUrl;
 	}

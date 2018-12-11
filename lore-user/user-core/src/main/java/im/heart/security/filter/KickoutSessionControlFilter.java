@@ -71,14 +71,16 @@ public class KickoutSessionControlFilter extends LogoutFilter {
 		}
 		while (deque.size() > maxSession) {
 			Serializable kickoutSessionId = null;
-			if (kickoutAfter) { // 如果踢出后者
+			// 如果踢出后者
+			if (kickoutAfter) {
 				kickoutSessionId = deque.removeFirst();
 			} else { // 否则踢出前者
 				kickoutSessionId = deque.removeLast();
 			}
 			try {
 				Session onlineSession = this.shiroSessionDAO.readSession(kickoutSessionId);
-				if (onlineSession != null) {// 设置会话的kickout属性表示踢出了
+				/// 设置会话的kickout属性表示踢出了
+				if (onlineSession != null) {
 					onlineSession.setAttribute(kickoutParam, true);
 				}
 			} catch (SessionException ise) {
@@ -109,9 +111,11 @@ public class KickoutSessionControlFilter extends LogoutFilter {
 	public void setKeyPrefix(String keyPrefix) {
 		this.keyPrefix = keyPrefix;
 	}
+	@Override
 	public String getRedirectUrl() {
 		return redirectUrl;
 	}
+	@Override
 	public void setRedirectUrl(String redirectUrl) {
 		this.redirectUrl = redirectUrl;
 	}

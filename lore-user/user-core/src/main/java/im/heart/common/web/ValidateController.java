@@ -1,5 +1,6 @@
 package im.heart.common.web;
 
+import com.google.common.collect.Maps;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import im.heart.common.utils.CacheUtils;
 import im.heart.core.plugins.captcha.CaptchaServiceException;
@@ -157,8 +158,7 @@ public class ValidateController extends AbstractController {
                                        @RequestParam(value = "moblie", required = false ) String moblie,
                                        @RequestParam(value = "type", required = false,defaultValue="1") String type, ModelMap model) {
 		int mobileCode = (int)((Math.random()*9+1)*10000);
-		Map<String,Object> modeltemp = new HashMap<String,Object>();//定义邮件模版
-
+		Map<String,Object> modeltemp = Maps.newHashMap();
 		modeltemp.put("mobileCode", mobileCode);
 		logger.info("mobileCode:[{}],moblie:[{}], type:[{}],mobliecode-host:[{}]",BaseUtils.getIpAddr(request),moblie,mobileCode,type);
 		CacheUtils.generateMobileCache(moblie, mobileCode);
@@ -189,7 +189,7 @@ public class ValidateController extends AbstractController {
 		logger.debug("passcode-host:"+request.getLocalAddr());
 		Boolean isResponseCorrect = Boolean.FALSE;
 		isResponseCorrect=CacheUtils.checkMobileCode(moblie, phoneCode);
-		if(isResponseCorrect){//校验通过
+		if(isResponseCorrect){
 			super.success(model,true);
 			return new ModelAndView(RESULT_PAGE);
 		}
@@ -221,7 +221,7 @@ public class ValidateController extends AbstractController {
 			logger.error(e.getStackTrace()[0].getMethodName(), e);
 			throw new CaptchaServiceException(e);
 		}
-		if(isResponseCorrect){//校验通过
+		if(isResponseCorrect){
 			super.success(model,true);
 		}else{
 			super.fail(model,false);

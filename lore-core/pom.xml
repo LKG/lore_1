@@ -64,9 +64,9 @@
     </dependency>
     <!-- JSON end -->
     <dependency>
-        <groupId>org.jsoup</groupId>
-        <artifactId>jsoup</artifactId>
-    </dependency>
+    <groupId>org.jsoup</groupId>
+    <artifactId>jsoup</artifactId>
+</dependency>
     <!-- html解析end -->
     <dependency>
         <groupId>com.google.guava</groupId>

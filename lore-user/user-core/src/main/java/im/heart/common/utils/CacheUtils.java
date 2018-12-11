@@ -18,7 +18,7 @@ public  class CacheUtils {
 	
 	public static final String FINDPWD_CACHE_NAME = "findPwd-cache";
 	
-	public static final String CACHE_MANAGER_BEAN_NAME = CommonConst.CACHE_MANAGER_NAME;;
+	public static final String CACHE_MANAGER_BEAN_NAME = CommonConst.CACHE_MANAGER_NAME;
 
 	/**
 	 * 获取缓存信息
