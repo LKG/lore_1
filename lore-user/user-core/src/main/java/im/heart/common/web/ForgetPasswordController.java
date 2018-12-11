@@ -212,7 +212,7 @@ public class ForgetPasswordController extends AbstractController {
             ModelMap model) throws Exception {
 		if(StringUtilsEx.isNotBlank(account)&&account.length()  >=5&& account.length() <= 30){
 			FrameUser user = this.frameUserService.findFrameUser(account);
-			if (user != null) {// 用户不存在
+			if (user != null) {
 				super.success(model, true);
 				return new ModelAndView(RESULT_PAGE);
 			}

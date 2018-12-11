@@ -2,10 +2,14 @@ package im.heart.core.web;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import im.heart.core.web.enums.WebError;
+import lombok.Data;
 
 /**
- * Created by admin on 2018/7/13.
+ *
+ * @author gg
+ * @desc 统一返回错误信息
  */
+@Data
 public class ResponseError {
     @JSONField(name = "error")
     private String name;
@@ -31,37 +35,5 @@ public class ResponseError {
         this.code = code;
         this.name = name;
         this.description = description;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getErrorUrl() {
-        return errorUrl;
-    }
-
-    public void setErrorUrl(String errorUrl) {
-        this.errorUrl = errorUrl;
     }
 }
