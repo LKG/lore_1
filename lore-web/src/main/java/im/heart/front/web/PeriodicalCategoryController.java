@@ -25,7 +25,7 @@ import javax.validation.Valid;
 import java.math.BigInteger;
 
 @Controller
-public class DocCategoryController extends AbstractController {
+public class PeriodicalCategoryController extends AbstractController {
 	protected static final String apiVer = "/doc/periodical/category";
 	protected static final String VIEW_TABLE="admin/periodical/category/table";
 	protected static final String VIEW_DETAILS="admin/periodical/category/details";

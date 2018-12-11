@@ -82,8 +82,8 @@ public class MaterialCategory implements TreeEntity<BigInteger>{
 	
 	@JSONField (format="yyyy-MM-dd HH:mm:ss" ,serialize=false)
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	@Column(nullable=false, name = "MODI_TIME" )
-	private Date modiTime;
+	@Column(nullable=false, name = "MODIFY_TIME" )
+	private Date modifyTime;
 	
 	@Column(name = "REMARK", nullable = false, length=512)
 	private String remark;
@@ -99,11 +99,11 @@ public class MaterialCategory implements TreeEntity<BigInteger>{
 	@PrePersist
 	protected void onCreate() {
 		createTime = new Date();
-		modiTime = new Date();
+		modifyTime = new Date();
     }
 	@PreUpdate
 	protected void onUpdate() {
-		modiTime = new Date();
+		modifyTime = new Date();
     }
 
 	public String getSeparator() {
