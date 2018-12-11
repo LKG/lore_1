@@ -289,7 +289,7 @@ public class ForgetPasswordController extends AbstractController {
 	}
 	/**
 	 *
-	 * @Desc：修改密码
+	 * 修改密码
 	 * @param jsoncallback
 	 * @param request
 	 * @param response
@@ -319,7 +319,7 @@ public class ForgetPasswordController extends AbstractController {
 		Object obj= CacheUtils.getCacheObject(CacheUtils.FINDPWD_CACHE_NAME, key);
 		if(obj!=null&&obj instanceof FrameUser){
 			FrameUser user =(FrameUser)obj;
-			this.frameUserService.resetPassword(user.getUserId(), retryPassWord);//重置密码
+			this.frameUserService.resetPassword(user.getUserId(), retryPassWord);
 			CacheUtils.evictCache(CacheUtils.FINDPWD_CACHE_NAME, key);
 			if(StringUtilsEx.isBlank(format)){
 				format="jhtml";
@@ -360,14 +360,14 @@ public class ForgetPasswordController extends AbstractController {
 			if(StringUtilsEx.isBlank(format)){
 				format="jhtml";
 			}
-			if(StringUtilsEx.isNotBlank(type)&&"2".equals(type)){//通过邮箱形式找回密码
+			if(StringUtilsEx.isNotBlank(type)&&"2".equals(type)){
 				this.sendFindPwdEmail(user);
 				return new ModelAndView("redirect:"+apiVer+"/sendEmailSuccess."+format+"?k="+key);
 			}
 			String moblie=user.getUserPhone();
 			Boolean isResponseCorrect = Boolean.FALSE;
 			isResponseCorrect=CacheUtils.checkMobileCode(moblie, phoneCode);
-			if(isResponseCorrect){//校验通过
+			if(isResponseCorrect){
 				return new ModelAndView("redirect:"+apiVer+"/checkPhoneSuccess."+format+"?k="+key);
 			}
 			responseError=new ResponseError(WebError.AUTH_PHONECODE_INCORRECT);
@@ -421,7 +421,7 @@ public class ForgetPasswordController extends AbstractController {
 			String moblie=user.getUserPhone();
 			Boolean isResponseCorrect = Boolean.FALSE;
 			isResponseCorrect=CacheUtils.checkMobileCode(moblie, phoneCode);
-			if(isResponseCorrect){//校验通过
+			if(isResponseCorrect){
 				super.success(model,true);
 				return new ModelAndView(RESULT_PAGE);
 			}

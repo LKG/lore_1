@@ -1,6 +1,7 @@
 package im.heart.conf;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import im.heart.security.cache.ShiroCacheConfig;
 import im.heart.security.credentials.RetryLimitCredentialsMatcher;
 import im.heart.security.filter.*;
@@ -49,7 +50,7 @@ public class ShiroConfig {
 	private int hashIterations=2;
 	@Value("${shiro.password.storedCredentialsHexEncoded}")
 	private boolean storedCredentialsHexEncoded=true;
-	private final static Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
+	private final static Map<String, String> filterChainDefinitionMap = Maps.newLinkedHashMap();
 	@Value("${shiro.login.url}")
 	private String loginUrl = "/login.jhtml";
 
