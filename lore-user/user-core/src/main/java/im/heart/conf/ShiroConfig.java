@@ -69,7 +69,7 @@ public class ShiroConfig {
 
 	@Value("${shiro.logout.success.url}")
 	private String logoutSuccessUrl = "/login.jhtml?logout=1";
-	
+
 	@Bean(name = CACHE_MANAGER_BEAN_NAME)
 	public CacheManager cacheManager() {
 		return new EhCacheManager();
@@ -115,11 +115,11 @@ public class ShiroConfig {
 		chain.addPathDefinition("/regist/**", "anon");
 		chain.addPathDefinition("/findPwd/**", "anon");
 		chain.addPathDefinition("/api/**", "anon");
-		chain.addPathDefinition("/logout*", "logout");
 		chain.addPathDefinition("/", "anon");
 		chain.addPathDefinition("/index/*", "anon");
 		chain.addPathDefinition("/admin/druid/**", "perms[druid:monitor]");
 		chain.addPathDefinition("/admin/monitor/**", "perms[monitor:monitor]");
+		chain.addPathDefinition("/logout*", "logout");
 		chain.addPathDefinition("/authenticated", "authc");
 		chain.addPathDefinition("/**", "authc");
 		return chain;
