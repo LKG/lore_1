@@ -1,5 +1,6 @@
 package im.heart.security.handler;
 
+import com.google.common.collect.Maps;
 import im.heart.core.CommonConst.RequestResult;
 import im.heart.core.utils.BaseUtils;
 import org.apache.shiro.authz.AuthorizationException;
@@ -16,12 +17,17 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *
+ * @author gg
+ * @desc 认证异常统一处理类
+ */
 @ControllerAdvice
 public class ShiroRestExceptionHandler{
 	protected static final Logger logger = LoggerFactory.getLogger(ShiroRestExceptionHandler.class);
 
 	protected Map<String, Object> error(HttpServletRequest request) {
-		Map<String, Object> errorMap = new HashMap<String, Object>();
+		Map<String, Object> errorMap = Maps.newHashMap();
 		errorMap.put("httpstatus", HttpStatus.FORBIDDEN.value());
 		errorMap.put("success", false);
 		errorMap.put("request", request.getRequestURL());
