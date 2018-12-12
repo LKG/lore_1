@@ -92,8 +92,8 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/static/**", "anon");
 		filterChainDefinitionMap.put("/favicon.ico", "anon");
 		filterChainDefinitionMap.put("**.ico", "anon");
-		filterChainDefinitionMap.put("/oauth2/**", "anon");//oauth2认证接口
-		filterChainDefinitionMap.put("/3rd/**", "anon");//第三方登录认证接口
+		filterChainDefinitionMap.put("/oauth2/**", "anon");
+		filterChainDefinitionMap.put("/3rd/**", "anon");
 		filterChainDefinitionMap.put("/css/**", "anon");
 		filterChainDefinitionMap.put("/js/**", "anon");
 		filterChainDefinitionMap.put("/imgs/**", "anon");
@@ -103,16 +103,14 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/app/imgs/**", "anon");
 		filterChainDefinitionMap.put("/modules/**", "anon");
 		filterChainDefinitionMap.put("/login-in**", "anon");
-		filterChainDefinitionMap.put("/validate/**", "anon");//验证码
-		filterChainDefinitionMap.put("/regist**", "anon");//注册
-		filterChainDefinitionMap.put("/regist/**", "anon");//注册
-		filterChainDefinitionMap.put("/findPwd/**", "anon");//找回密码
-		filterChainDefinitionMap.put("/api/**", "anon");//对外接口
+		filterChainDefinitionMap.put("/validate/**", "anon");
+		filterChainDefinitionMap.put("/regist**", "anon");
+		filterChainDefinitionMap.put("/regist/**", "anon");
+		filterChainDefinitionMap.put("/findPwd/**", "anon");
+		filterChainDefinitionMap.put("/api/**", "anon");
 		filterChainDefinitionMap.put("/logout*", "logout");
-		filterChainDefinitionMap.put("/", "anon");//首页不需要登录
-		filterChainDefinitionMap.put("/article/**", "anon");//文章页不需要登录
-		filterChainDefinitionMap.put("/articles*", "anon");//文章页不需要登录
-		filterChainDefinitionMap.put("/index/*", "anon");//
+		filterChainDefinitionMap.put("/", "anon");
+		filterChainDefinitionMap.put("/index/*", "anon");
 		filterChainDefinitionMap.put("/admin/druid/**", "perms[druid:monitor]");
 		filterChainDefinitionMap.put("/admin/monitor/**", "perms[monitor:monitor]");
 		filterChainDefinitionMap.put("/authenticated", "authc");
@@ -167,7 +165,8 @@ public class ShiroConfig {
 	@Bean(name = "sessionIdCookie")
 	public Cookie sessionIdCookie() {
         Cookie cookie = new SimpleCookie(sessionIdName);
-        cookie.setHttpOnly(true); //more secure, protects against XSS attacks
+		//more secure, protects against XSS attacks
+        cookie.setHttpOnly(true);
 		return cookie;
 	}
 	@Bean(name = "rememberMeManager")
@@ -188,12 +187,14 @@ public class ShiroConfig {
 		sessionManager.setGlobalSessionTimeout(ShiroSessionManager.DEFAULT_GLOBAL_SESSION_TIMEOUT);
 		sessionManager.setDeleteInvalidSessions(true);
 		sessionManager.setSessionFactory(onlineSessionFactory());
-		sessionManager.setSessionIdUrlRewritingEnabled(false);//移除JSESSIONID小尾巴
+		//移除JSESSIONID小尾巴
+		sessionManager.setSessionIdUrlRewritingEnabled(false);
 		sessionManager.setSessionValidationSchedulerEnabled(true);
 		sessionManager.setSessionDAO(sessionDAO());
 		sessionManager.setSessionIdCookie(sessionIdCookie());
 		Collection<SessionListener> listeners=Lists.newArrayList();
-		listeners.add(new ShiroSessionListener());//设置SESSION 监听器
+		////设置SESSION 监听器
+		listeners.add(new ShiroSessionListener());
 		sessionManager.setSessionListeners(listeners);
 		return sessionManager;
 	}
@@ -246,6 +247,12 @@ public class ShiroConfig {
 	@ConditionalOnMissingBean
    public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
        DefaultAdvisorAutoProxyCreator daap = new DefaultAdvisorAutoProxyCreator();
+		/**
+		 * setUsePrefix(false)用于解决一个奇怪的bug。在引入spring aop的情况下。
+		 * 在@Controller注解的类的方法中加入@RequiresRole注解，会导致该方法无法映射请求，导致返回404。
+		 * 加入这项配置能解决这个bug
+		 */
+	   daap.setUsePrefix(true);
        daap.setProxyTargetClass(true);
        return daap;
    }
