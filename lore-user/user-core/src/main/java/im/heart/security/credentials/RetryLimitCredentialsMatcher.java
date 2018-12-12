@@ -34,7 +34,8 @@ public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
 	private Cache<Serializable, AtomicInteger> passwordRetryCache;
 
 	private CacheManager cacheManager;
-	
+
+	private static int MAX_FAIL_COUNT=5;
 
 	public CacheManager getCacheManager() {
 		return cacheManager;
@@ -60,7 +61,7 @@ public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
 		if (count >= 2) {
 			logger.warn(username + "密码错误>=2次");
 		}
-		if (count >= 4) {
+		if (count >= MAX_FAIL_COUNT) {
 			logger.warn(username + "被锁定！");
 			throw new ExcessiveAttemptsException();
 		}
