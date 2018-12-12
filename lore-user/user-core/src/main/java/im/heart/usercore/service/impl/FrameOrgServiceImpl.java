@@ -1,5 +1,6 @@
 package im.heart.usercore.service.impl;
 
+import com.google.common.collect.Sets;
 import im.heart.core.plugins.persistence.DynamicSpecifications;
 import im.heart.core.plugins.persistence.SearchFilter;
 import im.heart.core.plugins.persistence.SearchFilter.Operator;
@@ -12,6 +13,7 @@ import java.math.BigInteger;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,12 +36,11 @@ public class FrameOrgServiceImpl extends CommonServiceImpl<FrameOrg, BigInteger>
 	}
 
 	@Override
-	public FrameOrg findByName(String orgName) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
+	public Optional<FrameOrg>  findByName(String orgName) {
+		final Collection<SearchFilter> filters = Sets.newHashSet();
 		filters.add(new SearchFilter("orgName", Operator.LIKES, orgName));
 		Specification<FrameOrg> spec = DynamicSpecifications.bySearchFilter(filters, FrameOrg.class);
-		FrameOrg po = this.frameOrgRepository.findOne(spec).get();
-		return po;
+		return this.frameOrgRepository.findOne(spec);
 	}
 	@Override
 	public Page<FrameOrg> findBySearchFilters(Collection<SearchFilter> filters, PageRequest pageRequest) {
@@ -51,7 +52,7 @@ public class FrameOrgServiceImpl extends CommonServiceImpl<FrameOrg, BigInteger>
 	}
 	@Override
 	public List<FrameOrg> findOrgsByName(String orgName) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
+		final Collection<SearchFilter> filters = Sets.newHashSet();
 		filters.add(new SearchFilter("orgName", Operator.LIKES, orgName));
 		Specification<FrameOrg> spec = DynamicSpecifications.bySearchFilter(filters, FrameOrg.class);
 		List<FrameOrg> list = this.frameOrgRepository.findAll(spec);
@@ -63,7 +64,7 @@ public class FrameOrgServiceImpl extends CommonServiceImpl<FrameOrg, BigInteger>
 	}
 	@Override
 	public boolean existsOrgCode(String orgCode) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
+		final Collection<SearchFilter> filters = Sets.newHashSet();
 		filters.add(new SearchFilter("orgCode", Operator.EQ, orgCode));
 		Specification<FrameOrg> spec = DynamicSpecifications.bySearchFilter(filters, FrameOrg.class);
 		long count = this.frameOrgRepository.count(spec);

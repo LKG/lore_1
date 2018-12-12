@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class DocController extends AbstractController {
@@ -105,9 +106,9 @@ public class DocController extends AbstractController {
             ModelMap model) {
         BigInteger userId= SecurityUtilsHelper.getCurrentUser().getUserId();
         MaterialPeriodical materialPeriodical=this.materialPeriodicalService.findById(id);
-        FrameUserFollow userFollow = this.frameUserFollowService.findByUserIdAndRelateId(userId,id);
-        if(userFollow==null){
-            userFollow=new FrameUserFollow();
+        Optional<FrameUserFollow> optional= this.frameUserFollowService.findByUserIdAndRelateId(userId,id);
+        if(!optional.isPresent()){
+            FrameUserFollow  userFollow=new FrameUserFollow();
             userFollow.setRelateId(id);
             userFollow.setType(materialPeriodical.getPeriodicalType());
             userFollow.setUserId(userId);

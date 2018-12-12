@@ -1,5 +1,6 @@
 package im.heart.usercore.service.impl;
 
+import com.google.common.collect.Sets;
 import im.heart.core.plugins.persistence.DynamicSpecifications;
 import im.heart.core.plugins.persistence.SearchFilter;
 import im.heart.core.service.impl.CommonServiceImpl;
@@ -19,10 +20,11 @@ import java.math.BigInteger;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service(value = FrameUserFollowService.BEAN_NAME)
-@Transactional(propagation = Propagation.SUPPORTS)
+@Transactional(propagation = Propagation.SUPPORTS,rollbackFor = Exception.class)
 public class FrameUserFollowServiceImpl extends CommonServiceImpl<FrameUserFollow, BigInteger> implements FrameUserFollowService{
 	@Autowired
 	private FrameUserFollowRepository frameUserFollowRepository;
@@ -35,7 +37,7 @@ public class FrameUserFollowServiceImpl extends CommonServiceImpl<FrameUserFollo
 
 	@Override
 	public List<FrameUserFollow> findByUserId(BigInteger userId) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
+		final Collection<SearchFilter> filters =  Sets.newHashSet();
 		filters.add(new SearchFilter("userId", SearchFilter.Operator.EQ, userId));
 		Specification<FrameUserFollow> spec = DynamicSpecifications.bySearchFilter(filters, FrameUserFollow.class);
 		return this.frameUserFollowRepository.findAll(spec);
@@ -43,7 +45,7 @@ public class FrameUserFollowServiceImpl extends CommonServiceImpl<FrameUserFollo
 
 	@Override
 	public List<FrameUserFollow> findByUserIdAndType(BigInteger userId, String relateType) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
+		final Collection<SearchFilter> filters =   Sets.newHashSet();
 		filters.add(new SearchFilter("userId", SearchFilter.Operator.EQ, userId));
 		filters.add(new SearchFilter("type", SearchFilter.Operator.EQ, relateType));
 		Specification<FrameUserFollow> spec = DynamicSpecifications.bySearchFilter(filters, FrameUserFollow.class);
@@ -51,21 +53,17 @@ public class FrameUserFollowServiceImpl extends CommonServiceImpl<FrameUserFollo
 	}
 
 	@Override
-	public FrameUserFollow findByUserIdAndRelateId(BigInteger userId, BigInteger relateId) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
-		filters.add(new SearchFilter("userId", SearchFilter.Operator.EQ, userId));
-		filters.add(new SearchFilter("relateId", SearchFilter.Operator.EQ, relateId));
-		Specification<FrameUserFollow> spec = DynamicSpecifications.bySearchFilter(filters, FrameUserFollow.class);
-		return this.frameUserFollowRepository.findOne(spec).get();
+	public Optional<FrameUserFollow>  findByUserIdAndRelateId(BigInteger userId, BigInteger relateId) {
+		return findByUserIdAndRelateIdAndType(userId,relateId,null);
 	}
 	@Override
-	public FrameUserFollow findByUserIdAndRelateIdAndType(BigInteger userId, BigInteger relateId, String relateType) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
+	public Optional<FrameUserFollow> findByUserIdAndRelateIdAndType(BigInteger userId, BigInteger relateId, String relateType) {
+		final Collection<SearchFilter> filters =   Sets.newHashSet();
 		filters.add(new SearchFilter("userId", SearchFilter.Operator.EQ, userId));
 		filters.add(new SearchFilter("relateId", SearchFilter.Operator.EQ, relateId));
 		filters.add(new SearchFilter("type", SearchFilter.Operator.EQ, relateType));
 		Specification<FrameUserFollow> spec = DynamicSpecifications.bySearchFilter(filters, FrameUserFollow.class);
-		return this.frameUserFollowRepository.findOne(spec).get();
+		return this.frameUserFollowRepository.findOne(spec);
 	}
 
 

@@ -7,6 +7,7 @@ import im.heart.usercore.entity.FrameOrg;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,7 +30,7 @@ public interface FrameOrgService extends CommonService<FrameOrg, BigInteger>{
 	 */
 	public List<FrameOrg>  saveAll(Iterable<FrameOrg> entities);
 
-	public FrameOrg findByName(String orgName);
+	public Optional<FrameOrg> findByName(String orgName);
 	
 	public List<FrameOrg> findOrgsByName(String orgName);
 	public boolean existsOrgCode(String orgCode);

@@ -1,5 +1,6 @@
 package im.heart.frame.service.impl;
 
+import com.google.common.collect.Sets;
 import im.heart.core.service.ServiceException;
 import im.heart.core.plugins.persistence.DynamicSpecifications;
 import im.heart.core.plugins.persistence.SearchFilter;
@@ -47,7 +48,7 @@ public class FrameDictServiceImpl extends CommonServiceImpl<FrameDict, BigIntege
 	
 	@Override
 	public boolean exists(String dictCode) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
+		final Collection<SearchFilter> filters =  Sets.newHashSet();
 		filters.add(new SearchFilter("dictCode", Operator.EQ, dictCode));
 		Specification<FrameDict> spec = DynamicSpecifications.bySearchFilter(filters, FrameDict.class);
 		long count = this.frameDictRepository.count(spec);
@@ -56,18 +57,17 @@ public class FrameDictServiceImpl extends CommonServiceImpl<FrameDict, BigIntege
 
 
 	@Override
-	public FrameDictItem findItemByCode(String dictCode, String itemCode) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
+	public Optional<FrameDictItem>  findItemByCode(String dictCode, String itemCode) {
+		final Collection<SearchFilter> filters = Sets.newHashSet();
 		filters.add(new SearchFilter("dictCode", Operator.EQ, dictCode));
 		filters.add(new SearchFilter("itemCode", Operator.EQ, itemCode));
 		Specification<FrameDictItem> spec = DynamicSpecifications.bySearchFilter(filters, FrameDictItem.class);
-		FrameDictItem frameDictItem = this.frameDictItemRepository.findOne(spec).get();
-		return frameDictItem;
+		return this.frameDictItemRepository.findOne(spec);
 	}
 
 	@Override
 	public List<FrameDictItem> findItemsByCode(String dictCode,String itemCode) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
+		final Collection<SearchFilter> filters =  Sets.newHashSet();
 		filters.add(new SearchFilter("dictCode", Operator.EQ, dictCode));
 		filters.add(new SearchFilter("itemCode", Operator.LIKES, itemCode));
 		Specification<FrameDictItem> spec = DynamicSpecifications.bySearchFilter(filters, FrameDictItem.class);
@@ -77,7 +77,7 @@ public class FrameDictServiceImpl extends CommonServiceImpl<FrameDict, BigIntege
 	 
 	@Override
 	public Page<FrameDictItem>  findItemsByCode(String dictCode,Pageable pageable) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
+		final Collection<SearchFilter> filters = Sets.newHashSet();
 		filters.add(new SearchFilter("dictCode", Operator.EQ, dictCode));
 		Specification<FrameDictItem> spec = DynamicSpecifications.bySearchFilter(filters, FrameDictItem.class);
 		return this.frameDictItemRepository.findAll(spec,pageable);

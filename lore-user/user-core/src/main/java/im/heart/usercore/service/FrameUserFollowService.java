@@ -5,6 +5,7 @@ import im.heart.usercore.entity.FrameUserFollow;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 
@@ -29,6 +30,6 @@ public interface FrameUserFollowService extends CommonService<FrameUserFollow, B
 	public List<FrameUserFollow> findByUserId(BigInteger userId);
 
 	public List<FrameUserFollow> findByUserIdAndType(BigInteger userId, String relateType);
-	public FrameUserFollow findByUserIdAndRelateId(BigInteger userId, BigInteger relateId);
-	public FrameUserFollow findByUserIdAndRelateIdAndType(BigInteger userId, BigInteger relateId, String relateType);
+	public Optional<FrameUserFollow> findByUserIdAndRelateId(BigInteger userId, BigInteger relateId);
+	public Optional<FrameUserFollow> findByUserIdAndRelateIdAndType(BigInteger userId, BigInteger relateId, String relateType);
 }

@@ -41,7 +41,7 @@ public interface FrameDictService extends CommonService<FrameDict, BigInteger>{
 	 * @param itemCode
 	 * @return
 	 */
-	public FrameDictItem  findItemByCode(String dictCode, String itemCode);
+	public Optional<FrameDictItem>   findItemByCode(String dictCode, String itemCode);
 	
 	public Page<FrameDictItem> findItemsByCode(String dictCode, Pageable pageable);
 
