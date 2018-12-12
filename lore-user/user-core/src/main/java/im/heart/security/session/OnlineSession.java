@@ -1,9 +1,10 @@
 package im.heart.security.session;
 
+import lombok.Data;
 import org.apache.shiro.session.mgt.SimpleSession;
 
 import java.math.BigInteger;
-
+@Data
 public class OnlineSession extends SimpleSession {
 	/**
 	 * 
@@ -49,59 +50,11 @@ public class OnlineSession extends SimpleSession {
 	 */
 	private transient boolean attributeChanged = false;
 
-	public BigInteger getUserId() {
-		return userId;
-	}
-
-	public void setUserId(BigInteger userId) {
-		this.userId = userId;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getUserAgent() {
-		return userAgent;
-	}
-
-	public void setUserAgent(String userAgent) {
-		this.userAgent = userAgent;
-	}
-
-	public OnlineStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(OnlineStatus status) {
-		this.status = status;
-	}
-
-	public String getSystemHost() {
-		return systemHost;
-	}
-
-	public void setSystemHost(String systemHost) {
-		this.systemHost = systemHost;
-	}
-
-	public boolean isAttributeChanged() {
-		return attributeChanged;
-	}
-
-	public void setAttributeChanged(boolean attributeChanged) {
-		this.attributeChanged = attributeChanged;
-	}
-
 	public void markAttributeChanged() {
-		this.attributeChanged = true;
+		setAttributeChanged(true) ;
 	}
 
 	public void resetAttributeChanged() {
-		this.attributeChanged = false;
-	}	
+		setAttributeChanged(false) ;
+	}
 }

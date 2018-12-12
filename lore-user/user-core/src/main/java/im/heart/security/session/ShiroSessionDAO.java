@@ -7,6 +7,7 @@ import org.apache.shiro.session.mgt.ValidatingSession;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -16,6 +17,7 @@ import java.math.BigInteger;
  * @author gg
  * @desc sessionDAO
  */
+@Component
 public class ShiroSessionDAO extends EnterpriseCacheSessionDAO {
 	protected static final Logger logger = LoggerFactory.getLogger(ShiroSessionDAO.class);
     

@@ -18,6 +18,7 @@ import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -32,10 +33,8 @@ import java.io.PrintWriter;
  * @author gg
  * @desc 自定义用户验证过滤链
  */
-@Component
 public class FrameAuthenticationFilter extends FormAuthenticationFilter {
 	protected static final Logger logger = LoggerFactory.getLogger(FrameAuthenticationFilter.class);
-
 	private String loginUrl = "/login.jhtml";
 	public static final String DEFAULT_CAPTCHA_PARAM = "validateCode";
     public static final String DEFAULT_USERNAME_PARAM = "userName";

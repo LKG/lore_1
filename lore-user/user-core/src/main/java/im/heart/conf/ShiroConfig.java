@@ -1,48 +1,52 @@
 package im.heart.conf;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import im.heart.security.cache.ShiroCacheConfig;
 import im.heart.security.credentials.RetryLimitCredentialsMatcher;
 import im.heart.security.filter.*;
 import im.heart.security.realm.FrameUserRealm;
-import im.heart.security.session.*;
+import im.heart.security.session.OnlineSessionFactory;
+import im.heart.security.session.ShiroSessionDAO;
+import im.heart.security.session.ShiroSessionListener;
+import im.heart.security.session.ShiroSessionManager;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
+import org.apache.shiro.mgt.SessionsSecurityManager;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.SessionListener;
 import org.apache.shiro.session.mgt.SessionFactory;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.session.mgt.eis.CachingSessionDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
+import org.apache.shiro.spring.config.web.autoconfigure.ShiroWebAutoConfiguration;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.filter.authz.SslFilter;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
-import org.apache.shiro.web.mgt.WebSecurityManager;
 import org.apache.shiro.web.servlet.Cookie;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 import javax.servlet.Filter;
 import java.util.Collection;
-import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Configuration
 @PropertySource(value = "classpath:/application-shiro.properties")
-public class ShiroConfig {
+public class ShiroConfig  extends ShiroWebAutoConfiguration {
 	protected static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
 
 	public static final String CACHE_MANAGER_BEAN_NAME = ShiroCacheConfig.CACHE_MANAGER_BEAN_NAME;
@@ -94,6 +98,7 @@ public class ShiroConfig {
 	 * @return
 	 */
 	@Bean
+	@Override
 	public ShiroFilterChainDefinition shiroFilterChainDefinition() {
 		DefaultShiroFilterChainDefinition chain = new DefaultShiroFilterChainDefinition();
 		chain.addPathDefinition("/static/**", "anon");
@@ -124,17 +129,16 @@ public class ShiroConfig {
 		chain.addPathDefinition("/**", "authc");
 		return chain;
 	}
-
 	/**
 	 * 网络请求的权限过滤, 拦截外部请求
 	 */
 	@Bean
-	public ShiroFilterFactoryBean getShiroFilterFactoryBean(WebSecurityManager securityManager) {
+	public ShiroFilterFactoryBean getShiroFilterFactoryBean() {
 		ShiroFilterFactory shiroFilterFactoryBean = new ShiroFilterFactory();
 		shiroFilterFactoryBean.setLoginUrl(loginUrl);
 		shiroFilterFactoryBean.setSuccessUrl(successUrl);
 		shiroFilterFactoryBean.setUnauthorizedUrl(unauthorizedUrl);
-		shiroFilterFactoryBean.setSecurityManager(securityManager);
+		shiroFilterFactoryBean.setSecurityManager(securityManager(null));
 		/*<!-- 添加自定义过滤链 -->*/
 		Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
 		filters.put("authc",frameAuthenticationFilter());
@@ -184,16 +188,17 @@ public class ShiroConfig {
 	 * SecurityManager，权限管理，这个类组合了登陆，登出，权限，session的处理，是个比较重要的类。
 	 * @return
 	 */
-	@Bean(name = "securityManager")
-	public WebSecurityManager defaultWebSecurityManager() {
-		ShiroWebSecurityManager wsm = new ShiroWebSecurityManager();
-		wsm.setCacheManager(cacheManager());
-		wsm.setRealm(frameUserRealm());
-		wsm.setSessionManager(sessionManager());
-		wsm.setRememberMeManager(rememberMeManager());
-		SecurityUtils.setSecurityManager(wsm);
-		return wsm;
+	@Bean()
+	@Override
+	public SessionsSecurityManager securityManager(List<Realm> realms) {
+		SessionsSecurityManager sessionsSecurityManager=super.securityManager(realms);
+		sessionsSecurityManager.setCacheManager(cacheManager());
+		sessionsSecurityManager.setRealm(frameUserRealm());
+		sessionsSecurityManager.setSessionManager(sessionManager());
+		SecurityUtils.setSecurityManager(sessionsSecurityManager);
+		return sessionsSecurityManager;
 	}
+
 	@Bean(name = "sessionIdCookie")
 	public Cookie sessionIdCookie() {
         Cookie cookie = new SimpleCookie(sessionIdName);
@@ -202,6 +207,7 @@ public class ShiroConfig {
 		return cookie;
 	}
 	@Bean(name = "rememberMeManager")
+	@Override
 	public CookieRememberMeManager rememberMeManager() {
 		CookieRememberMeManager rememberMeManager = new CookieRememberMeManager();
 		//rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
@@ -214,6 +220,7 @@ public class ShiroConfig {
 		return sessionFactory;
 	}
 	@Bean
+	@Override
 	public SessionManager sessionManager() {
 		ShiroSessionManager sessionManager = new ShiroSessionManager();
 		sessionManager.setGlobalSessionTimeout(ShiroSessionManager.DEFAULT_GLOBAL_SESSION_TIMEOUT);
@@ -243,7 +250,8 @@ public class ShiroConfig {
 	 * 自定义sessionDAO
 	 * @return
 	 */
-	@Bean(name = "sessionDAO")
+	@Bean()
+	@Override
 	public CachingSessionDAO sessionDAO() {
 		ShiroSessionDAO sessionDAO=new ShiroSessionDAO();
 		return sessionDAO;
@@ -256,7 +264,7 @@ public class ShiroConfig {
     public MethodInvokingFactoryBean methodInvokingFactoryBean() {
         MethodInvokingFactoryBean bean = new MethodInvokingFactoryBean();
         bean.setStaticMethod("org.apache.shiro.SecurityUtils.setSecurityManager");
-        bean.setArguments(new Object[]{defaultWebSecurityManager()});
+        bean.setArguments(new Object[]{securityManager(null)});
         return bean;
     }
 
@@ -276,7 +284,6 @@ public class ShiroConfig {
 	 * @return
 	 */
 	@Bean()
-	@ConditionalOnMissingBean
    public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
        DefaultAdvisorAutoProxyCreator daap = new DefaultAdvisorAutoProxyCreator();
 		/**

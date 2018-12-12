@@ -9,11 +9,11 @@ import org.slf4j.LoggerFactory;
 public class ShiroSessionManager extends DefaultWebSessionManager {
 	protected static final Logger logger = LoggerFactory.getLogger(ShiroSessionManager.class);
 	private long globalSessionTimeout = DEFAULT_GLOBAL_SESSION_TIMEOUT;
-
+	@Override
 	public long getGlobalSessionTimeout() {
 		return globalSessionTimeout;
 	}
-
+	@Override
 	public void setGlobalSessionTimeout(long globalSessionTimeout) {
 		this.globalSessionTimeout = globalSessionTimeout;
 	}
@@ -23,7 +23,7 @@ public class ShiroSessionManager extends DefaultWebSessionManager {
 		Object removed = super.removeAttribute(sessionKey, attributeKey);
 		if (removed != null) {
 			OnlineSession s = (OnlineSession) doGetSession(sessionKey);
-			s.markAttributeChanged();
+//			s.markAttributeChanged()
 		}
 		return removed;
 	}
