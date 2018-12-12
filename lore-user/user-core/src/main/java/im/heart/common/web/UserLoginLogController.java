@@ -26,7 +26,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
 import java.util.List;
-
+/**
+ *
+ * @author gg
+ * @desc 用户登陆日志
+ */
 @Controller
 public class UserLoginLogController extends AbstractController {
 	protected static final String apiVer = "/userinfo/loginlog";
@@ -53,7 +57,7 @@ public class UserLoginLogController extends AbstractController {
                               @RequestParam(value = CommonConst.RequestResult.ACCESS_TOKEN, required = false) String token,
                               ModelMap model) {
 		final Collection<SearchFilter> filters= DynamicSpecifications.buildSearchFilters(request);
-		filters.add(new SearchFilter("userId",Operator.EQ,SecurityUtilsHelper.getCurrentUser().getUserId()));//查询
+		filters.add(new SearchFilter("userId",Operator.EQ,SecurityUtilsHelper.getCurrentUser().getUserId()));
 		Specification<FrameLogLogin> spec=DynamicSpecifications.bySearchFilter(filters, FrameLogLogin.class);
 		PageRequest pageRequest=DynamicPageRequest.buildPageRequest(CommonConst.Page.DEFAULT_PAGE,CommonConst.Page.DEFAULT_SIZE*2,sort,order,FrameLogLogin.class);
 		Page<FrameLogLogin> pag = this.frameLogLoginService.findAll(spec, pageRequest);
@@ -63,8 +67,8 @@ public class UserLoginLogController extends AbstractController {
 				FrameUserLoginLogVO vo=new FrameUserLoginLogVO(po);
 				vos.add(vo);
 			}
-			Page<FrameUserLoginLogVO> pagvos =new PageImpl<FrameUserLoginLogVO>(vos,pageRequest,pag.getTotalElements());
-			super.success(model,pagvos);
+			Page<FrameUserLoginLogVO> pageVos =new PageImpl<FrameUserLoginLogVO>(vos,pageRequest,pag.getTotalElements());
+			super.success(model,pageVos);
 			return new ModelAndView(VIEW_LIST);
 		}
 		super.success(model,pag);
