@@ -19,12 +19,14 @@
         <artifactId>user-domain</artifactId>
         <version>0.0.1</version>
     </dependency>
-    <!-- 认证相关 -->
+
+    <!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-spring-boot-starter -->
     <dependency>
         <groupId>org.apache.shiro</groupId>
-        <artifactId>shiro-core</artifactId>
+        <artifactId>shiro-spring-boot-starter</artifactId>
         <version>${shiro.version}</version>
     </dependency>
+    <!-- 认证相关 -->
     <dependency>
         <groupId>org.apache.shiro</groupId>
         <artifactId>shiro-web</artifactId>
@@ -38,11 +40,6 @@
     <dependency>
         <groupId>org.apache.shiro</groupId>
         <artifactId>shiro-ehcache</artifactId>
-        <version>${shiro.version}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.shiro</groupId>
-        <artifactId>shiro-spring</artifactId>
         <version>${shiro.version}</version>
     </dependency>
 </dependencies>
