@@ -17,7 +17,7 @@ import im.heart.usercore.service.PasswordService;
  * @desc 密码加密帮助类
  */
 @Service(value = PasswordService.BEAN_NAME)
-@PropertySource(value = "classpath:/application-shiro.properties")
+@PropertySource(value = "classpath:/application-shiro.yml")
 public class PasswordServiceImpl implements PasswordService {
 	private RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
 

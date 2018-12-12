@@ -9,6 +9,7 @@ import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -20,7 +21,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @desc 密码校验器 ，防暴力破解 用户密码输入错误次数过多，自动锁定账号
  */
 public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
+	@Value("${shiro.password.algorithmName}")
+	private String algorithmName="md5";
 
+	@Value("${shiro.password.hashIterations}")
+	private int hashIterations=2;
+	@Value("${shiro.password.storedCredentialsHexEncoded}")
+	private boolean storedCredentialsHexEncoded=true;
 	protected static final String CACHE_NAME = ShiroCacheConfig.PASSWORD_RETRY.keyPrefix;
 	protected static final Logger logger = LoggerFactory.getLogger(RetryLimitCredentialsMatcher.class);
 

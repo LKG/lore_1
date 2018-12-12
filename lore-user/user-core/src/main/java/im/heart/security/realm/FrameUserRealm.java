@@ -18,14 +18,11 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Set;
 
@@ -61,7 +58,9 @@ public class FrameUserRealm extends AuthorizingRealm {
 	}
 
 	protected static final  int MAX_FAIL=3;
-	// 是否使用验证码
+	/**
+	 * 是否使用验证码
+	 */
 	protected boolean useCaptcha = false;
 
 	public boolean isUseCaptcha() {
@@ -182,12 +181,5 @@ public class FrameUserRealm extends AuthorizingRealm {
 			return user.getUserId();
 		}
 		return super.getAuthorizationCacheKey(principals);
-	}
-	
-	public  void clearCachedAuthorizationInfo(BigInteger userId) {
-		logger.debug("clearCachedAuthorizationInfo by userId,{}",userId);
-		//TODO: 清空缓存授权信息 待测试
-		SimplePrincipalCollection principals = new SimplePrincipalCollection(userId, getName());
- 		this.clearCachedAuthorizationInfo(principals);
 	}
 }

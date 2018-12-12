@@ -45,19 +45,11 @@ import java.util.List;
 import java.util.Map;
 
 @Configuration
-@PropertySource(value = "classpath:/application-shiro.properties")
+@PropertySource(value = "classpath:/application-shiro.yml")
 public class ShiroConfig  extends ShiroWebAutoConfiguration {
 	protected static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
 
 	public static final String CACHE_MANAGER_BEAN_NAME = ShiroCacheConfig.CACHE_MANAGER_BEAN_NAME;
-
-	@Value("${shiro.password.algorithmName}")
-	private String algorithmName="md5";
-
-	@Value("${shiro.password.hashIterations}")
-	private int hashIterations=2;
-	@Value("${shiro.password.storedCredentialsHexEncoded}")
-	private boolean storedCredentialsHexEncoded=true;
 
 	@Value("${shiro.login.url}")
 	private String loginUrl = "/login.jhtml";
@@ -65,7 +57,7 @@ public class ShiroConfig  extends ShiroWebAutoConfiguration {
 	@Value("${shiro.login.success.url}")
 	private String successUrl = "/";
 
-	@Value("${shiro.uid.cookie.name}")
+	@Value("${shiro.sessionManager.cookie.name}")
 	private String sessionIdName = "jsid";
 
 	@Value("${shiro.unauthorizedUrl}")
@@ -170,9 +162,6 @@ public class ShiroConfig  extends ShiroWebAutoConfiguration {
 	@Bean(name = "credentialsMatcher")
 	public RetryLimitCredentialsMatcher credentialsMatcher() {
 		RetryLimitCredentialsMatcher retryLimitCredentialsMatcher=new RetryLimitCredentialsMatcher();
-		retryLimitCredentialsMatcher.setHashAlgorithmName(algorithmName);
-		retryLimitCredentialsMatcher.setHashIterations(hashIterations);
-		retryLimitCredentialsMatcher.setStoredCredentialsHexEncoded(storedCredentialsHexEncoded);
 		retryLimitCredentialsMatcher.setCacheManager(cacheManager());
 		return retryLimitCredentialsMatcher;
 	}
