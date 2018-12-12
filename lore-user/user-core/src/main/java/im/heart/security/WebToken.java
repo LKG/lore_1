@@ -1,21 +1,16 @@
 package im.heart.security;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Data;
 
 /**
  * 
  * @author gg
  * @desc  登录成功返回model
  */
+@Data
 public class WebToken {
-	
-	public long getExpires() {
-		return expires;
-	}
 
-	public void setExpires(long expires) {
-		this.expires = expires;
-	}
 	public WebToken() {
 	}
 	public WebToken(String token,long expires) {
@@ -36,37 +31,5 @@ public class WebToken {
 	
 	@JSONField(name="uid")
 	private String uid;
-	
-	public String getUid() {
-		return uid;
-	}
-
-	public void setUid(String uid) {
-		this.uid = uid;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
-
-	public String getScope() {
-		return scope;
-	}
-
-	public void setScope(String scope) {
-		this.scope = scope;
-	}
-
-	public String getRefreshToken() {
-		return refreshToken;
-	}
-
-	public void setRefreshToken(String refreshToken) {
-		this.refreshToken = refreshToken;
-	}
 
 }

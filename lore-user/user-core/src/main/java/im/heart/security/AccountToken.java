@@ -17,8 +17,7 @@ public class AccountToken extends UsernamePasswordToken {
 	 */
 	private static final long serialVersionUID = -6052412220330012704L;
 	private BigInteger userId;
-	private String tokenType;//token 类型 暂未使用
-	//验证码字符串  
+	private String tokenType;
     private String validateCode; 
     
 	public String getValidateCode() {
