@@ -233,7 +233,7 @@ public class ShiroConfig  extends ShiroWebAutoConfiguration {
 		sessionManager.setSessionIdCookie(sessionIdCookie());
 		Collection<SessionListener> listeners=Lists.newArrayList();
 		////设置SESSION 监听器
-		listeners.add(new ShiroSessionListener());
+		listeners.add(shiroSessionListener());
 		sessionManager.setSessionListeners(listeners);
 		return sessionManager;
 	}
