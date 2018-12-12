@@ -36,7 +36,7 @@ import java.util.Map;
  * @desc 用户找回密码控制器
  */
 @Controller
-public class ForgetPwdController extends AbstractController {
+public class FindPwdController extends AbstractController {
 	protected static final String apiVer = "/findPwd";
 	@Autowired
 	private FrameUserService frameUserService;
