@@ -1,6 +1,7 @@
 package im.heart.security;
 
 
+import lombok.Data;
 import org.apache.shiro.authc.UsernamePasswordToken;
 
 import java.math.BigInteger;
@@ -10,6 +11,7 @@ import java.math.BigInteger;
  * @author gg
  * @desc 扩展密码验证token 添加验证码校验
  */
+@Data
 public class AccountToken extends UsernamePasswordToken {
 	
 	/**
@@ -19,47 +21,23 @@ public class AccountToken extends UsernamePasswordToken {
 	private BigInteger userId;
 	private String tokenType;
     private String validateCode; 
-    
-	public String getValidateCode() {
-		return validateCode;
-	}
 
-	public void setValidateCode(String validateCode) {
-		this.validateCode = validateCode;
-	}
-
-	public AccountToken(String username, String digestpassword,
+	public AccountToken(String username, String digestPassword,
 			boolean rememberMe, String host) {
-		super(username, digestpassword, rememberMe, host);
+		super(username, digestPassword, rememberMe, host);
 	}
-	public AccountToken(String username, String digestpassword,
+	public AccountToken(String username, String digestPassword,
 			boolean rememberMe, String host, String validateCode) {
-		super(username, digestpassword, rememberMe, host);
+		super(username, digestPassword, rememberMe, host);
 		this.validateCode=validateCode;
 	}
 	
-	public AccountToken(String username, String digestpassword,
+	public AccountToken(String username, String digestPassword,
 			boolean rememberMe, String host, String validateCode,BigInteger userId,String tokenType) {
-		super(username, digestpassword, rememberMe, host);
+		super(username, digestPassword, rememberMe, host);
 		this.validateCode=validateCode;
 		this.tokenType=tokenType;
 		this.userId=userId;	
 		
-	}
-
-	public BigInteger getUserId() {
-		return userId;
-	}
-
-	public void setUserId(BigInteger userId) {
-		this.userId = userId;
-	}
-
-	public String getTokenType() {
-		return tokenType;
-	}
-
-	public void setTokenType(String tokenType) {
-		this.tokenType = tokenType;
 	}
 }
