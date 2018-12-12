@@ -37,7 +37,7 @@ import java.util.Set;
 public class FrameUserRealm extends AuthorizingRealm {
 
 	protected static final Logger logger = LoggerFactory.getLogger(FrameUserRealm.class);
-	private String name = ShiroCacheConfig.userRealm.keyPrefix;
+	private String name = ShiroCacheConfig.USER_REALM.keyPrefix;
     private static final String AUTHORIZATION_CACHE_SUFFIX = "_authorizationCache:";
    
 	@Override

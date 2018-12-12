@@ -32,9 +32,15 @@ public class KickoutSessionControlFilter extends LogoutFilter {
     public static final String DEFAULT_REDIRECT_URL = "/login.jhtml?logout=2";
     private String redirectUrl = DEFAULT_REDIRECT_URL;
     private String kickoutParam = "kickout";
-	private boolean kickoutAfter = false; // 踢出之前登录的/之后登录的用户 默认踢出之前登录的用户
-	private int maxSession = 1; // 同一个帐号最大会话数 默认1
-	private String keyPrefix = ShiroCacheConfig.kickout.keyPrefix;
+	/**
+	 * 踢出之前登录的/之后登录的用户 默认踢出之前登录的用户
+	 */
+	private boolean kickoutAfter = false;
+	/**
+	 * // 同一个帐号最大会话数 默认1
+	 */
+	private int maxSession = 1;
+	private String keyPrefix = ShiroCacheConfig.SESSION_KICKOUT.keyPrefix;
 	@Autowired
 	private ShiroSessionDAO shiroSessionDAO;
 	private Cache<String, Deque<Serializable>> cache;
@@ -49,13 +55,15 @@ public class KickoutSessionControlFilter extends LogoutFilter {
 	protected boolean preHandle(ServletRequest request, ServletResponse response)
 			throws Exception {
 		Subject subject = getSubject(request, response);
-		if (!subject.isAuthenticated() && !subject.isRemembered()) {// 如果没有登录，直接进行之后的流程
+		// 如果没有登录，直接进行之后的流程
+		if (!subject.isAuthenticated() && !subject.isRemembered()) {
 			return true;
 		}
 		Session session = subject.getSession();
 		Serializable sessionId = session.getId();
 		FrameUserVO user = SecurityUtilsHelper.getCurrentUser();
-		if(user==null){// 如果没有登录，直接进行之后的流程
+		// 如果没有登录，直接进行之后的流程
+		if(user==null){
 			return true;
 		}
 		String username=user.getUserName();

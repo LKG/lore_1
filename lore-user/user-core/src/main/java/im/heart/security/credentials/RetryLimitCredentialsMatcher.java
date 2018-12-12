@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
 
-	protected static final String CACHE_NAME = ShiroCacheConfig.passwordRetry.keyPrefix;
+	protected static final String CACHE_NAME = ShiroCacheConfig.PASSWORD_RETRY.keyPrefix;
 	protected static final Logger logger = LoggerFactory.getLogger(RetryLimitCredentialsMatcher.class);
 
 	private Cache<Serializable, AtomicInteger> passwordRetryCache;
