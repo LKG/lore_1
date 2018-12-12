@@ -1,26 +1,21 @@
 package im.heart.security.filter;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import im.heart.common.utils.LogLoginUtils;
 import im.heart.core.utils.BaseUtils;
 import im.heart.security.AccountToken;
-import im.heart.security.WebToken;
 import im.heart.security.utils.ShiroLoginHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -94,7 +89,7 @@ public class FrameAuthenticationFilter extends FormAuthenticationFilter {
 		boolean rememberMe = this.isRememberMe(request);
 		String host = BaseUtils.getIpAddr(WebUtils.toHttp(request));
 		String remoteHost = request.getRemoteHost();
-		logger.info("{}:createToken .......{},remoteHost:{}", username, host,
+		logger.info("createToken... username:{},host:{},remoteHost:{}", username, host,
 				remoteHost);
 		String captcha = this.getCaptchaParam(request);
 		return new AccountToken(username, password, rememberMe, host, captcha);
@@ -139,10 +134,7 @@ public class FrameAuthenticationFilter extends FormAuthenticationFilter {
 			HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 			httpServletResponse.setCharacterEncoding("UTF-8");
 			PrintWriter out = httpServletResponse.getWriter();
-			Session session = subject.getSession();
-			WebToken webToken = new WebToken((String) session.getId(),
-					session.getTimeout());
-			JSONObject jsobj = JSON.parseObject(JSON.toJSONString(webToken));
+			JSONObject jsobj = new JSONObject();
 			jsobj.put("loginSuccUrl", loginSuccUrl);
 			jsobj.put("success", true);
 			jsobj.put("httpstatus", HttpStatus.OK.toString());
