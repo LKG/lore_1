@@ -43,11 +43,11 @@ public class FrameAuthenticationFilter extends FormAuthenticationFilter {
 	private String captchaParam = DEFAULT_CAPTCHA_PARAM;
 	private String usernameParam = DEFAULT_USERNAME_PARAM;
 	private String passwordParam = DEFAULT_PASSWORD_PARAM;
-
+	@Override
 	public String getLoginUrl() {
 		return loginUrl;
 	}
-
+	@Override
 	public void setLoginUrl(String loginUrl) {
 		this.loginUrl = loginUrl;
 	}
@@ -94,9 +94,9 @@ public class FrameAuthenticationFilter extends FormAuthenticationFilter {
 		String password = this.getPassword(request);
 		boolean rememberMe = this.isRememberMe(request);
 		String host = BaseUtils.getIpAddr(WebUtils.toHttp(request));
-		String romoteHost = request.getRemoteHost();
+		String remoteHost = request.getRemoteHost();
 		logger.info("{}:createToken .......{},romoteHost:{}", username, host,
-				romoteHost);
+				remoteHost);
 		String captcha = this.getCaptchaParam(request);
 		return new AccountToken(username, password, rememberMe, host, captcha);
 	}
