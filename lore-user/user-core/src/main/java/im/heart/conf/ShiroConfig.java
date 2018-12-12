@@ -18,6 +18,8 @@ import org.apache.shiro.session.mgt.eis.CachingSessionDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
+import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.filter.authz.SslFilter;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.WebSecurityManager;
@@ -67,8 +69,7 @@ public class ShiroConfig {
 
 	@Value("${shiro.logout.success.url}")
 	private String logoutSuccessUrl = "/login.jhtml?logout=1";
-
-	private final static Map<String, String> filterChainDefinitionMap = Maps.newLinkedHashMap();
+	
 	@Bean(name = CACHE_MANAGER_BEAN_NAME)
 	public CacheManager cacheManager() {
 		return new EhCacheManager();
@@ -86,6 +87,44 @@ public class ShiroConfig {
 	public SslFilter sslFilter() {
 		return new SslFilter();
 	}
+
+	/**
+	 * 这里统一做鉴权，即判断哪些请求路径需要用户登录，哪些请求路径不需要用户登录。
+	 * 这里只做鉴权，不做权限控制，因为权限用注解来做。
+	 * @return
+	 */
+	@Bean
+	public ShiroFilterChainDefinition shiroFilterChainDefinition() {
+		DefaultShiroFilterChainDefinition chain = new DefaultShiroFilterChainDefinition();
+		chain.addPathDefinition("/static/**", "anon");
+		chain.addPathDefinition("/favicon.ico", "anon");
+		chain.addPathDefinition("**.ico", "anon");
+		chain.addPathDefinition("/oauth2/**", "anon");
+		chain.addPathDefinition("/3rd/**", "anon");
+		chain.addPathDefinition("/css/**", "anon");
+		chain.addPathDefinition("/js/**", "anon");
+		chain.addPathDefinition("/imgs/**", "anon");
+		chain.addPathDefinition("/images/**", "anon");
+		chain.addPathDefinition("/app/js/**", "anon");
+		chain.addPathDefinition("/app/css/**", "anon");
+		chain.addPathDefinition("/app/imgs/**", "anon");
+		chain.addPathDefinition("/modules/**", "anon");
+		chain.addPathDefinition("/login-in**", "anon");
+		chain.addPathDefinition("/validate/**", "anon");
+		chain.addPathDefinition("/regist**", "anon");
+		chain.addPathDefinition("/regist/**", "anon");
+		chain.addPathDefinition("/findPwd/**", "anon");
+		chain.addPathDefinition("/api/**", "anon");
+		chain.addPathDefinition("/logout*", "logout");
+		chain.addPathDefinition("/", "anon");
+		chain.addPathDefinition("/index/*", "anon");
+		chain.addPathDefinition("/admin/druid/**", "perms[druid:monitor]");
+		chain.addPathDefinition("/admin/monitor/**", "perms[monitor:monitor]");
+		chain.addPathDefinition("/authenticated", "authc");
+		chain.addPathDefinition("/**", "authc");
+		return chain;
+	}
+
 	/**
 	 * 网络请求的权限过滤, 拦截外部请求
 	 */
@@ -107,33 +146,8 @@ public class ShiroConfig {
 		filters.put("kickout",kickoutSessionControlFilter());
 		/*<!-- 强制退出用户 -->*/
 		filters.put("forceLogout",forceLogoutFilter());
-		filterChainDefinitionMap.put("/static/**", "anon");
-		filterChainDefinitionMap.put("/favicon.ico", "anon");
-		filterChainDefinitionMap.put("**.ico", "anon");
-		filterChainDefinitionMap.put("/oauth2/**", "anon");
-		filterChainDefinitionMap.put("/3rd/**", "anon");
-		filterChainDefinitionMap.put("/css/**", "anon");
-		filterChainDefinitionMap.put("/js/**", "anon");
-		filterChainDefinitionMap.put("/imgs/**", "anon");
-		filterChainDefinitionMap.put("/images/**", "anon");
-		filterChainDefinitionMap.put("/app/js/**", "anon");
-		filterChainDefinitionMap.put("/app/css/**", "anon");
-		filterChainDefinitionMap.put("/app/imgs/**", "anon");
-		filterChainDefinitionMap.put("/modules/**", "anon");
-		filterChainDefinitionMap.put("/login-in**", "anon");
-		filterChainDefinitionMap.put("/validate/**", "anon");
-		filterChainDefinitionMap.put("/regist**", "anon");
-		filterChainDefinitionMap.put("/regist/**", "anon");
-		filterChainDefinitionMap.put("/findPwd/**", "anon");
-		filterChainDefinitionMap.put("/api/**", "anon");
-		filterChainDefinitionMap.put("/logout*", "logout");
-		filterChainDefinitionMap.put("/", "anon");
-		filterChainDefinitionMap.put("/index/*", "anon");
-		filterChainDefinitionMap.put("/admin/druid/**", "perms[druid:monitor]");
-		filterChainDefinitionMap.put("/admin/monitor/**", "perms[monitor:monitor]");
-		filterChainDefinitionMap.put("/authenticated", "authc");
-		filterChainDefinitionMap.put("/**", "authc");
-		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+		ShiroFilterChainDefinition shiroFilterChainDefinition=shiroFilterChainDefinition();
+		shiroFilterFactoryBean.setFilterChainDefinitionMap(shiroFilterChainDefinition.getFilterChainMap());
 		return shiroFilterFactoryBean;
 	}
 
