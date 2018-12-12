@@ -42,20 +42,23 @@ import java.util.Map;
 @PropertySource(value = "classpath:/application-shiro.properties")
 public class ShiroConfig {
 	protected static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
-    @Value("${shiro.password.algorithmName}")
-	private String algorithmName="md5";
+
 	public static final String CACHE_MANAGER_BEAN_NAME = ShiroCacheConfig.CACHE_MANAGER_BEAN_NAME;
+
+	@Value("${shiro.password.algorithmName}")
+	private String algorithmName="md5";
 
 	@Value("${shiro.password.hashIterations}")
 	private int hashIterations=2;
 	@Value("${shiro.password.storedCredentialsHexEncoded}")
 	private boolean storedCredentialsHexEncoded=true;
-	private final static Map<String, String> filterChainDefinitionMap = Maps.newLinkedHashMap();
+
 	@Value("${shiro.login.url}")
 	private String loginUrl = "/login.jhtml";
 
 	@Value("${shiro.login.success.url}")
 	private String successUrl = "/";
+
 	@Value("${shiro.uid.cookie.name}")
 	private String sessionIdName = "jsid";
 
@@ -64,12 +67,12 @@ public class ShiroConfig {
 
 	@Value("${shiro.logout.success.url}")
 	private String logoutSuccessUrl = "/login.jhtml?logout=1";
+
+	private final static Map<String, String> filterChainDefinitionMap = Maps.newLinkedHashMap();
 	@Bean(name = CACHE_MANAGER_BEAN_NAME)
 	public CacheManager cacheManager() {
 		return new EhCacheManager();
 	}
-
-
 
 	@Bean()
 	public FrameAuthenticationFilter frameAuthenticationFilter() {
