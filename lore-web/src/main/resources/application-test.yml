@@ -76,8 +76,8 @@ jodconverter:
   local:
     enabled: true
     office-home: ${pom.office.home} # 设置LibreOffice主目录
-    portNumbers: 8100,8101,8102,8103 # 开启多个LibreOffice进程，每个端口对应一个进程
-    maxTasksPerProcess: 100 # LibreOffice进程重启前的最大进程数
+    portNumbers: 8100,8101,8102 # 开启多个LibreOffice进程，每个端口对应一个进程
+    maxTasksPerProcess: 50 # LibreOffice进程重启前的最大进程数
 wechat:
    open:
      appId:

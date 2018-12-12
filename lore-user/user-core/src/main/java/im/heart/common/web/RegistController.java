@@ -159,13 +159,13 @@ public class RegistController extends AbstractController {
 			return new ModelAndView(RESULT_PAGE);
 		}
 		boolean exist = this.frameUserService.existsUserPhone(userPhone);;
-		if (exist) {// 电话号码已存在
+		if (exist) {
 			super.fail(model,false);
 			return new ModelAndView(RESULT_PAGE);
 		}
-		frameUser.setUserName("q_"+frameUser.getUserPhone());// 快速注册用户
+		frameUser.setUserName("q_"+frameUser.getUserPhone());
 		frameUser.setNickName(frameUser.getUserPhone());
-		frameUser.setRemark("quickRegister user");// 快速注册用户
+		frameUser.setRemark("quickRegister user");
 		frameUser.setUserChannel("web");
 		frameUser.setStatus(Status.enabled);
 		FrameUser newFrameUser = this.frameUserService.save(frameUser);

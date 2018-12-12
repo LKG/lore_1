@@ -10,13 +10,18 @@ import org.tuckey.web.filters.urlrewrite.UrlRewriteFilter;
 import java.util.Collections;
 import java.util.Map;
 
+/**
+ *
+ * @author gg
+ * @desc UrlRewriteFilter 配置
+ */
 @Configuration
 public class UrlRewriteFilterConfig {
     @Order(-1)
     @Bean
     public FilterRegistrationBean urlRewrite(){
         UrlRewriteFilter rewriteFilter=new UrlRewriteFilter();
-        FilterRegistrationBean registration = new FilterRegistrationBean(rewriteFilter);
+        FilterRegistrationBean<UrlRewriteFilter> registration = new FilterRegistrationBean<UrlRewriteFilter>(rewriteFilter);
         registration.setUrlPatterns(Collections.singleton("/*"));
         Map initParam= Maps.newHashMap();
         initParam.put("confPath","urlrewirte.xml");
