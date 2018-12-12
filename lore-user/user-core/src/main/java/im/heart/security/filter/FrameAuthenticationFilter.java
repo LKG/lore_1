@@ -95,7 +95,7 @@ public class FrameAuthenticationFilter extends FormAuthenticationFilter {
 		boolean rememberMe = this.isRememberMe(request);
 		String host = BaseUtils.getIpAddr(WebUtils.toHttp(request));
 		String remoteHost = request.getRemoteHost();
-		logger.info("{}:createToken .......{},romoteHost:{}", username, host,
+		logger.info("{}:createToken .......{},remoteHost:{}", username, host,
 				remoteHost);
 		String captcha = this.getCaptchaParam(request);
 		return new AccountToken(username, password, rememberMe, host, captcha);

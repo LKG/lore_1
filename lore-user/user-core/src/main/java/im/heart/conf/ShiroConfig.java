@@ -68,6 +68,21 @@ public class ShiroConfig {
 	public CacheManager cacheManager() {
 		return new EhCacheManager();
 	}
+
+
+
+	@Bean()
+	public FrameAuthenticationFilter frameAuthenticationFilter() {
+		return new FrameAuthenticationFilter();
+	}
+	@Bean()
+	public FrameLogoutFilter frameLogoutFilter() {
+		return new FrameLogoutFilter();
+	}
+	@Bean()
+	public SslFilter sslFilter() {
+		return new SslFilter();
+	}
 	/**
 	 * 网络请求的权限过滤, 拦截外部请求
 	 */
@@ -80,11 +95,11 @@ public class ShiroConfig {
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
 		/*<!-- 添加自定义过滤链 -->*/
 		Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
-		filters.put("authc",new FrameAuthenticationFilter());
+		filters.put("authc",frameAuthenticationFilter());
 		/*<!-- 用户注销控制过滤链 -->*/
-		filters.put("logout",new FrameLogoutFilter());
+		filters.put("logout",frameLogoutFilter());
 		/*<!-- 添加ssl过滤链 -->*/
-		filters.put("ssl",new SslFilter());
+		filters.put("ssl",sslFilter());
 		/*<!-- 控制并发登录人数 -->*/
 		filters.put("kickout",kickoutSessionControlFilter());
 		/*<!-- 强制退出用户 -->*/
