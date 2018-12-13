@@ -4,6 +4,7 @@ import im.heart.common.context.ContextManager;
 import im.heart.core.CommonConst;
 import im.heart.core.utils.StringUtilsEx;
 import im.heart.core.validator.ValidatorUtils;
+import im.heart.security.cache.ShiroCacheConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.Cache;
@@ -12,13 +13,48 @@ import org.springframework.cache.CacheManager;
 
 public  class CacheUtils {
 	protected static final Logger logger = LoggerFactory.getLogger(CacheUtils.class);
-	public static final String EMAIL_CODE_CACHE_NAME = "emailCode-cache";
-	
-	public static final String MOBILE_CODE_CACHE_NAME = "mobileCode-cache";
-	
-	public static final String FINDPWD_CACHE_NAME = "findPwd-cache";
 	
 	public static final String CACHE_MANAGER_BEAN_NAME = CommonConst.CACHE_MANAGER_NAME;
+
+	public enum CacheConfig {
+		EMAIL_CODE("emailCode-cache", 30 * 60 * 1),
+		MOBILE_CODE("mobileCode-cache", 60 * 60 * 1),
+		FIND_PWD("findPwd-cache", 0);
+		CacheConfig(String keyPrefix, long expiredTime) {
+			this.keyPrefix = keyPrefix;
+			this.expiredTime = expiredTime;
+		}
+		public  String keyPrefix;
+
+		public long expiredTime;
+
+		public long getExpiredTimeByKey(String keyPrefix){
+			CacheConfig[] values = CacheConfig.values();
+			for(CacheConfig value:values ){
+				if(value.getKeyPrefix().equals(keyPrefix)){
+					return value.getExpiredTime();
+				}
+			}
+			return 0;
+		}
+
+		public String getKeyPrefix() {
+			return keyPrefix;
+		}
+
+		public void setKeyPrefix(String keyPrefix) {
+			this.keyPrefix = keyPrefix;
+		}
+
+		public long getExpiredTime() {
+			return expiredTime;
+		}
+
+		public void setExpiredTime(long expiredTime) {
+			this.expiredTime = expiredTime;
+		}
+
+	}
 
 	/**
 	 * 获取缓存信息
@@ -54,10 +90,6 @@ public  class CacheUtils {
 		}
 		return false;
 	}
-	
-	
-	
-	
 	/**
 	 * @Desc：根据缓存名称获取缓存数据信息
 	 * @param cacheName
@@ -91,10 +123,10 @@ public  class CacheUtils {
 		cache.evict(key);
 	}
 	public static void evictMobileCode(String userPhone){
-		evictCache(MOBILE_CODE_CACHE_NAME,userPhone);
+		evictCache(CacheConfig.MOBILE_CODE.keyPrefix,userPhone);
 	}
-	public static void evictEmailCode(String userPhone){
-		evictCache(EMAIL_CODE_CACHE_NAME,userPhone);
+	public static void evictEmailCode(String emailCode){
+		evictCache(CacheConfig.EMAIL_CODE.keyPrefix,emailCode);
 	}
 	/**
 	 * @Desc：验证短信码是否正确
@@ -105,24 +137,24 @@ public  class CacheUtils {
 	public static boolean checkMobileCode(String userPhone,String phoneCode){
 		logger.debug("moblie:[{}] mobileCode:[{}]",userPhone,phoneCode);
 		if (StringUtilsEx.isNotBlank(phoneCode)&&StringUtilsEx.isNotBlank(userPhone)&&ValidatorUtils.isPhone(userPhone)){
-			return checkWrapper(MOBILE_CODE_CACHE_NAME,userPhone,phoneCode);
+			return checkWrapper(CacheConfig.MOBILE_CODE.keyPrefix,userPhone,phoneCode);
 		}
 		return false;
 	}
 	public static void generatEmailCodeCache(String email,Object emailCode){
-		generatCache(EMAIL_CODE_CACHE_NAME,email, emailCode);
+		generatCache(CacheConfig.EMAIL_CODE.keyPrefix,email, emailCode);
 	}
 	
 	
 	public static void generateMobileCache(String phone,Object phoneCode){
-		generatCache(MOBILE_CODE_CACHE_NAME,phone, phoneCode);
+		generatCache(CacheConfig.MOBILE_CODE.keyPrefix,phone, phoneCode);
 	}
 	public static void evictEmailCache(String email){
-		evictCache(MOBILE_CODE_CACHE_NAME,email);
+		evictCache(CacheConfig.EMAIL_CODE.keyPrefix,email);
 	}
 	
 	public static void evictMobileCache(String phone){
-		evictCache(MOBILE_CODE_CACHE_NAME,phone);
+		evictCache(CacheConfig.MOBILE_CODE.keyPrefix,phone);
 	}
 	
 	/**
@@ -134,7 +166,7 @@ public  class CacheUtils {
 	public static boolean checkEmailCode(String userEmail,String emailcode){
 		logger.debug("email:[{}] emailCode:[{}]",userEmail,emailcode);
 		if (StringUtilsEx.isNotBlank(emailcode)&&StringUtilsEx.isNotBlank(userEmail)&&ValidatorUtils.isEmail(userEmail)){
-			return checkWrapper(EMAIL_CODE_CACHE_NAME,userEmail,emailcode);
+			return checkWrapper(CacheConfig.EMAIL_CODE.keyPrefix,userEmail,emailcode);
 		}
 		return false;
 	}

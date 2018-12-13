@@ -63,7 +63,7 @@ public class FindPwdController extends AbstractController {
                                      @RequestParam(value = "k", required = false) String key,
                                      ModelMap model) {
 		if(StringUtilsEx.isNotBlank(key)){
-			Object obj= CacheUtils.getCacheObject(CacheUtils.FINDPWD_CACHE_NAME, key);
+			Object obj= CacheUtils.getCacheObject(CacheUtils.CacheConfig.FIND_PWD.keyPrefix, key);
 			if(obj!=null){
 
 			}
@@ -90,7 +90,7 @@ public class FindPwdController extends AbstractController {
                                 @RequestParam(value = "k", required = false) String key,
                                 ModelMap model) {
 		if(StringUtilsEx.isNotBlank(key)){
-			Object obj= CacheUtils.getCacheObject(CacheUtils.FINDPWD_CACHE_NAME, key);
+			Object obj= CacheUtils.getCacheObject(CacheUtils.CacheConfig.FIND_PWD.keyPrefix, key);
 			if(obj!=null&&obj instanceof FrameUser){
 				FrameUser user =(FrameUser)obj;
 				FrameUserVO userVo=new FrameUserVO(user);
@@ -122,7 +122,7 @@ public class FindPwdController extends AbstractController {
 			if(user!=null){
 				super.success(model,user);
 				String uuid=StringUtilsEx.getUUID2();
-				CacheUtils.generatCache(CacheUtils.FINDPWD_CACHE_NAME,uuid, user);
+				CacheUtils.generatCache(CacheUtils.CacheConfig.FIND_PWD.keyPrefix,uuid, user);
 				if(StringUtilsEx.isBlank(format)){
 					format="jhtml";
 				}
@@ -242,7 +242,7 @@ public class FindPwdController extends AbstractController {
 			this.fail(model,responseError);
 			return new ModelAndView(RESULT_PAGE);
 		}
-		Object obj= CacheUtils.getCacheObject(CacheUtils.FINDPWD_CACHE_NAME, key);
+		Object obj= CacheUtils.getCacheObject(CacheUtils.CacheConfig.FIND_PWD.keyPrefix, key);
 		if(obj!=null&&obj instanceof FrameUser){
 			FrameUser user =(FrameUser)obj;
 			String userEmail=user.getUserEmail();
@@ -279,7 +279,7 @@ public class FindPwdController extends AbstractController {
 			return new ModelAndView(RESULT_PAGE);
 		}
 		model.put("k", key);
-		Object obj= CacheUtils.getCacheObject(CacheUtils.FINDPWD_CACHE_NAME, key);
+		Object obj= CacheUtils.getCacheObject(CacheUtils.CacheConfig.FIND_PWD.keyPrefix, key);
 		if(obj!=null&&obj instanceof FrameUser){
 			super.success(model, true);
 			return new ModelAndView("findpwd/resetPwd");
@@ -316,11 +316,11 @@ public class FindPwdController extends AbstractController {
 			return new ModelAndView(RESULT_PAGE);
 		}
 
-		Object obj= CacheUtils.getCacheObject(CacheUtils.FINDPWD_CACHE_NAME, key);
+		Object obj= CacheUtils.getCacheObject(CacheUtils.CacheConfig.FIND_PWD.keyPrefix, key);
 		if(obj!=null&&obj instanceof FrameUser){
 			FrameUser user =(FrameUser)obj;
 			this.frameUserService.resetPassword(user.getUserId(), retryPassWord);
-			CacheUtils.evictCache(CacheUtils.FINDPWD_CACHE_NAME, key);
+			CacheUtils.evictCache(CacheUtils.CacheConfig.FIND_PWD.keyPrefix, key);
 			if(StringUtilsEx.isBlank(format)){
 				format="jhtml";
 			}
@@ -354,7 +354,7 @@ public class FindPwdController extends AbstractController {
 			this.fail(model,responseError);
 			return new ModelAndView(RESULT_PAGE);
 		}
-		Object obj= CacheUtils.getCacheObject(CacheUtils.FINDPWD_CACHE_NAME, key);
+		Object obj= CacheUtils.getCacheObject(CacheUtils.CacheConfig.FIND_PWD.keyPrefix, key);
 		if(obj!=null&&obj instanceof FrameUser){
 			FrameUser user =(FrameUser)obj;
 			if(StringUtilsEx.isBlank(format)){
@@ -415,7 +415,7 @@ public class FindPwdController extends AbstractController {
 			return new ModelAndView(RESULT_PAGE);
 		}
 		logger.debug("passcode-host:"+request.getLocalAddr());
-		Object obj= CacheUtils.getCacheObject(CacheUtils.FINDPWD_CACHE_NAME, key);
+		Object obj= CacheUtils.getCacheObject(CacheUtils.CacheConfig.FIND_PWD.keyPrefix, key);
 		if(obj!=null&&obj instanceof FrameUser){
 			FrameUser user =(FrameUser)obj;
 			String moblie=user.getUserPhone();
@@ -447,7 +447,7 @@ public class FindPwdController extends AbstractController {
 			this.fail(model,responseError);
 			return new ModelAndView(RESULT_PAGE);
 		}
-		Object obj= CacheUtils.getCacheObject(CacheUtils.FINDPWD_CACHE_NAME, key);
+		Object obj= CacheUtils.getCacheObject(CacheUtils.CacheConfig.FIND_PWD.keyPrefix, key);
 		if(obj!=null&&obj instanceof FrameUser){
 			FrameUser user =(FrameUser)obj;
 			int mobileCode = (int)((Math.random()*9+1)*10000);
