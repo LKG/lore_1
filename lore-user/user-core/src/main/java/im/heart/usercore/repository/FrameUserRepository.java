@@ -41,16 +41,25 @@ public interface FrameUserRepository extends JpaRepository<FrameUser, BigInteger
 	 * @param userPhone
 	 * @return
 	 */
-	public FrameUser findByUserPhone(String userPhone); 
-	
+	public FrameUser findByUserPhone(String userPhone);
+
+	/**
+	 * // 设置头像
+	 * @param userId
+	 * @param headImgUrl
+	 */
 	@Modifying(clearAutomatically = true)
-	@Transactional
-	@Query("UPDATE FrameUser model SET  model.headPortrait= :headPortrait WHERE  model.userId= :userId  ")
-	public void updateUserheadPortrait(@Param("userId") BigInteger userId, @Param("headPortrait") String headPortrait);// 设置头像
-	
-	
+	@Transactional(rollbackFor = Exception.class)
+	@Query("UPDATE FrameUser model SET  model.headImgUrl= :headImgUrl WHERE  model.userId= :userId  ")
+	public void updateUserheadPortrait(@Param("userId") BigInteger userId, @Param("headImgUrl") String headImgUrl);
+
+	/**
+	 * // 设置默认机构
+	 * @param userId
+	 * @param defaultOrgId
+	 */
 	@Modifying(clearAutomatically = true)
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	@Query("UPDATE FrameUser model SET  model.relateOrg.id= :defaultOrgId WHERE  model.userId= :userId  ")
-	public void updateUserDefaultOrg(@Param("userId") BigInteger userId, @Param("defaultOrgId") BigInteger defaultOrgId);// 设置默认机构
+	public void updateUserDefaultOrg(@Param("userId") BigInteger userId, @Param("defaultOrgId") BigInteger defaultOrgId);
 }
