@@ -136,31 +136,30 @@ public abstract  class AbstractController {
         return viewPrefix;
     }
     protected void success(ModelMap model) {
-        model.put(RequestResult.SUCCESS, true);
-        model.put(RequestResult.HTTP_STATUS, HttpStatus.OK.value());
+        success(model, true);
     }
     protected void success(ModelMap model, Object attributeValue) {
         this.success(model, RequestResult.RESULT, attributeValue);
     }
     protected void success(ModelMap model, String dataKey, Object attributeValue) {
-        this.success(model);
+        model.put(RequestResult.SUCCESS, true);
+        model.put(RequestResult.HTTP_STATUS, HttpStatus.OK.value());
         model.put(dataKey, attributeValue);
     }
 
     protected void fail(ModelMap model) {
-        model.put(RequestResult.SUCCESS, false);
-        model.put(RequestResult.HTTP_STATUS, HttpStatus.OK.value());
-    }
-    protected void fail(ModelMap model, String dataKey, Object attributeValue) {
-        this.fail(model);
-        model.put(dataKey, attributeValue);
+        this.fail(model,false);
     }
     protected void fail(ModelMap model, Object attributeValue) {
         this.fail(model, RequestResult.RESULT, attributeValue);
     }
-    protected void error(ModelMap model, String dataKey, Object attributeValue) {
-        this.fail(model);
+    protected void fail(ModelMap model, String dataKey, Object attributeValue) {
+        model.put(RequestResult.SUCCESS, false);
+        model.put(RequestResult.HTTP_STATUS, HttpStatus.OK.value());
         model.put(dataKey, attributeValue);
+    }
+    protected void error(ModelMap model, String dataKey, Object attributeValue) {
+        this.fail(model, dataKey, attributeValue);
     }
     protected void error(ModelMap model, Object attributeValue) {
         this.error(model, RequestResult.RESULT, attributeValue);
