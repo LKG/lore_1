@@ -18,8 +18,8 @@ public  class CacheUtils {
 
 	public enum CacheConfig {
 		EMAIL_CODE("emailCode-cache", 30 * 60 * 1),
-		MOBILE_CODE("mobileCode-cache", 60 * 60 * 1),
-		FIND_PWD("findPwd-cache", 0);
+		MOBILE_CODE("mobileCode-cache", 30 * 60 * 1),
+		FIND_PWD("findPwd-cache", 30 * 60 * 1);
 		CacheConfig(String keyPrefix, long expiredTime) {
 			this.keyPrefix = keyPrefix;
 			this.expiredTime = expiredTime;
