@@ -21,7 +21,7 @@ import im.heart.usercore.service.PasswordService;
 public class PasswordServiceImpl implements PasswordService {
 	private RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
 
-	@Value("${shiro.password.algorithmName}")
+	@Value("${shiro.password.hashAlgorithmName}")
 	private String algorithmName = "md5";
 	@Value("${shiro.password.hashIterations}")
 	private int hashIterations = 2;

@@ -21,8 +21,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @desc 密码校验器 ，防暴力破解 用户密码输入错误次数过多，自动锁定账号
  */
 public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
-	@Value("${shiro.password.algorithmName}")
-	private String algorithmName="md5";
+	@Value("${shiro.password.hashAlgorithmName}")
+	private String hashAlgorithmName="md5";
 
 	@Value("${shiro.password.hashIterations}")
 	private int hashIterations=2;
@@ -72,5 +72,35 @@ public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
 			this.passwordRetryCache.put(username, retryCount);
 		}
 		return matches;
+	}
+
+	@Override
+	public String getHashAlgorithmName() {
+		return hashAlgorithmName;
+	}
+
+	@Override
+	public void setHashAlgorithmName(String hashAlgorithmName) {
+		this.hashAlgorithmName = hashAlgorithmName;
+	}
+
+	@Override
+	public int getHashIterations() {
+		return hashIterations;
+	}
+
+	@Override
+	public void setHashIterations(int hashIterations) {
+		this.hashIterations = hashIterations;
+	}
+
+	@Override
+	public boolean isStoredCredentialsHexEncoded() {
+		return storedCredentialsHexEncoded;
+	}
+
+	@Override
+	public void setStoredCredentialsHexEncoded(boolean storedCredentialsHexEncoded) {
+		this.storedCredentialsHexEncoded = storedCredentialsHexEncoded;
 	}
 }

@@ -64,6 +64,7 @@
         <!-- 二维码begin -->
         <zxing.version>3.3.3</zxing.version>
         <!-- 二维码end -->
+        <weixin-tools.version>3.2.0</weixin-tools.version>
     </properties>
     <dependencyManagement>
     <dependencies>

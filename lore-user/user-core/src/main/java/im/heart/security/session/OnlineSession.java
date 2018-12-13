@@ -1,10 +1,12 @@
 package im.heart.security.session;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.apache.shiro.session.mgt.SimpleSession;
 
 import java.math.BigInteger;
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class OnlineSession extends SimpleSession {
 	/**
 	 * 

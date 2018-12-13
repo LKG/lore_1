@@ -25,7 +25,7 @@
 		<!--输入组---->
 		<!--输入组---->
         <div class="field ph-hide"> 
-         	<label for="TPL_username_1"><@spring.message  code="label.login.username" /></label> 
+         	<label for="TPL_username_1"><@spring.message  code="label.login.username" /></label>
          	<div class="input-group">
          		<div class="input-group-addon"><i class="fa fa-user"></i></div>
          		<input type="text" name="userName" autocomplete="off" id="J_UserName" title="<@spring.message  code="label.login.username.help" />" class="login-text required" placeholder='<@spring.message  code="label.login.username.help" />' value="" maxlength="32" tabindex="1" required/>
@@ -44,7 +44,7 @@
          <span id="J_CapsLockTip" class="warning-tip bg-warning text-danger" style="display:none;">Caps Lock键正处于启用状态，<br />启用它可能导致密码输入错误。</span> 
         </div> 
         
-          <div class="field " id="l_f_code" data='${_login_times!'0'}' > 
+          <div class="field " id="l_f_code" data='${_login_times!'0'}' >
          <input id="J_ValidateCode" type="text" placeholder='<@spring.message  code="label.login.validation" />' title="<@spring.message  code="label.login.validation" />" class="login-text checkcode J_CheckCode" maxlength="5" name="validateCode" tabindex="3" /> 
          <img id="J_StandardCode_m" src="" data-src="${contextPath}/validate/passcode"  title='<@spring.message  code="label.login.validation.img.title" />'  class="check-code-img" /> 
          <a href="javascript:;" class="change-code right" id="J_StandardCode"  title='<@spring.message  code="label.login.validation.img.title" />' >看不清 </a> 

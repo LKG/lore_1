@@ -2,6 +2,7 @@ package im.heart.security;
 
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.apache.shiro.authc.UsernamePasswordToken;
 
 import java.math.BigInteger;
@@ -12,6 +13,7 @@ import java.math.BigInteger;
  * @desc 扩展密码验证token 添加验证码校验
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class AccountToken extends UsernamePasswordToken {
 	
 	/**

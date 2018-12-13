@@ -203,9 +203,9 @@ public class FrameUserServiceImpl extends CommonServiceImpl<FrameUser,BigInteger
 		this.frameUserRepository.updateUserheadPortrait(userId,headPortrait);
 	}
 	@Override
-	public FrameUser updateFrameUserImg(BigInteger userId,String headPortrait) {
+	public FrameUser updateFrameUserImg(BigInteger userId,String headImgUrl) {
 		FrameUser user=this.findById(userId);
-		user.setHeadPortrait(headPortrait);
+		user.setHeadImgUrl(headImgUrl);
 		return this.frameUserRepository.saveAndFlush(user);
 	}
 	@Override

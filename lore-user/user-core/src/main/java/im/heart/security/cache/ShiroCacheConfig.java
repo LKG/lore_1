@@ -10,7 +10,6 @@ public enum ShiroCacheConfig {
 		this.keyPrefix = keyPrefix;
 		this.expiredTime = expiredTime;
 	}
-	public static final String CACHE_MANAGER_BEAN_NAME = "shiroCacheManager";
 	public  String keyPrefix;
 
 	public long expiredTime;

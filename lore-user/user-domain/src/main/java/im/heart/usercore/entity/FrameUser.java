@@ -160,8 +160,8 @@ public class FrameUser implements AbstractEntity<BigInteger> {
 	private String lastLoginIP = "";
 	
 	@Length(max = 128)
-	@Column(length = 128, name = "head_portrait", nullable = false)
-	private String headPortrait ;
+	@Column(length = 128, name = "HEAD_IMG_URL", nullable = false)
+	private String headImgUrl ;
 
 	@Column(name = "USER_POINT", nullable = false)
 	private BigInteger userPoint = BigInteger.ZERO;

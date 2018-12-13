@@ -1,62 +1,60 @@
 package im.heart.conf;
 
-import com.google.common.collect.Lists;
-import im.heart.security.cache.ShiroCacheConfig;
-import im.heart.security.credentials.RetryLimitCredentialsMatcher;
-import im.heart.security.filter.*;
-import im.heart.security.realm.FrameUserRealm;
-import im.heart.security.session.OnlineSessionFactory;
-import im.heart.security.session.ShiroSessionDAO;
-import im.heart.security.session.ShiroSessionListener;
-import im.heart.security.session.ShiroSessionManager;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import javax.servlet.Filter;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.cache.CacheManager;
-import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
-import org.apache.shiro.mgt.SessionsSecurityManager;
-import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.SessionListener;
 import org.apache.shiro.session.mgt.SessionFactory;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.session.mgt.eis.CachingSessionDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
-import org.apache.shiro.spring.config.web.autoconfigure.ShiroWebAutoConfiguration;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
-import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.filter.authz.SslFilter;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
+import org.apache.shiro.web.mgt.WebSecurityManager;
 import org.apache.shiro.web.servlet.Cookie;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-
-import javax.servlet.Filter;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import com.google.common.collect.Lists;
+import im.heart.security.cache.ShiroCacheConfig;
+import im.heart.security.credentials.RetryLimitCredentialsMatcher;
+import im.heart.security.filter.ForceLogoutFilter;
+import im.heart.security.filter.FrameAuthenticationFilter;
+import im.heart.security.filter.FrameLogoutFilter;
+import im.heart.security.filter.KickoutSessionControlFilter;
+import im.heart.security.filter.ShiroFilterFactory;
+import im.heart.security.realm.FrameUserRealm;
+import im.heart.security.session.OnlineSessionFactory;
+import im.heart.security.session.ShiroSessionDAO;
+import im.heart.security.session.ShiroSessionListener;
+import im.heart.security.session.ShiroSessionManager;
+import im.heart.security.session.ShiroWebSecurityManager;
 
 @Configuration
 @PropertySource(value = "classpath:/application-shiro.yml")
-public class ShiroConfig  extends ShiroWebAutoConfiguration {
+public class ShiroConfig {
 	protected static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
 
-	public static final String CACHE_MANAGER_BEAN_NAME = ShiroCacheConfig.CACHE_MANAGER_BEAN_NAME;
-
+	private final static Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 	@Value("${shiro.login.url}")
 	private String loginUrl = "/login.jhtml";
 
 	@Value("${shiro.login.success.url}")
 	private String successUrl = "/";
-
 	@Value("${shiro.sessionManager.cookie.name}")
 	private String sessionIdName = "jsid";
 
@@ -65,92 +63,61 @@ public class ShiroConfig  extends ShiroWebAutoConfiguration {
 
 	@Value("${shiro.logout.success.url}")
 	private String logoutSuccessUrl = "/login.jhtml?logout=1";
-
-	@Bean(name = CACHE_MANAGER_BEAN_NAME)
-	public CacheManager cacheManager() {
-		return new EhCacheManager();
-	}
-
-	@Bean()
-	public FrameAuthenticationFilter frameAuthenticationFilter() {
-		return new FrameAuthenticationFilter();
-	}
-	@Bean()
-	public FrameLogoutFilter frameLogoutFilter() {
-		return new FrameLogoutFilter();
-	}
-	@Bean()
-	public SslFilter sslFilter() {
-		return new SslFilter();
-	}
-
-	/**
-	 * 这里统一做鉴权，即判断哪些请求路径需要用户登录，哪些请求路径不需要用户登录。
-	 * 这里只做鉴权，不做权限控制，因为权限用注解来做。
-	 * @return
-	 */
-	@Bean
-	@Override
-	public ShiroFilterChainDefinition shiroFilterChainDefinition() {
-		DefaultShiroFilterChainDefinition chain = new DefaultShiroFilterChainDefinition();
-		chain.addPathDefinition("/static/**", "anon");
-		chain.addPathDefinition("/favicon.ico", "anon");
-		chain.addPathDefinition("**.ico", "anon");
-		chain.addPathDefinition("/oauth2/**", "anon");
-		chain.addPathDefinition("/3rd/**", "anon");
-		chain.addPathDefinition("/css/**", "anon");
-		chain.addPathDefinition("/js/**", "anon");
-		chain.addPathDefinition("/imgs/**", "anon");
-		chain.addPathDefinition("/images/**", "anon");
-		chain.addPathDefinition("/app/js/**", "anon");
-		chain.addPathDefinition("/app/css/**", "anon");
-		chain.addPathDefinition("/app/imgs/**", "anon");
-		chain.addPathDefinition("/modules/**", "anon");
-		chain.addPathDefinition("/login-in**", "anon");
-		chain.addPathDefinition("/validate/**", "anon");
-		chain.addPathDefinition("/regist**", "anon");
-		chain.addPathDefinition("/regist/**", "anon");
-		chain.addPathDefinition("/findPwd/**", "anon");
-		chain.addPathDefinition("/api/**", "anon");
-		chain.addPathDefinition("/", "anon");
-		chain.addPathDefinition("/index/*", "anon");
-		chain.addPathDefinition("/admin/druid/**", "perms[druid:monitor]");
-		chain.addPathDefinition("/admin/monitor/**", "perms[monitor:monitor]");
-		chain.addPathDefinition("/logout*", "logout");
-		chain.addPathDefinition("/authenticated", "authc");
-		chain.addPathDefinition("/**", "authc");
-		return chain;
-	}
 	/**
 	 * 网络请求的权限过滤, 拦截外部请求
 	 */
 	@Bean
-	public ShiroFilterFactoryBean getShiroFilterFactoryBean() {
+	public ShiroFilterFactoryBean getShiroFilterFactoryBean(WebSecurityManager securityManager) {
 		ShiroFilterFactory shiroFilterFactoryBean = new ShiroFilterFactory();
 		shiroFilterFactoryBean.setLoginUrl(loginUrl);
 		shiroFilterFactoryBean.setSuccessUrl(successUrl);
 		shiroFilterFactoryBean.setUnauthorizedUrl(unauthorizedUrl);
-		shiroFilterFactoryBean.setSecurityManager(securityManager(null));
+		shiroFilterFactoryBean.setSecurityManager(securityManager);
 		/*<!-- 添加自定义过滤链 -->*/
 		Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
-		filters.put("authc",frameAuthenticationFilter());
+		filters.put("authc",new FrameAuthenticationFilter());
 		/*<!-- 用户注销控制过滤链 -->*/
-		filters.put("logout",frameLogoutFilter());
+		filters.put("logout",new FrameLogoutFilter());
 		/*<!-- 添加ssl过滤链 -->*/
-		filters.put("ssl",sslFilter());
+		filters.put("ssl",new SslFilter());
 		/*<!-- 控制并发登录人数 -->*/
 		filters.put("kickout",kickoutSessionControlFilter());
 		/*<!-- 强制退出用户 -->*/
 		filters.put("forceLogout",forceLogoutFilter());
-		ShiroFilterChainDefinition shiroFilterChainDefinition=shiroFilterChainDefinition();
-		shiroFilterFactoryBean.setFilterChainDefinitionMap(shiroFilterChainDefinition.getFilterChainMap());
+		filterChainDefinitionMap.put("/static/**", "anon");
+		filterChainDefinitionMap.put("/favicon.ico", "anon");
+		filterChainDefinitionMap.put("**.ico", "anon");
+		filterChainDefinitionMap.put("/oauth2/**", "anon");
+		filterChainDefinitionMap.put("/3rd/**", "anon");
+		filterChainDefinitionMap.put("/css/**", "anon");
+		filterChainDefinitionMap.put("/js/**", "anon");
+		filterChainDefinitionMap.put("/imgs/**", "anon");
+		filterChainDefinitionMap.put("/images/**", "anon");
+		filterChainDefinitionMap.put("/app/js/**", "anon");
+		filterChainDefinitionMap.put("/app/css/**", "anon");
+		filterChainDefinitionMap.put("/app/imgs/**", "anon");
+		filterChainDefinitionMap.put("/modules/**", "anon");
+		filterChainDefinitionMap.put("/login-in**", "anon");
+		filterChainDefinitionMap.put("/validate/**", "anon");
+		filterChainDefinitionMap.put("/regist**", "anon");
+		filterChainDefinitionMap.put("/regist/**", "anon");
+		filterChainDefinitionMap.put("/findPwd/**", "anon");
+		filterChainDefinitionMap.put("/api/**", "anon");
+		filterChainDefinitionMap.put("/logout*", "logout");
+		filterChainDefinitionMap.put("/", "anon");
+		filterChainDefinitionMap.put("/uploads/**", "anon");
+		filterChainDefinitionMap.put("/index/**", "anon");
+		filterChainDefinitionMap.put("/admin/druid/**", "perms[druid:monitor]");
+		filterChainDefinitionMap.put("/admin/monitor/**", "perms[monitor:monitor]");
+		filterChainDefinitionMap.put("/authenticated", "authc");
+		filterChainDefinitionMap.put("/**", "authc");
+		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 	}
 
 	@Bean(name = "kickout")
 	public KickoutSessionControlFilter kickoutSessionControlFilter() {
 		KickoutSessionControlFilter kickoutSessionControlFilter = new KickoutSessionControlFilter();
-		kickoutSessionControlFilter.setCacheManager(cacheManager());
 		return kickoutSessionControlFilter;
 	}
 	@Bean(name = "forceLogout")
@@ -162,13 +129,11 @@ public class ShiroConfig  extends ShiroWebAutoConfiguration {
 	@Bean(name = "credentialsMatcher")
 	public RetryLimitCredentialsMatcher credentialsMatcher() {
 		RetryLimitCredentialsMatcher retryLimitCredentialsMatcher=new RetryLimitCredentialsMatcher();
-		retryLimitCredentialsMatcher.setCacheManager(cacheManager());
 		return retryLimitCredentialsMatcher;
 	}
 	@Bean(name="frameUserRealm")
 	public FrameUserRealm frameUserRealm() {
 		FrameUserRealm frameUserRealm=	new FrameUserRealm();
-		frameUserRealm.setCacheManager(cacheManager());
 		frameUserRealm.setCredentialsMatcher(credentialsMatcher());
 		return frameUserRealm;
 	}
@@ -177,26 +142,22 @@ public class ShiroConfig  extends ShiroWebAutoConfiguration {
 	 * SecurityManager，权限管理，这个类组合了登陆，登出，权限，session的处理，是个比较重要的类。
 	 * @return
 	 */
-	@Bean()
-	@Override
-	public SessionsSecurityManager securityManager(List<Realm> realms) {
-		SessionsSecurityManager sessionsSecurityManager=super.securityManager(realms);
-		sessionsSecurityManager.setCacheManager(cacheManager());
-		sessionsSecurityManager.setRealm(frameUserRealm());
-		sessionsSecurityManager.setSessionManager(sessionManager());
-		SecurityUtils.setSecurityManager(sessionsSecurityManager);
-		return sessionsSecurityManager;
+	@Bean(name = "securityManager")
+	public WebSecurityManager defaultWebSecurityManager() {
+		ShiroWebSecurityManager wsm = new ShiroWebSecurityManager();
+		wsm.setRealm(frameUserRealm());
+		wsm.setSessionManager(sessionManager());
+		wsm.setRememberMeManager(rememberMeManager());
+		SecurityUtils.setSecurityManager(wsm);
+		return wsm;
 	}
-
 	@Bean(name = "sessionIdCookie")
 	public Cookie sessionIdCookie() {
         Cookie cookie = new SimpleCookie(sessionIdName);
-		//more secure, protects against XSS attacks
         cookie.setHttpOnly(true);
 		return cookie;
 	}
 	@Bean(name = "rememberMeManager")
-	@Override
 	public CookieRememberMeManager rememberMeManager() {
 		CookieRememberMeManager rememberMeManager = new CookieRememberMeManager();
 		//rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
@@ -209,20 +170,17 @@ public class ShiroConfig  extends ShiroWebAutoConfiguration {
 		return sessionFactory;
 	}
 	@Bean
-	@Override
 	public SessionManager sessionManager() {
 		ShiroSessionManager sessionManager = new ShiroSessionManager();
 		sessionManager.setGlobalSessionTimeout(ShiroSessionManager.DEFAULT_GLOBAL_SESSION_TIMEOUT);
 		sessionManager.setDeleteInvalidSessions(true);
 		sessionManager.setSessionFactory(onlineSessionFactory());
-		//移除JSESSIONID小尾巴
 		sessionManager.setSessionIdUrlRewritingEnabled(false);
 		sessionManager.setSessionValidationSchedulerEnabled(true);
 		sessionManager.setSessionDAO(sessionDAO());
 		sessionManager.setSessionIdCookie(sessionIdCookie());
 		Collection<SessionListener> listeners=Lists.newArrayList();
-		////设置SESSION 监听器
-		listeners.add(shiroSessionListener());
+		listeners.add(new ShiroSessionListener());
 		sessionManager.setSessionListeners(listeners);
 		return sessionManager;
 	}
@@ -239,8 +197,7 @@ public class ShiroConfig  extends ShiroWebAutoConfiguration {
 	 * 自定义sessionDAO
 	 * @return
 	 */
-	@Bean()
-	@Override
+	@Bean(name = "sessionDAO")
 	public CachingSessionDAO sessionDAO() {
 		ShiroSessionDAO sessionDAO=new ShiroSessionDAO();
 		return sessionDAO;
@@ -253,7 +210,7 @@ public class ShiroConfig  extends ShiroWebAutoConfiguration {
     public MethodInvokingFactoryBean methodInvokingFactoryBean() {
         MethodInvokingFactoryBean bean = new MethodInvokingFactoryBean();
         bean.setStaticMethod("org.apache.shiro.SecurityUtils.setSecurityManager");
-        bean.setArguments(new Object[]{securityManager(null)});
+        bean.setArguments(new Object[]{defaultWebSecurityManager()});
         return bean;
     }
 
@@ -273,14 +230,9 @@ public class ShiroConfig  extends ShiroWebAutoConfiguration {
 	 * @return
 	 */
 	@Bean()
+	@ConditionalOnMissingBean
    public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
        DefaultAdvisorAutoProxyCreator daap = new DefaultAdvisorAutoProxyCreator();
-		/**
-		 * setUsePrefix(false)用于解决一个奇怪的bug。在引入spring aop的情况下。
-		 * 在@Controller注解的类的方法中加入@RequiresRole注解，会导致该方法无法映射请求，导致返回404。
-		 * 加入这项配置能解决这个bug
-		 */
-	   daap.setUsePrefix(true);
        daap.setProxyTargetClass(true);
        return daap;
    }

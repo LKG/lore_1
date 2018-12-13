@@ -8,7 +8,7 @@ shiro:
     success:
       url:  /login.jhtml?logout=1
   password:
-    algorithmName: md5
+    hashAlgorithmName: md5
     hashIterations: 2
     storedCredentialsHexEncoded: true
   sessionManager:
