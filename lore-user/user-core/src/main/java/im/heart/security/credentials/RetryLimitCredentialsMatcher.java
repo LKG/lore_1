@@ -5,12 +5,12 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.cache.Cache;
-import org.apache.shiro.cache.CacheManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.Cache;
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -21,6 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @desc 密码校验器 ，防暴力破解 用户密码输入错误次数过多，自动锁定账号
  */
 public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
+	protected static final Logger logger = LoggerFactory.getLogger(RetryLimitCredentialsMatcher.class);
 	@Value("${shiro.password.hashAlgorithmName}")
 	private String hashAlgorithmName="md5";
 
@@ -29,10 +30,10 @@ public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
 	@Value("${shiro.password.storedCredentialsHexEncoded}")
 	private boolean storedCredentialsHexEncoded=true;
 	protected static final String CACHE_NAME = ShiroCacheConfig.PASSWORD_RETRY.keyPrefix;
-	protected static final Logger logger = LoggerFactory.getLogger(RetryLimitCredentialsMatcher.class);
 
-	private Cache<Serializable, AtomicInteger> passwordRetryCache;
+	private Cache passwordRetryCache;
 
+	@Autowired(required = false)
 	private CacheManager cacheManager;
 
 	private static int MAX_FAIL_COUNT=5;
@@ -44,7 +45,7 @@ public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
 	public void setCacheManager(CacheManager cacheManager) {
 		this.cacheManager = cacheManager;
 	}
-	
+
 	@Override
 	public boolean doCredentialsMatch(AuthenticationToken token,
 			AuthenticationInfo info) {
@@ -53,7 +54,7 @@ public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
 		if(this.passwordRetryCache==null){
 			this.passwordRetryCache = this.cacheManager.getCache(CACHE_NAME);
 		}
-		AtomicInteger retryCount = this.passwordRetryCache.get(username);
+		AtomicInteger retryCount = (AtomicInteger)this.passwordRetryCache.get(username,AtomicInteger.class);
 		if (retryCount == null) {
 			retryCount = new AtomicInteger(0);
 		}
@@ -67,7 +68,7 @@ public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
 		}
 		boolean matches = super.doCredentialsMatch(token, info);
 		if (matches) {
-			this.passwordRetryCache.remove(username);
+			this.passwordRetryCache.evict(username);
 		}else{
 			this.passwordRetryCache.put(username, retryCount);
 		}

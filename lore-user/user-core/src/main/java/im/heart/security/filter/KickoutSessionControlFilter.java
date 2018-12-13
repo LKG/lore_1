@@ -1,11 +1,10 @@
 package im.heart.security.filter;
 
+import com.google.common.collect.Lists;
 import im.heart.security.cache.ShiroCacheConfig;
 import im.heart.security.session.ShiroSessionDAO;
 import im.heart.security.utils.SecurityUtilsHelper;
 import im.heart.usercore.vo.FrameUserVO;
-import org.apache.shiro.cache.Cache;
-import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.SessionException;
 import org.apache.shiro.subject.Subject;
@@ -14,12 +13,12 @@ import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.Serializable;
 import java.util.Deque;
-import java.util.LinkedList;
 
 /**
  * 
@@ -40,14 +39,22 @@ public class KickoutSessionControlFilter extends LogoutFilter {
 	 * // 同一个帐号最大会话数 默认1
 	 */
 	private int maxSession = 1;
-	private String keyPrefix = ShiroCacheConfig.SESSION_KICKOUT.keyPrefix;
+	protected static final String CACHE_NAME = ShiroCacheConfig.SESSION_KICKOUT.keyPrefix;
 	@Autowired
 	private ShiroSessionDAO shiroSessionDAO;
-	private Cache<String, Deque<Serializable>> cache;
+
+	private Cache cache;
+
+	@Autowired(required = false)
+	private CacheManager cacheManager;
+	public CacheManager getCacheManager() {
+		return cacheManager;
+	}
 
 	public void setCacheManager(CacheManager cacheManager) {
-		this.cache = cacheManager.getCache(keyPrefix);
+		this.cacheManager = cacheManager;
 	}
+
     protected void saveRequest(ServletRequest request) {
         WebUtils.saveRequest(request);
     }
@@ -66,10 +73,13 @@ public class KickoutSessionControlFilter extends LogoutFilter {
 		if(user==null){
 			return true;
 		}
+		if(this.cache==null){
+			this.cache = this.cacheManager.getCache(CACHE_NAME);
+		}
 		String username=user.getUserName();
-		Deque<Serializable> deque = this.cache.get(username);
+		Deque<Serializable> deque = this.cache.get(username,Deque.class);
 		if (deque == null) {
-			deque = new LinkedList<Serializable>();
+			deque = Lists.newLinkedList();
 			this.cache.put(username, deque);
 		}
 		Object kickout = session.getAttribute(kickoutParam);
@@ -82,7 +92,8 @@ public class KickoutSessionControlFilter extends LogoutFilter {
 			// 如果踢出后者
 			if (kickoutAfter) {
 				kickoutSessionId = deque.removeFirst();
-			} else { // 否则踢出前者
+			} else {
+				// 否则踢出前者
 				kickoutSessionId = deque.removeLast();
 			}
 			try {
@@ -95,7 +106,6 @@ public class KickoutSessionControlFilter extends LogoutFilter {
 				logger.debug("Encountered session exception during logout.  This can generally safely be ignored."
 						+ ise);
 			}
-		
 		}
 		if (kickout != null) {
 			try {
@@ -110,14 +120,6 @@ public class KickoutSessionControlFilter extends LogoutFilter {
 			return false;
 		}
 		return true;
-	}
-
-
-	public String getKeyPrefix() {
-		return keyPrefix;
-	}
-	public void setKeyPrefix(String keyPrefix) {
-		this.keyPrefix = keyPrefix;
 	}
 	@Override
 	public String getRedirectUrl() {
