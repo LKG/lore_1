@@ -9,6 +9,7 @@ spring:
      force: true
   profiles:
    active: test
+   include: shiro
   messages:
     encoding: UTF-8
   freemarker:
@@ -46,7 +47,3 @@ management:
       enabled: true
       ## 查看明细
       show-details: always
-prod:
-  upload:
-    path:
-      root: ${pom.uploads.home}

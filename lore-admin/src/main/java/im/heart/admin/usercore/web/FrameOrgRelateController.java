@@ -49,7 +49,7 @@ import im.heart.usercore.vo.FrameOrgRelateVO;
 @RequestMapping("/admin")
 public class  FrameOrgRelateController extends AbstractController {
 	protected static final String apiVer = "/org";
-	protected static final String VIEW_RELATED="admin/usercore/org_related";//关联页面
+	protected static final String VIEW_RELATED="admin/usercore/org_related";
 	@Autowired
 	private FrameOrgRelateService frameOrgRelateService;
 	@Autowired
