@@ -26,7 +26,7 @@ spring:
   datasource:
     url: jdbc:mysql://ss.itaobao.pub:3306/lore-test?Unicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
-    password: omw@178.Im
+    password: ####
       #配置监控统计拦截的filters，去掉后监控界面sql将无法统计,'wall'用于防火墙
     filters: stat,config,wall,slf4j
    # validation-query: SELECT 1
@@ -72,7 +72,7 @@ spring:
         enable: true
       properties:
         path:
-          logs: ./var/log/elasticsearch #elasticsearch日志存储目录
+          logs: /var/log/elasticsearch #elasticsearch日志存储目录
           data: /var/elasticsearch/data #elasticsearch数据存储目录
 jodconverter:
   local:
