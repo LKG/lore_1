@@ -74,7 +74,7 @@ public class ShiroConfig {
 		/*<!-- 控制并发登录人数 -->*/
 		filters.put("kickout",kickoutSessionControlFilter());
 		/*<!-- 强制退出用户 -->*/
-		filters.put("forceLogout",forceLogoutFilter());
+//		filters.put("forceLogout",forceLogoutFilter());
 		filterChainDefinitionMap.put("/static/**", "anon");
 		filterChainDefinitionMap.put("/favicon.ico", "anon");
 		filterChainDefinitionMap.put("**.ico", "anon");
@@ -111,11 +111,11 @@ public class ShiroConfig {
 		KickoutSessionControlFilter kickoutSessionControlFilter = new KickoutSessionControlFilter();
 		return kickoutSessionControlFilter;
 	}
-	@Bean(name = "forceLogout")
-	public ForceLogoutFilter forceLogoutFilter() {
-		ForceLogoutFilter forceLogoutFilter = new ForceLogoutFilter();
-		return forceLogoutFilter;
-	}
+//	@Bean(name = "forceLogout")
+////	public ForceLogoutFilter forceLogoutFilter() {
+////		ForceLogoutFilter forceLogoutFilter = new ForceLogoutFilter();
+////		return forceLogoutFilter;
+////	}
 
 	@Bean(name = "credentialsMatcher")
 	public RetryLimitCredentialsMatcher credentialsMatcher() {
@@ -169,6 +169,7 @@ public class ShiroConfig {
 		sessionManager.setSessionIdUrlRewritingEnabled(false);
 		sessionManager.setSessionValidationSchedulerEnabled(true);
 		sessionManager.setSessionDAO(sessionDAO());
+		sessionManager.setSessionIdCookieEnabled(true);
 		sessionManager.setSessionIdCookie(sessionIdCookie());
 		Collection<SessionListener> listeners=Lists.newArrayList();
 		listeners.add(new ShiroSessionListener());

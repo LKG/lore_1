@@ -57,14 +57,14 @@
                 <!---文档左侧begin--->
                 <div class="col-md-9  col-xs-9">
                     <div class="row">
-				       <#include "front/doc/template/doc_carousel.ftl" />
+				       <#include "/front/doc/template/doc_carousel.ftl" />
                     </div>
                 </div>
                 <!---文档左侧end--->
                 <!---文档右侧begin--->
                 <div class="col-md-3 col-xs-3">
                     <!---点赞面板begin--->
-  				    <#include "front/doc/template/doc-goods.ftl" />
+  				    <#include "/front/doc/template/doc-goods.ftl" />
                     <!---点赞面板end--->
                 </div>
                 <!---文档右侧end--->

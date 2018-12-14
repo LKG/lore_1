@@ -129,7 +129,7 @@
 				 'onUploadSuccess' : function(file, data, response) {
 				  $('#' + file.id).find('.data').html(' 上传完毕');
 				 var res=JSON.parse(data);
-				  $('#userHeadPortrait').attr("src",res.url);
+				  $('#headImgUrl').attr("src",res.url);
 				 　/**　
 				 alert('id: ' + file.id
 				　　+ ' - 索引: ' + file.index
