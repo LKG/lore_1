@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +36,14 @@ public class FrameUserOrgServiceImpl extends CommonServiceImpl<FrameUserOrg, Big
 	}
 	@Override
 	public void deleteById(BigInteger id) {
-		FrameUserOrg usrOrg = this.frameUserOrgRepository.findById(id).get();
-		if(usrOrg.getIsDefault()){
-			this.frameUserRepository.updateUserDefaultOrg(usrOrg.getUserId(), null);
+		Optional<FrameUserOrg> optional= this.frameUserOrgRepository.findById(id);
+		if(optional.isPresent()){
+			FrameUserOrg usrOrg=optional.get();
+			if(usrOrg.getIsDefault()){
+				this.frameUserRepository.updateUserDefaultOrg(usrOrg.getUserId(), null);
+			}
+			this.frameUserOrgRepository.deleteById(id);
 		}
-		this.frameUserOrgRepository.deleteById(id);
 	}
 	@Override
 	public List<FrameUserOrg> findByOrgId(BigInteger orgId) {
@@ -67,10 +71,22 @@ public class FrameUserOrgServiceImpl extends CommonServiceImpl<FrameUserOrg, Big
 		long count = this.frameUserOrgRepository.count(spec);
 		return count>0;
 	}
-
 	@Override
-	public void setDefaultOrg(BigInteger userId, BigInteger relateId, BigInteger defaultOrgId) {
-		this.frameUserOrgRepository.updateUserDefaultOrg(userId,relateId);
-		this.frameUserRepository.updateUserDefaultOrg(userId, defaultOrgId);
+	public void setDefaultOrgById(BigInteger relateId) {
+		Optional<FrameUserOrg> optional= this.frameUserOrgRepository.findById(relateId);
+		if(optional.isPresent()){
+			FrameUserOrg frameUserOrg=optional.get();
+			this.frameUserOrgRepository.updateUserDefaultOrg(frameUserOrg.getUserId(),relateId);
+			this.frameUserRepository.updateUserDefaultOrg(frameUserOrg.getUserId(), frameUserOrg.getRelateOrg().getId());
+		}
+	}
+	@Override
+	public void setDefaultOrg(BigInteger userId, BigInteger relateId) {
+		Optional<FrameUserOrg> optional= this.frameUserOrgRepository.findById(relateId);
+		if(optional.isPresent()){
+			FrameUserOrg frameUserOrg=optional.get();
+			this.frameUserOrgRepository.updateUserDefaultOrg(userId,relateId);
+			this.frameUserRepository.updateUserDefaultOrg(userId, frameUserOrg.getRelateOrg().getId());
+		}
 	}
 }

@@ -51,7 +51,7 @@ public interface FrameUserRepository extends JpaRepository<FrameUser, BigInteger
 	@Modifying(clearAutomatically = true)
 	@Transactional(rollbackFor = Exception.class)
 	@Query("UPDATE FrameUser model SET  model.headImgUrl= :headImgUrl WHERE  model.userId= :userId  ")
-	public void updateUserheadPortrait(@Param("userId") BigInteger userId, @Param("headImgUrl") String headImgUrl);
+	public void updateUserHeadImgUrl(@Param("userId") BigInteger userId, @Param("headImgUrl") String headImgUrl);
 
 	/**
 	 * // 设置默认机构

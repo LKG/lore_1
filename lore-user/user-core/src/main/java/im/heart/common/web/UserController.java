@@ -79,8 +79,7 @@ public class UserController extends AbstractController {
 			ModelMap model) {
 		FrameUserVO vo=SecurityUtilsHelper.getCurrentUser();
 		if(vo!=null){
-			FrameUserOrg userOrg=this.frameUserOrgService.findById(relateId);
-			this.frameUserOrgService.setDefaultOrg(vo.getUserId(), userOrg.getRelateId(),userOrg.getRelateOrg().getId());
+			this.frameUserOrgService.setDefaultOrg(vo.getUserId(), relateId);
 			super.success(model);
 			return new ModelAndView(VIEW_SUCCESS);
 		}

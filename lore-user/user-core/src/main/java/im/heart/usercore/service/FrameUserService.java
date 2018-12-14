@@ -18,8 +18,7 @@ import im.heart.usercore.exception.IncorrectCredentialsException;
 public interface   FrameUserService extends CommonService<FrameUser, BigInteger>{
 	
 	public static final String BEAN_NAME = "frameUserService";
-	
-	public void updateUserheadPortrait(BigInteger userId, String headPortrait);
+
 	/**
 	 * 创建用户
 	 * @param frameUser
@@ -28,21 +27,7 @@ public interface   FrameUserService extends CommonService<FrameUser, BigInteger>
 	 */
 	@Override
 	public FrameUser save(FrameUser frameUser)  throws ServiceException ;
-	
-//	/**
-//	 * 激活用户
-//	 * @param userId
-//	 * @return
-//	 */
-//	public FrameUser activateUser(BigInteger userId);
-//	
-//	/**
-//	 * 禁用用户
-//	 * @param userId
-//	 * @return
-//	 */
-//	public FrameUser disabledUser(BigInteger userId);
-	
+
 	/**
 	 * 
 	 * 激活用户邮箱
@@ -105,16 +90,10 @@ public interface   FrameUserService extends CommonService<FrameUser, BigInteger>
 	  * @return
 	  */
 	 public Set<String> findRoleCodesByUserId(BigInteger userId);
-
+	public void setUserDefaultOrg(BigInteger uesrId,BigInteger defaultOrgId);
 	public List<FrameUserRole> findRolesByUserId(BigInteger userId);
-	 /**
-	  * 只更新用户的默认机构信息
-	  * @param userId
-	  * @param defaultorgId
-	  */
-	 public void updateUserDefaultOrg(BigInteger userId, BigInteger defaultorgId);
 	 public boolean existsUserName(String userName);
 	 public boolean existsUserPhone(String userPhone);
 	 public boolean existsUserEmail(String userEmail);
-	public FrameUser updateFrameUserImg(BigInteger userId, String headPortrait) ;
+	public FrameUser updateFrameUserImgUrl(BigInteger userId, String headPortrait) ;
 }

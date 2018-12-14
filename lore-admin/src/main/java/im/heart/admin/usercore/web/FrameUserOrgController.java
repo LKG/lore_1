@@ -87,10 +87,7 @@ public class  FrameUserOrgController extends AbstractController {
 			@PathVariable BigInteger relateId,
 			HttpServletRequest request,
 			ModelMap model) {
-		FrameUserOrg userOrg= this.frameUserOrgService.findById(relateId);
-		if(userOrg!=null){
-			this.frameUserOrgService.setDefaultOrg(userOrg.getUserId(),relateId,userOrg.getRelateOrg().getId());
-		}
+        this.frameUserOrgService.setDefaultOrgById(relateId);
 		super.success(model);
 		return new ModelAndView(VIEW_SUCCESS);
 	}
@@ -150,7 +147,7 @@ public class  FrameUserOrgController extends AbstractController {
 				//判断用户是否关联机构，如果无关联取第一条数据为默认
 				boolean exists = this.frameUserOrgService.existsUserOrg(userId);
 				if(!exists){
-					this.frameUserService.updateUserDefaultOrg(userId, relateOrg.getId());
+					this.frameUserService.setUserDefaultOrg(userId, relateOrg.getId());
 					entitie.setIsDefault(Boolean.TRUE);
 				}
 				entities.add(entitie);

@@ -21,9 +21,11 @@ public interface   FrameUserOrgService extends CommonService<FrameUserOrg, BigIn
 	 * @return
 	 */
 	public List<FrameUserOrg>  saveAll(Iterable<FrameUserOrg> entities);
-	
-	public void setDefaultOrg(BigInteger userId, BigInteger relateId, BigInteger defaultOrgId);
-	
+
+	public void setDefaultOrgById(BigInteger relateId);
+
+	public void setDefaultOrg(BigInteger userId, BigInteger relateId);
+
 	public boolean existsUserOrg(BigInteger userId);
 	
 	public List<FrameUserOrg> findByUserId(BigInteger userId);

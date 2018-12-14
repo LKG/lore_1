@@ -143,7 +143,10 @@ public class FrameUserServiceImpl extends CommonServiceImpl<FrameUser,BigInteger
 		List<FrameUserRole> userRoles = this.frameUserRoleRepository.findByUserId(userId);
 		return userRoles;
 	}
-
+	@Override
+	public void setUserDefaultOrg(BigInteger userId,BigInteger defaultOrgId){
+		this.frameUserRepository.updateUserDefaultOrg(userId, defaultOrgId);
+	}
 	@Override
 	public FrameUser save(FrameUser frameUser) throws ServiceException {
 		if (frameUser.getUserId() == null) {
@@ -199,17 +202,9 @@ public class FrameUserServiceImpl extends CommonServiceImpl<FrameUser,BigInteger
 		return null;
 	}
 	@Override
-	public void updateUserheadPortrait(BigInteger userId,String headPortrait) {
-		this.frameUserRepository.updateUserheadPortrait(userId,headPortrait);
-	}
-	@Override
-	public FrameUser updateFrameUserImg(BigInteger userId,String headImgUrl) {
+	public FrameUser updateFrameUserImgUrl(BigInteger userId,String headImgUrl) {
 		FrameUser user=this.findById(userId);
 		user.setHeadImgUrl(headImgUrl);
 		return this.frameUserRepository.saveAndFlush(user);
-	}
-	@Override
-	public void updateUserDefaultOrg(BigInteger userId,BigInteger defaultOrgId) {
-		this.frameUserRepository.updateUserDefaultOrg(userId, defaultOrgId);
 	}
 }

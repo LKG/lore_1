@@ -58,7 +58,7 @@ public class UploadController extends AbstractController {
 						String filePath = super.uploadFile(file, path);
 						model.put("name", file.getOriginalFilename());
 						String url=StringUtilsEx.replace(realPath+filePath, File.separator, "/");
-						this.frameUserService.updateFrameUserImg(user.getUserId(), request.getContextPath()+url);
+						this.frameUserService.updateFrameUserImgUrl(user.getUserId(), request.getContextPath()+url);
 						model.put("url", "/"+IMG_FILE_PATH+"/"+url);
 						super.success(model);
 						break;
