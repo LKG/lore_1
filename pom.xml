@@ -54,6 +54,7 @@
         <commons-lang3.version>3.8.1</commons-lang3.version>
         <commons-io.version>2.6</commons-io.version>
         <commons-codec.version>1.11</commons-codec.version>
+        <commons-compress.version>1.18</commons-compress.version>
         <aliyun.oss.version>2.7.0</aliyun.oss.version>
         <aliyun.ons.version>1.7.8.Final</aliyun.ons.version>
         <validation.version>2.0.1.Final</validation.version>
@@ -188,6 +189,13 @@
             <version>${commons-codec.version}</version>
         </dependency>
         <!-- html解析begin -->
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-compress -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>${commons-compress.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
@@ -351,7 +359,7 @@
             </activation>
             <properties>
                 <pom.uploads.home>D:/var/www/uploads/</pom.uploads.home>
-                <pom.office.home>C:/Program Files/LibreOffice</pom.office.home>
+                <pom.office.home>C:\Program Files (x86)\OpenOffice 4</pom.office.home>
             </properties>
         </profile>
         <profile>
@@ -359,7 +367,7 @@
             <id>linux</id>
             <properties>
                 <pom.uploads.home>/var/www/uploads/</pom.uploads.home>
-                <pom.office.home>/opt/libreoffice6.0</pom.office.home>
+                <pom.office.home>/opt/openoffice4</pom.office.home>
             </properties>
         </profile>
     </profiles>
