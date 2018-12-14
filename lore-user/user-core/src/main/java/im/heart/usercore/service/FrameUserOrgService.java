@@ -21,8 +21,6 @@ public interface   FrameUserOrgService extends CommonService<FrameUserOrg, BigIn
 	 * @return
 	 */
 	public List<FrameUserOrg>  saveAll(Iterable<FrameUserOrg> entities);
-
-	public void updateUserDefaultOrg(BigInteger userId, BigInteger relateId, BigInteger defaultOrgId);
 	
 	public void setDefaultOrg(BigInteger userId, BigInteger relateId, BigInteger defaultOrgId);
 	

@@ -164,7 +164,7 @@ public class ValidateController extends AbstractController {
 		CacheUtils.generateMobileCache(moblie, mobileCode);
 		ResponseError responseError=this.smsSendService.sendSms(modeltemp, "register.ftl", new String[]{moblie});
 		if(responseError==null){
-			this.success(model,true);
+			this.success(model);
 			return new ModelAndView(RESULT_PAGE);
 		}
 		this.fail(model,responseError);
@@ -190,10 +190,10 @@ public class ValidateController extends AbstractController {
 		Boolean isResponseCorrect = Boolean.FALSE;
 		isResponseCorrect=CacheUtils.checkMobileCode(moblie, phoneCode);
 		if(isResponseCorrect){
-			super.success(model,true);
+			super.success(model);
 			return new ModelAndView(RESULT_PAGE);
 		}
-		this.fail(model,false);
+		this.fail(model);
 		return new ModelAndView(RESULT_PAGE);
 	}
 	/**
@@ -222,9 +222,9 @@ public class ValidateController extends AbstractController {
 			throw new CaptchaServiceException(e);
 		}
 		if(isResponseCorrect){
-			super.success(model,true);
+			super.success(model);
 		}else{
-			super.fail(model,false);
+			super.fail(model);
 		}
 		return new ModelAndView(RESULT_PAGE);
 	}

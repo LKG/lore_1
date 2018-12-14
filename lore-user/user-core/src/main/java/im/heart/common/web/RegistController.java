@@ -76,12 +76,12 @@ public class RegistController extends AbstractController {
             ModelMap model) throws Exception {
 		if (StringUtils.isBlank(userName) || userName.length() < 5
 				|| userName.length() > 30) {
-			super.fail(model, false);
+			super.fail(model);
 			return new ModelAndView(RESULT_PAGE);
 		}
 		boolean exist = this.frameUserService.existsUserName(userName);
-		if (exist) {// 用户名已存在
-			super.fail(model,false);
+		if (exist) {
+			super.fail(model);
 			return new ModelAndView(RESULT_PAGE);
 		}
 		super.success(model, true);
@@ -95,15 +95,15 @@ public class RegistController extends AbstractController {
             HttpServletRequest request, HttpServletResponse response,
             ModelMap model) throws Exception {
 		if (!ValidatorUtils.isEmail(userEmail)) {
-			super.fail(model, false);
+			super.fail(model);
 			return new ModelAndView(RESULT_PAGE);
 		}
 		boolean exist = this.frameUserService.existsUserEmail(userEmail);
-		if (exist) {// 邮箱已存在
-			super.fail(model,false);
+		if (exist) {
+			super.fail(model);
 			return new ModelAndView(RESULT_PAGE);
 		}
-		super.success(model, true);
+		super.success(model);
 		return new ModelAndView(RESULT_PAGE);
 	}
 
@@ -114,12 +114,12 @@ public class RegistController extends AbstractController {
             HttpServletRequest request, HttpServletResponse response,
             ModelMap model) throws Exception {
 		if (!ValidatorUtils.isPhone(userPhone)) {
-			super.fail(model, false);
+			super.fail(model);
 			return new ModelAndView(RESULT_PAGE);
 		}
 		boolean exist = this.frameUserService.existsUserPhone(userPhone);;
-		if (exist) {// 电话号码已存在
-			super.fail(model,false);
+		if (exist) {
+			super.fail(model);
 			return new ModelAndView(RESULT_PAGE);
 		}
 		super.success(model, true);
@@ -155,12 +155,12 @@ public class RegistController extends AbstractController {
 		String userPhone = frameUser.getUserPhone();
 		String phoneCode=frameUser.getPhoneCode();
 		if (!CacheUtils.checkMobileCode(userPhone,phoneCode)) {
-			super.fail(model, false);
+			super.fail(model);
 			return new ModelAndView(RESULT_PAGE);
 		}
 		boolean exist = this.frameUserService.existsUserPhone(userPhone);;
 		if (exist) {
-			super.fail(model,false);
+			super.fail(model);
 			return new ModelAndView(RESULT_PAGE);
 		}
 		frameUser.setUserName("q_"+frameUser.getUserPhone());

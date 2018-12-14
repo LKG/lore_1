@@ -172,7 +172,7 @@ public class FindPwdController extends AbstractController {
 			}
 		}
 
-		this.fail(model, false);
+		this.fail(model);
 		return new ModelAndView(RESULT_PAGE);
 	}
 	/**
@@ -213,11 +213,11 @@ public class FindPwdController extends AbstractController {
 		if(StringUtilsEx.isNotBlank(account)&&account.length()  >=5&& account.length() <= 30){
 			FrameUser user = this.frameUserService.findFrameUser(account);
 			if (user != null) {
-				super.success(model, true);
+				super.success(model);
 				return new ModelAndView(RESULT_PAGE);
 			}
 		}
-		super.fail(model, false);
+		super.fail(model);
 		return new ModelAndView(RESULT_PAGE);
 	}
 	/**
@@ -253,7 +253,7 @@ public class FindPwdController extends AbstractController {
 				return new ModelAndView("findpwd/sendEmailSuccess");
 			}
 		}
-		super.success(model, true);
+		super.success(model);
 		return new ModelAndView("findpwd/sendEmailSuccess");
 	}
 	/**
@@ -281,7 +281,7 @@ public class FindPwdController extends AbstractController {
 		model.put("k", key);
 		Object obj= CacheUtils.getCacheObject(CacheUtils.CacheConfig.FIND_PWD.keyPrefix, key);
 		if(obj!=null&&obj instanceof FrameUser){
-			super.success(model, true);
+			super.success(model);
 			return new ModelAndView("findpwd/resetPwd");
 		}
 		this.fail(model,responseError);
@@ -422,11 +422,11 @@ public class FindPwdController extends AbstractController {
 			Boolean isResponseCorrect = Boolean.FALSE;
 			isResponseCorrect=CacheUtils.checkMobileCode(moblie, phoneCode);
 			if(isResponseCorrect){
-				super.success(model,true);
+				super.success(model);
 				return new ModelAndView(RESULT_PAGE);
 			}
 		}
-		this.fail(model,false);
+		this.fail(model);
 		return new ModelAndView(RESULT_PAGE);
 	}
 
@@ -458,7 +458,7 @@ public class FindPwdController extends AbstractController {
 			CacheUtils.generateMobileCache(mobile, mobileCode);
 			responseError=this.smsSendService.sendSms(modeltemp, "findPwd.ftl", new String[]{mobile});
 			if(responseError==null){
-				this.success(model,true);
+				this.success(model);
 			}else{
 				this.fail(model,responseError);
 			}

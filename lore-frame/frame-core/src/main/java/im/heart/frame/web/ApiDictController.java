@@ -76,15 +76,15 @@ public class ApiDictController extends AbstractController {
             HttpServletRequest request, HttpServletResponse response,
             ModelMap model) throws Exception {
         if (StringUtils.isBlank(dictCode)) {
-            super.fail(model, false);
+            super.fail(model);
             return new ModelAndView(RESULT_PAGE);
         }
         boolean exists = this.frameDictService.exists(dictCode);
         if (exists) {
-            super.fail(model,false);
+            super.fail(model);
             return new ModelAndView(RESULT_PAGE);
         }
-        super.success(model, true);
+        super.success(model);
         return new ModelAndView(RESULT_PAGE);
     }
     @RequestMapping(value = apiVer+"/add")

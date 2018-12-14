@@ -53,15 +53,15 @@ public class ApiAreaController extends AbstractController {
 			HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws Exception {
 		if (StringUtilsEx.isBlank(code)||!ValidatorUtils.isNumber(code)) {
-			super.fail(model,false);
+			super.fail(model);
 			return new ModelAndView(RESULT_PAGE);
 		}
 		boolean isExit = this.frameAreaService.existsById(code);
 		if (isExit) {
-			super.fail(model,false);
+			super.fail(model);
 			return new ModelAndView(RESULT_PAGE);
 		}
-		super.success(model,true);
+		super.success(model);
 		return new ModelAndView(RESULT_PAGE);
 	}
 	/**

@@ -41,8 +41,8 @@ public class UserController extends AbstractController {
 		FrameUserVO vo=SecurityUtilsHelper.getCurrentUser();
 		if(vo!=null){
 			FrameUser user = this.frameUserService.findById(vo.getUserId());
-			FrameUserVO uservo = new FrameUserVO(user);
-			super.success(model,uservo);	
+			FrameUserVO userVo = new FrameUserVO(user);
+			super.success(model,userVo);
 		}
 		return new ModelAndView("userinfo/index");
 	}
@@ -80,8 +80,8 @@ public class UserController extends AbstractController {
 		FrameUserVO vo=SecurityUtilsHelper.getCurrentUser();
 		if(vo!=null){
 			FrameUserOrg userOrg=this.frameUserOrgService.findById(relateId);
-			this.frameUserOrgService.updateUserDefaultOrg(vo.getUserId(), userOrg.getRelateId(),userOrg.getRelateOrg().getId());
-			super.success(model,true);	
+			this.frameUserOrgService.setDefaultOrg(vo.getUserId(), userOrg.getRelateId(),userOrg.getRelateOrg().getId());
+			super.success(model);
 			return new ModelAndView(VIEW_SUCCESS);
 		}
 		super.fail(model,new ResponseError(WebError.AUTH_CREDENTIALS_EXPIRED));
@@ -123,7 +123,7 @@ public class UserController extends AbstractController {
 		if(vo!=null){
 			try {
 				this.frameUserService.changePassword(vo.getUserId(), oldPassword, passWord);
-				super.success(model,true);
+				super.success(model);
 				return new ModelAndView("userinfo/user-changePwd");
 			} catch (IncorrectCredentialsException e) {
 				super.fail(model,new ResponseError(WebError.AUTH_CREDENTIALS_INCORRECT));

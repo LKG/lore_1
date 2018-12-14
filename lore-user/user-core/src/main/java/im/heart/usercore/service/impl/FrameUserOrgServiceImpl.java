@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -42,7 +43,7 @@ public class FrameUserOrgServiceImpl extends CommonServiceImpl<FrameUserOrg, Big
 	}
 	@Override
 	public List<FrameUserOrg> findByOrgId(BigInteger orgId) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
+		final Collection<SearchFilter> filters = Sets.newHashSet();
 		filters.add(new SearchFilter("orgId", Operator.EQ, orgId));
 		Specification<FrameUserOrg> spec = DynamicSpecifications.bySearchFilter(filters, FrameUserOrg.class);
 		return this.frameUserOrgRepository.findAll(spec);
@@ -51,7 +52,7 @@ public class FrameUserOrgServiceImpl extends CommonServiceImpl<FrameUserOrg, Big
 	
 	@Override
 	public List<FrameUserOrg> findByUserId(BigInteger userId) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
+		final Collection<SearchFilter> filters = Sets.newHashSet();
 		filters.add(new SearchFilter("userId", Operator.EQ, userId));
 		Specification<FrameUserOrg> spec = DynamicSpecifications.bySearchFilter(filters, FrameUserOrg.class);
 		 Sort sort= new Sort(Sort.Direction.DESC,"isDefault");
@@ -59,14 +60,8 @@ public class FrameUserOrgServiceImpl extends CommonServiceImpl<FrameUserOrg, Big
 	}
 
 	@Override
-	public void updateUserDefaultOrg(BigInteger userId, BigInteger relateId, BigInteger defaultOrgId) {
-		this.frameUserOrgRepository.updateUserDefaultOrg(userId,relateId);
-		this.frameUserRepository.updateUserDefaultOrg(userId, defaultOrgId);
-	}
-
-	@Override
 	public boolean existsUserOrg(BigInteger userId) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
+		final Collection<SearchFilter> filters = Sets.newHashSet();
 		filters.add(new SearchFilter("userId", Operator.EQ, userId));
 		Specification<FrameUserOrg> spec = DynamicSpecifications.bySearchFilter(filters, FrameUserOrg.class);
 		long count = this.frameUserOrgRepository.count(spec);
