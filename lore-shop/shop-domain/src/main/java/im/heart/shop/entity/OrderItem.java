@@ -20,8 +20,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "shopping_order_item")
-@DynamicUpdate(true)
-@DynamicInsert(true)
+@DynamicUpdate()
+@DynamicInsert()
 @Data
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "shopping_order_item_sequence")
 public class OrderItem implements AbstractEntity<BigInteger> {

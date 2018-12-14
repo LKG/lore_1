@@ -2,6 +2,7 @@ package im.heart.shop.entity;
 
 import im.heart.core.entity.AbstractEntity;
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -15,7 +16,8 @@ import java.math.BigInteger;
  */
 @Entity
 @Table(name = "shopping_cart")
-@DynamicUpdate(true)
+@DynamicUpdate()
+@DynamicInsert()
 @Data
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "shopping_cart_sequence")
 public class Cart  implements AbstractEntity<BigInteger> {

@@ -22,8 +22,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "shopping_order")
-@DynamicUpdate(true)
-@DynamicInsert(true)
+@DynamicUpdate()
+@DynamicInsert()
 @Data
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "shopping_order_sequence")
 public class Order implements AbstractEntity<BigInteger> {

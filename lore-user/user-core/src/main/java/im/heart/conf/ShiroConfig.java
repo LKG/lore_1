@@ -1,12 +1,12 @@
 package im.heart.conf;
 
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import javax.servlet.Filter;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import im.heart.security.credentials.RetryLimitCredentialsMatcher;
+import im.heart.security.filter.*;
+import im.heart.security.realm.FrameUserRealm;
+import im.heart.security.session.*;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.session.SessionListener;
 import org.apache.shiro.session.mgt.SessionFactory;
@@ -29,27 +29,18 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import com.google.common.collect.Lists;
-import im.heart.security.cache.ShiroCacheConfig;
-import im.heart.security.credentials.RetryLimitCredentialsMatcher;
-import im.heart.security.filter.ForceLogoutFilter;
-import im.heart.security.filter.FrameAuthenticationFilter;
-import im.heart.security.filter.FrameLogoutFilter;
-import im.heart.security.filter.KickoutSessionControlFilter;
-import im.heart.security.filter.ShiroFilterFactory;
-import im.heart.security.realm.FrameUserRealm;
-import im.heart.security.session.OnlineSessionFactory;
-import im.heart.security.session.ShiroSessionDAO;
-import im.heart.security.session.ShiroSessionListener;
-import im.heart.security.session.ShiroSessionManager;
-import im.heart.security.session.ShiroWebSecurityManager;
+
+import javax.servlet.Filter;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Configuration
 @PropertySource(value = "classpath:/application-shiro.yml")
 public class ShiroConfig {
 	protected static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
 
-	private final static Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
+	private final static Map<String, String> filterChainDefinitionMap = Maps.newLinkedHashMap();
 	@Value("${shiro.login.url}")
 	private String loginUrl = "/login.jhtml";
 

@@ -47,13 +47,7 @@ public class KickoutSessionControlFilter extends LogoutFilter {
 
 	@Autowired(required = false)
 	private CacheManager cacheManager;
-	public CacheManager getCacheManager() {
-		return cacheManager;
-	}
 
-	public void setCacheManager(CacheManager cacheManager) {
-		this.cacheManager = cacheManager;
-	}
 
     protected void saveRequest(ServletRequest request) {
         WebUtils.saveRequest(request);

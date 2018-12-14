@@ -5,7 +5,7 @@
     <parent>
         <artifactId>lore-material</artifactId>
         <groupId>im.heart</groupId>
-        <version>0.0.1</version>
+        <version>0.0.5</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,17 +15,17 @@
         <dependency>
             <groupId>im.heart</groupId>
             <artifactId>material-domain</artifactId>
-            <version>0.0.1</version>
+            <version>0.0.5</version>
         </dependency>
         <dependency>
             <groupId>im.heart</groupId>
             <artifactId>lore-core</artifactId>
-            <version>0.0.1</version>
+            <version>0.0.5</version>
         </dependency>
         <dependency>
             <groupId>im.heart</groupId>
             <artifactId>lore-conf</artifactId>
-            <version>0.0.1</version>
+            <version>0.0.5</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -61,10 +61,6 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
         </dependency>
         <!-- JSON begin -->
         <dependency>
@@ -107,6 +103,15 @@
             <artifactId>ridl</artifactId>
             <version>4.1.2</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.openoffice</groupId>
+            <artifactId>juh</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openoffice</groupId>
+            <artifactId>jurt</artifactId>
+            <version>4.1.2</version>
+        </dependency>
     </dependencies>
 </project>
