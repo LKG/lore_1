@@ -87,7 +87,6 @@ public class ApiAreaController extends AbstractController {
 			@RequestParam(value = "order", required = false,defaultValue = CommonConst.Page.DEFAULT_ORDER) String order,
 			@RequestParam(value = RequestResult.ACCESS_TOKEN, required = false) String token,
 			ModelMap model) {
-		System.out.println("@@@@@@@@@@@@@list@@@@@@@@@@@@@@@@@@@@");
 		Specification<FrameArea> spec=DynamicSpecifications.bySearchFilter(request, FrameArea.class);
 		PageRequest pageRequest=DynamicPageRequest.buildPageRequest(page,size,sort,order,FrameArea.class);
 		Page<FrameArea> pag = this.frameAreaService.findAll(spec, pageRequest);
