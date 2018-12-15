@@ -23,8 +23,7 @@ public class ShiroSessionDAO extends EnterpriseCacheSessionDAO {
     
 	@Override
 	protected Session doReadSession(Serializable sessionId) {
-		logger.info("doReadSession--"+sessionId);
-		
+		logger.debug("doReadSession--"+sessionId);
 		return null;
 	}
 	@Override
@@ -37,7 +36,7 @@ public class ShiroSessionDAO extends EnterpriseCacheSessionDAO {
             if(ss.getUserId()==null||BigInteger.ZERO.equals(ss.getUserId())){
                 FrameUserVO user = SecurityUtilsHelper.getCurrentUser();
                 if(user!=null){
-        			logger.info("doUpdate--getUserId:"+user.getUserId());
+        			logger.debug("doUpdate--getUserId:"+user.getUserId());
                     ss.setUserId(user.getUserId());
                     ss.setUsername(user.getUserName());
                     ss.setStatus(OnlineSession.OnlineStatus.on_line);
@@ -51,7 +50,7 @@ public class ShiroSessionDAO extends EnterpriseCacheSessionDAO {
 	@Override
 	protected void doDelete(Session session) {
 		// does nothing - parent class removes from cache.
-		logger.info("doDelete--"+session.getId());
+		logger.debug("doDelete--"+session.getId());
 	//	OnlineSession onlineSession = (OnlineSession) session;
        //设置用户离线
 	}

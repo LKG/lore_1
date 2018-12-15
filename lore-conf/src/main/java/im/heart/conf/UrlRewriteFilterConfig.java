@@ -17,6 +17,7 @@ import java.util.Map;
  */
 @Configuration
 public class UrlRewriteFilterConfig {
+    private static final String URL_REWRITE = "classpath:/urlrewrite.xml";
     @Order(-1)
     @Bean
     public FilterRegistrationBean urlRewrite(){
@@ -24,7 +25,7 @@ public class UrlRewriteFilterConfig {
         FilterRegistrationBean<UrlRewriteFilter> registration = new FilterRegistrationBean<UrlRewriteFilter>(rewriteFilter);
         registration.setUrlPatterns(Collections.singleton("/*"));
         Map initParam= Maps.newHashMap();
-        initParam.put("confPath","urlrewirte.xml");
+        initParam.put("confPath",URL_REWRITE);
         initParam.put("infoLevel","INFO");
         registration.setInitParameters(initParam);
         return  registration;

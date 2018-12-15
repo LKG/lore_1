@@ -25,10 +25,9 @@ import javax.validation.Valid;
 import java.math.BigInteger;
 
 @Controller
+@RequestMapping("/api")
 public class PeriodicalCategoryController extends AbstractController {
-	protected static final String apiVer = "/doc/periodical/category";
-	protected static final String VIEW_TABLE="admin/periodical/category/table";
-	protected static final String VIEW_DETAILS="admin/periodical/category/details";
+	protected static final String apiVer = "/periodical/category";
 	@Autowired
 	private MaterialCategoryService materialCategoryService;
 
@@ -55,12 +54,11 @@ public class PeriodicalCategoryController extends AbstractController {
                              @RequestParam(value = "order", required = false,defaultValue = CommonConst.Page.DEFAULT_ORDER) String order,
                              @RequestParam(value = RequestResult.ACCESS_TOKEN, required = false) String token,
                              ModelMap model) {
-		
 		Specification<MaterialCategory> spec=DynamicSpecifications.bySearchFilter(request, MaterialCategory.class);
 		PageRequest pageRequest=DynamicPageRequest.buildPageRequest(page,size,sort,order,MaterialCategory.class);
 		Page<MaterialCategory> pag = this.materialCategoryService.findAll(spec, pageRequest);
 		super.success(model,pag);
-		return new ModelAndView(VIEW_TABLE);
+		return new ModelAndView(VIEW_SUCCESS);
 	}
 	@RequestMapping(value = apiVer+"/{id}",method = RequestMethod.GET)
 	protected ModelAndView findByKey(
@@ -71,6 +69,6 @@ public class PeriodicalCategoryController extends AbstractController {
 			ModelMap model) {
 		MaterialCategory po = this.materialCategoryService.findById(id);
 		super.success(model, po);
-		return new ModelAndView(VIEW_DETAILS);
+		return new ModelAndView(VIEW_SUCCESS);
 	}
 }
