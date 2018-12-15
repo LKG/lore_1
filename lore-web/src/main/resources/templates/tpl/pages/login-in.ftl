@@ -18,8 +18,8 @@
       <!--标准登录框--> 
       <div id="J_Static" class="login-box-switch static" style="display:none;"> 
        <a href="javascript:;" id="J_SC_Guide" tabindex="1" style="position:absolute; left:-9999px;">点击回车可关闭安全控件</a> 
-       <div id="J_Message" class="message <#if _error??&&'2'==_error>bg-warning text-danger</#if>" >
-      	 <#if _error??&&'2'==_error><i class="fa fa-exclamation-triangle">您的账号已在其他地方登录，请留意账号安全</i></#if>
+       <div id="J_Message" class="message <#if _error?? && 2==_error>bg-warning text-danger</#if>" >
+      	 <#if _error?? && 2==_error><i class="fa fa-exclamation-triangle">您的账号已在其他地方登录，请留意账号安全</i></#if>
        </div>
        <form id="J_StaticForm" action="${contextPath}/login.json" method="post"> 
 		<!--输入组---->
