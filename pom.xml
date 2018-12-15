@@ -265,13 +265,13 @@
     </dependencies>
     </dependencyManagement>
     <modules>
-        <module>lore-frame</module>
-        <module>lore-cms</module>
+
         <module>lore-core</module>
         <module>lore-conf</module>
-        <module>lore-admin</module>
-        <module>lore-search</module>
+        <module>lore-frame</module>
         <module>lore-user</module>
+        <module>lore-cms</module>
+        <module>lore-admin</module>
         <module>lore-web</module>
         <module>lore-material</module>
         <module>lore-notify</module>
