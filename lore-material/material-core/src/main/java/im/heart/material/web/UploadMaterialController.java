@@ -10,6 +10,7 @@ import im.heart.core.web.ResponseError;
 import im.heart.core.web.enums.WebError;
 import im.heart.material.entity.MaterialPeriodical;
 import im.heart.material.entity.MaterialPeriodicalImg;
+import im.heart.material.parser.MaterialPeriodicalParser;
 import im.heart.material.service.MaterialPeriodicalImgService;
 import im.heart.material.service.MaterialPeriodicalService;
 import im.heart.security.utils.SecurityUtilsHelper;
@@ -18,10 +19,13 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.joda.time.DateTime;
 import org.jodconverter.DocumentConverter;
 import org.jodconverter.document.DefaultDocumentFormatRegistry;
 import org.jodconverter.document.DocumentFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
@@ -37,7 +41,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
@@ -45,18 +49,23 @@ import java.util.List;
 
 @Controller
 public class UploadMaterialController extends AbstractController {
+    protected static final Logger logger = LoggerFactory.getLogger(UploadMaterialController.class);
     protected static final String apiVer = "/upload";
-    @Resource
-    private DocumentConverter documentConverter;
-    @Autowired
-    private MaterialPeriodicalService materialPeriodicalService;
-    protected static final String  FILE_PATH= CommonConst.STATIC_UPLOAD_ROOT;
-    @Autowired
-    private MaterialPeriodicalImgService materialPeriodicalImgService;
+    protected static final String  FILE_ROOT_PATH= CommonConst.STATIC_UPLOAD_ROOT;
+
     @Value("${prod.material.file.path}")
     private String materialFilePath="";
     @Value("${prod.upload.path.root}")
     private String uploadFilePath="";
+
+    @Resource
+    private DocumentConverter documentConverter;
+    @Autowired
+    private MaterialPeriodicalService materialPeriodicalService;
+
+    @Autowired
+    private MaterialPeriodicalParser materialPeriodicalParser;
+
     /**
      *
      * 文件上传
@@ -90,19 +99,16 @@ public class UploadMaterialController extends AbstractController {
         List<MultipartFile> uploadFileList = super.getFileList(request);
         if (uploadFileList != null && !uploadFileList.isEmpty()) {
             for (MultipartFile file : uploadFileList) {
-                String realPath = uploadFilePath;
                 String path = File.separator+materialFilePath+File.separator + DateTime.now().toString("yyyyMMdd") + File.separator;
                 try {
-                    String realfileName = this.uploadFile(file, realPath + path);
-                    String url = StringUtilsEx.replace(path + realfileName, File.separator, "/");
+                    String realPath = uploadFilePath+path;
+                    String realFileName = this.uploadFile(file, realPath);
                     if (StringUtilsEx.isBlank(filename)) {
                         filename = file.getOriginalFilename();
                     }
-                    ////获取文件后缀
-                    String suffixes = StringUtils.substringAfterLast(realfileName, ".");
                     MaterialPeriodical periodical = new MaterialPeriodical();
-                    String realfilePath=realPath + path+realfileName;
-                    periodical.setRealFilePath(realfilePath);
+                    periodical.setRealFilePath(realPath+realFileName);
+                    String suffixes = StringUtils.substringAfterLast(realFileName, ".");
                     periodical.setFileHeader(suffixes);
                     periodical.setPeriodicalType(MaterialPeriodical.PeriodicalType.sharing.code);
                     periodical.setAuthor(user.getNickName());
@@ -118,13 +124,11 @@ public class UploadMaterialController extends AbstractController {
                     periodical.setDataSize(file.getSize());
                     periodical.setStatus(CommonConst.FlowStatus.INITIAL);
                     periodical.setImportLog(DateUtilsEx.timeToString(new Date()) + " ,上传成功！<br/>");
-                    String pathUrl="/"+FILE_PATH+"/"+url;
+                    String url = StringUtilsEx.replace(path + realFileName, File.separator, "/");
+                    String pathUrl="/"+FILE_ROOT_PATH+"/"+url;
                     periodical.setPathUrl(pathUrl);
                     this.materialPeriodicalService.save(periodical);
-                    DocumentFormat documentFormat= DefaultDocumentFormatRegistry.getInstance().getFormatByExtension(suffixes);
-                    File targetFile=new File(realfilePath+".pdf");
-                    this.documentConverter.convert(file.getInputStream(),true).as(documentFormat).to(targetFile).as(DefaultDocumentFormatRegistry.PDF).execute();
-                    Integer pageNum=this.pdf2Image(targetFile, realPath + path, 100,10,periodical);
+                    this.materialPeriodicalParser.addParserTask(periodical,file.getInputStream());
                     super.success(model, "url", pathUrl);
                 } catch (Exception e) {
                     logger.error(e.getStackTrace()[0].getMethodName(), e);
@@ -141,72 +145,5 @@ public class UploadMaterialController extends AbstractController {
         super.fail(model, responseError);
         return new ModelAndView(RESULT_PAGE);
     }
-    /***
-     * PDF文件转PNG图片
-     * @param pdfFile pdf文件
-     * @param dstImgFolder 图片存放的文件夹
-     * @param dpi dpi越大转换后越清晰，相对转换速度越慢
-     * @param flag 页数 为0则转换全部页数
-     * @return
-     */
-    @Async
-    public Integer pdf2Image(File pdfFile, String dstImgFolder, int dpi,int flag,MaterialPeriodical periodical) {
-        PDDocument pdDocument=null;
-        Integer pageNum=0;
-        try {
-            if ("".equals(dstImgFolder)) {
-                dstImgFolder = pdfFile.getParent() ;
-            }
-            pdDocument = PDDocument.load(pdfFile);
-            PDFRenderer renderer = new PDFRenderer(pdDocument);
-            int pages = pdDocument.getNumberOfPages();
-            pageNum=pages;
-            if(flag > 0&&flag<pages) {
-              pages = flag;
-            }
-            List<MaterialPeriodicalImg> entities=Lists.newArrayList();
-            BigInteger periodicalId= periodical.getId();
-            String periodicalCode=periodical.getPeriodicalCode();
-            String periodicalType=periodical.getPeriodicalType();
-            String cityId=periodical.getCityId();
-            String imgFilePathPrefix = dstImgFolder+File.separator+periodicalCode+File.separator+periodicalId+File.separator;
-            for (int i = 0; i < pages; i++) {
-                int page=i+1;
-                String fileNameKey=periodicalId+"_"+page+".png";
-                File dstFile = new File(imgFilePathPrefix+fileNameKey);
-                if (!dstFile.exists()) {
-                    dstFile.mkdirs();
-                }
-                BufferedImage image = renderer.renderImageWithDPI(i, dpi);
-                ImageIO.write(image, "png", dstFile);
-                MaterialPeriodicalImg materialPeriodicalImg=new MaterialPeriodicalImg();
-                materialPeriodicalImg.setCityId(cityId);
-                materialPeriodicalImg.setPageNum(page);
-                materialPeriodicalImg.setPeriodicalCode(periodicalCode);
-                materialPeriodicalImg.setPeriodicalType(periodicalType);
-                String url  = StringUtilsEx.replace(dstFile.getPath(), File.separator, "/");
-                url =StringUtilsEx.replace(url, StringUtilsEx.replace(uploadFilePath, File.separator, "/") , "");
-                String imgUrl="/"+FILE_PATH+"/"+url;
-                materialPeriodicalImg.setImgUrl(imgUrl);
-                materialPeriodicalImg.setPathUrl(dstFile.getPath());
-                materialPeriodicalImg.setPeriodicalId(periodicalId);
-                if(i==0){
-                    periodical.setCoverImgUrl(imgUrl);
-                }
-                entities.add(materialPeriodicalImg);
-            }
-            periodical.setPageNum(pageNum);
-            periodical.setImportLog(periodical.getImportLog()+DateUtilsEx.timeToString(new Date()) +" 图片生成成功！<br/>");
-            periodical.setStatus(CommonConst.FlowStatus.PROCESSED);
-            this.materialPeriodicalService.save(periodical);
-            this.materialPeriodicalImgService.saveAll(entities);
-        } catch (Exception e) {
-            logger.error(e.getStackTrace()[0].getMethodName(), e);
-        }finally {
-            IOUtils.closeQuietly(pdDocument);
-            //删除pdf 文件
-            FileUtilsEx.deleteQuietly(pdfFile);
-        }
-        return pageNum;
-    }
+
 }
