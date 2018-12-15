@@ -76,14 +76,17 @@ public class WebMvcConfig implements WebMvcConfigurer {
         fastJsonHttpMessageConverter.setSupportedMediaTypes(supportedMediaTypes);
         return fastJsonHttpMessageConverter;
     }
-
+    @Bean
+    public JsonpView jsonpView() {
+        return new JsonpView();
+    }
     @Bean
     public ByteArrayHttpMessageConverter byteArrayHttpMessageConverter() {
         return new ByteArrayHttpMessageConverter();
     }
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.enableContentNegotiation(new JsonpView());
+        registry.enableContentNegotiation(jsonpView());
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

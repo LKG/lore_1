@@ -12,6 +12,8 @@ import im.heart.material.entity.MaterialPeriodical;
 import im.heart.material.entity.MaterialPeriodicalImg;
 import im.heart.material.service.MaterialPeriodicalImgService;
 import im.heart.material.service.MaterialPeriodicalService;
+import im.heart.security.utils.SecurityUtilsHelper;
+import im.heart.usercore.vo.FrameUserVO;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -79,12 +81,12 @@ public class UploadMaterialController extends AbstractController {
             String filename,
             HttpServletResponse response,ModelMap model) {
         ResponseError responseError = new ResponseError(WebError.AUTH_CREDENTIALS_EXPIRED);
-//        FrameUserVO user = SecurityUtilsHelper.getCurrentUser();
-//        if (user == null) {
-//            responseError = new ResponseError(WebError.INVALID_REQUEST);
-//            super.fail(model, responseError);
-//            return new ModelAndView(RESULT_PAGE);
-//        }
+        FrameUserVO user = SecurityUtilsHelper.getCurrentUser();
+        if (user == null) {
+            responseError = new ResponseError(WebError.INVALID_REQUEST);
+            super.fail(model, responseError);
+            return new ModelAndView(RESULT_PAGE);
+        }
         List<MultipartFile> uploadFileList = super.getFileList(request);
         if (uploadFileList != null && !uploadFileList.isEmpty()) {
             for (MultipartFile file : uploadFileList) {
@@ -103,8 +105,8 @@ public class UploadMaterialController extends AbstractController {
                     periodical.setRealFilePath(realfilePath);
                     periodical.setFileHeader(suffixes);
                     periodical.setPeriodicalType(MaterialPeriodical.PeriodicalType.sharing.code);
-//                    periodical.setAuthor(user.getNickName());
-//                    periodical.setUserId(user.getUserId());
+                    periodical.setAuthor(user.getNickName());
+                    periodical.setUserId(user.getUserId());
                     periodical.setCategoryId(categoryId);
                     periodical.setCategoryCode(categoryCode);
 //                    periodical.setCityId(cityId);

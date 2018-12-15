@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import com.google.common.collect.Sets;
 import im.heart.core.CommonConst;
 import im.heart.core.enums.Status;
 import im.heart.core.service.impl.CommonServiceImpl;
@@ -38,12 +39,7 @@ public class MaterialPeriodicalServiceImpl   extends CommonServiceImpl<MaterialP
 
 	@Override
 	public List<MaterialPeriodical> findAllById(Iterable<BigInteger>  ids ) {
-
 		return this.materialPeriodicalRepository.findAllById(ids);
-	}
-	@Override
-	public MaterialPeriodical save(MaterialPeriodical entity) {
-		return this.materialPeriodicalRepository.saveAndFlush(entity);
 	}
 
 	@Override
@@ -53,7 +49,7 @@ public class MaterialPeriodicalServiceImpl   extends CommonServiceImpl<MaterialP
 	}
 	@Override
 	public List<MaterialPeriodical> findByStatusAndType(Status status, PeriodicalType type) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
+		final Collection<SearchFilter> filters = Sets.newHashSet();
 		filters.add(new SearchFilter("status", Operator.EQ, status));
 		filters.add(new SearchFilter("periodicalType", Operator.EQ, type.value+""));
 		Specification<MaterialPeriodical> spec = DynamicSpecifications.bySearchFilter(filters, MaterialPeriodical.class);
@@ -61,7 +57,7 @@ public class MaterialPeriodicalServiceImpl   extends CommonServiceImpl<MaterialP
 	}
 	@Override
 	public Page<MaterialPeriodical> findInitPeriodicalByType(PeriodicalType type,Pageable pageable) {
-		final Collection<SearchFilter> filters = new HashSet<SearchFilter>();
+		final Collection<SearchFilter> filters = Sets.newHashSet();
 		filters.add(new SearchFilter("status", Operator.EQ, CommonConst.FlowStatus.INITIAL));
 		filters.add(new SearchFilter("periodicalType", Operator.EQ, type.value+""));
 		Specification<MaterialPeriodical> spec = DynamicSpecifications.bySearchFilter(filters, MaterialPeriodical.class);
