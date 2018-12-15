@@ -27,6 +27,9 @@ import java.util.List;
 public class WebMvcConfig implements WebMvcConfigurer {
     @Value("${prod.upload.path.root}")
     private String prodUploadFilePath = "";
+
+    private String STATIC_UPLOAD_ROOT=CommonConst.STATIC_UPLOAD_ROOT;
+
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
         //setUseSuffixPatternMatch 后缀模式匹配
@@ -84,7 +87,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/" + CommonConst.STATIC_UPLOAD_ROOT + "/**")
+        registry.addResourceHandler("/" + STATIC_UPLOAD_ROOT+ "/**")
                 .addResourceLocations(ResourceUtils.FILE_URL_PREFIX + prodUploadFilePath);
     }
 }
