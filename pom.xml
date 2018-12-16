@@ -58,7 +58,6 @@
         <aliyun.oss.version>2.7.0</aliyun.oss.version>
         <aliyun.ons.version>1.7.8.Final</aliyun.ons.version>
         <validation.version>2.0.1.Final</validation.version>
-        <persistence.version>1.0.2</persistence.version>
         <xstream.version>1.4.9</xstream.version>
         <urlrewrite.version>4.0.4</urlrewrite.version>
         <spring-social.version>1.1.6.RELEASE</spring-social.version>
@@ -256,11 +255,6 @@
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>${validation.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
-            <version>${persistence.version}</version>
         </dependency>
     </dependencies>
     </dependencyManagement>
