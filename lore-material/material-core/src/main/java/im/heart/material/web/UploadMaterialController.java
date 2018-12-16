@@ -1,34 +1,22 @@
 package im.heart.material.web;
 
-import com.google.common.collect.Lists;
 import im.heart.core.CommonConst;
 import im.heart.core.utils.DateUtilsEx;
-import im.heart.core.utils.FileUtilsEx;
 import im.heart.core.utils.StringUtilsEx;
 import im.heart.core.web.AbstractController;
 import im.heart.core.web.ResponseError;
 import im.heart.core.web.enums.WebError;
 import im.heart.material.entity.MaterialPeriodical;
-import im.heart.material.entity.MaterialPeriodicalImg;
 import im.heart.material.parser.MaterialPeriodicalParser;
-import im.heart.material.service.MaterialPeriodicalImgService;
 import im.heart.material.service.MaterialPeriodicalService;
 import im.heart.security.utils.SecurityUtilsHelper;
 import im.heart.usercore.vo.FrameUserVO;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.rendering.PDFRenderer;
-import org.apache.pdfbox.text.PDFTextStripper;
 import org.joda.time.DateTime;
-import org.jodconverter.DocumentConverter;
-import org.jodconverter.document.DefaultDocumentFormatRegistry;
-import org.jodconverter.document.DocumentFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,11 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -51,15 +36,13 @@ import java.util.List;
 public class UploadMaterialController extends AbstractController {
     protected static final Logger logger = LoggerFactory.getLogger(UploadMaterialController.class);
     protected static final String apiVer = "/upload";
-    protected static final String  FILE_ROOT_PATH= CommonConst.STATIC_UPLOAD_ROOT;
+    protected static final String FILE_ROOT_PATH = CommonConst.STATIC_UPLOAD_ROOT;
 
     @Value("${prod.material.file.path}")
-    private String materialFilePath="";
+    private String materialFilePath = "";
     @Value("${prod.upload.path.root}")
-    private String uploadFilePath="";
+    private String uploadFilePath = "";
 
-    @Resource
-    private DocumentConverter documentConverter;
     @Autowired
     private MaterialPeriodicalService materialPeriodicalService;
 
@@ -67,8 +50,8 @@ public class UploadMaterialController extends AbstractController {
     private MaterialPeriodicalParser materialPeriodicalParser;
 
     /**
-     *
      * 文件上传
+     *
      * @param file
      * @param path
      * @return
@@ -76,19 +59,19 @@ public class UploadMaterialController extends AbstractController {
      */
     @Override
     protected String uploadFile(MultipartFile file, String path) throws Exception {
-        return super.uploadFile(file,path,null);
+        return super.uploadFile(file, path, null);
     }
 
     @RequestMapping(apiVer + "/material")
     public ModelAndView importBathMaterialImg(HttpServletRequest request,
-            @RequestParam(value = "jsoncallback", required = false) String jsoncallback,
-            @RequestParam(value = "periodicalCode", required = false) String periodicalCode,
-            @RequestParam(value = "categoryId", required = false) BigInteger categoryId,
-            @RequestParam(value = "categoryCode", required = false) String categoryCode,
-            @RequestParam(value = "originPrice", required = false) BigDecimal originPrice,
-            @RequestParam(value = "finalPrice", required = false) BigDecimal finalPrice,
-            String filename,
-            HttpServletResponse response,ModelMap model) {
+                                              @RequestParam(value = "jsoncallback", required = false) String jsoncallback,
+                                              @RequestParam(value = "periodicalCode", required = false) String periodicalCode,
+                                              @RequestParam(value = "categoryId", required = false) BigInteger categoryId,
+                                              @RequestParam(value = "categoryCode", required = false) String categoryCode,
+                                              @RequestParam(value = "originPrice", required = false) BigDecimal originPrice,
+                                              @RequestParam(value = "finalPrice", required = false) BigDecimal finalPrice,
+                                              String filename,
+                                              HttpServletResponse response, ModelMap model) {
         ResponseError responseError = new ResponseError(WebError.AUTH_CREDENTIALS_EXPIRED);
         FrameUserVO user = SecurityUtilsHelper.getCurrentUser();
         if (user == null) {
@@ -99,15 +82,15 @@ public class UploadMaterialController extends AbstractController {
         List<MultipartFile> uploadFileList = super.getFileList(request);
         if (uploadFileList != null && !uploadFileList.isEmpty()) {
             for (MultipartFile file : uploadFileList) {
-                String path = File.separator+materialFilePath+File.separator + DateTime.now().toString("yyyyMMdd") + File.separator;
+                String path = File.separator + materialFilePath + File.separator + DateTime.now().toString("yyyyMMdd") + File.separator;
                 try {
-                    String realPath = uploadFilePath+path;
+                    String realPath = uploadFilePath + path;
                     String realFileName = this.uploadFile(file, realPath);
                     if (StringUtilsEx.isBlank(filename)) {
                         filename = file.getOriginalFilename();
                     }
                     MaterialPeriodical periodical = new MaterialPeriodical();
-                    periodical.setRealFilePath(realPath+realFileName);
+                    periodical.setRealFilePath(realPath + realFileName);
                     String suffixes = StringUtils.substringAfterLast(realFileName, ".");
                     periodical.setFileHeader(suffixes);
                     periodical.setPeriodicalType(MaterialPeriodical.PeriodicalType.sharing.code);
@@ -125,16 +108,16 @@ public class UploadMaterialController extends AbstractController {
                     periodical.setStatus(CommonConst.FlowStatus.INITIAL);
                     periodical.setImportLog(DateUtilsEx.timeToString(new Date()) + " ,上传成功！<br/>");
                     String url = StringUtilsEx.replace(path + realFileName, File.separator, "/");
-                    String pathUrl="/"+FILE_ROOT_PATH+"/"+url;
+                    String pathUrl = "/" + FILE_ROOT_PATH + "/" + url;
                     periodical.setPathUrl(pathUrl);
                     this.materialPeriodicalService.save(periodical);
-                    this.materialPeriodicalParser.addParserTask(periodical,file.getInputStream());
+                    this.materialPeriodicalParser.addParserTask(periodical, file.getInputStream());
                     super.success(model, "url", pathUrl);
                 } catch (Exception e) {
                     logger.error(e.getStackTrace()[0].getMethodName(), e);
                     super.fail(model, new ResponseError(WebError.REQUEST_EXCEPTION));
                     return new ModelAndView(RESULT_PAGE);
-                }finally {
+                } finally {
 
                 }
                 return new ModelAndView(VIEW_SUCCESS);
