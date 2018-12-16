@@ -25,7 +25,10 @@ public class ImageCaptcha  implements Captcha {
     public ImageCaptcha() {
 		super();
 	}
-	private Boolean caseSensitive=Boolean.FALSE;//是否大小写敏感
+    /**
+     * //是否大小写敏感
+     */
+	private Boolean caseSensitive=Boolean.FALSE;
 	
     protected transient BufferedImage challenge;
 
